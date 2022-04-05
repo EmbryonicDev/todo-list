@@ -54,7 +54,7 @@ export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
 
 // add task form 
 export function addTaskForm() {
-  elFactory('form', {id: 'myForm'}, document.body,
+  elFactory('form', { id: 'myForm' }, document.body,
     elFactory('p', '', '',
       elFactory('label', { for: 'dateAdded' }, '', 'Date Added:'),
       elFactory('input', { type: 'date', id: 'dateAdded', value: new Date().toISOString().slice(0, 10) }, '')
@@ -83,7 +83,7 @@ export function addTaskForm() {
       elFactory('label', { for: 'Notes' }, '', 'Notes:'),
       elFactory('textarea', { id: 'notes', cols: "30", rows: "10", placeHolder: 'Add your notes here...' }, '')
     ),
-    elFactory('button', {type: 'submit'}, '', 'Add Task')
+    elFactory('button', { type: 'submit' }, '', 'Add Task')
   )
 }
 
