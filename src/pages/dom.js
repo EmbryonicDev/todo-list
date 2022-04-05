@@ -17,7 +17,10 @@ export const header = elFactory('HEADER', { id: 'myHeader' }, document.body,
 
 // Add sidebar
 export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
-  elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
+  elFactory('div', { class: 'sideTitleDiv' }, '',
+    elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
+    elFactory('button', { id: 'addTaskBtn' }, '', '+')
+  ),
   elFactory('hr', '', ''),
   elFactory('div', { class: "sideNav" }, '',
     elFactory('img', { src: allTasksIcon }, ''),
@@ -35,7 +38,10 @@ export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
     elFactory('img', { src: priorityIcon }, ''),
     elFactory('div', '', '', 'High Priority'),
   ),
-  elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
+  elFactory('div', { class: 'sideTitleDiv' }, '',
+    elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
+    elFactory('button', { id: 'addProjectBtn' }, '', '+')
+  ),
   elFactory('hr', '', ''),
   elFactory('div', { id: 'projectsDiv' }, '',
     elFactory('div', { class: 'projectWrap' }, '',
