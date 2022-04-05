@@ -1,0 +1,37 @@
+#myForm {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100px;
+  left: 380px;
+  border: solid red;
+  padding: 12px;
+  gap: 15px;
+}
+
+textarea {
+  resize: none;
+  overflow-y: scroll;
+}
+
+form p {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  margin: 0;
+}
+
+form label {
+  width: 100px;
+  text-align: end;
+  margin-right: 8px;
+}
+
+form p:last-of-type label {
+  align-self: start;
+}
+
+form button {
+  margin: auto;
+}
