@@ -54,3 +54,21 @@ body {
   gap: 6px;
   margin-bottom: 16px;
 }
+
+.projectWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+  border: var(--tempBorder);
+}
+
+.projectWrap h3 {
+  margin: 0 auto 0 0;
+}
+
+.projectWrap button {
+  border: none;
+  color: red;
+  background-color: transparent;
+}
