@@ -2,6 +2,6 @@ import { addTaskForm } from "./dom";
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
-    if(!document.getElementById('taskForm')) addTaskForm();
+    if(!document.getElementById('taskForm') && !document.getElementById('projectForm')) addTaskForm();
   }
 }
