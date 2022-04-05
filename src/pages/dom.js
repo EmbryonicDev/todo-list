@@ -5,6 +5,7 @@ import allTasksIcon from '../assets/icons/all-tasks.svg';
 import todayIcon from '../assets/icons/today-icon.svg';
 import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
+import { projectsArr } from "./projects";
 
 // add header
 export const header = elFactory('HEADER', { id: 'myHeader' }, document.body,
@@ -71,6 +72,13 @@ export function addTaskForm() {
       elFactory('label', { for: 'dueDate' }, '', 'Due Date: '),
       elFactory('input', { type: 'date', id: 'dueDate' }, '')
     ),
+    elFactory('p', '', '',
+    elFactory('label', { for: 'projectName' }, '', 'Project: '),
+    elFactory('select', { id: 'projectName' }, '',
+      elFactory('option', { id: 'defaultProject' }, '', projectsArr[0]),
+      elFactory('option', { id: 'newProject' }, '', 'New Project'),
+    )
+  ),
     elFactory('p', '', '',
       elFactory('label', { for: 'priority' }, '', 'Priority: '),
       elFactory('select', { id: 'priority' }, '',

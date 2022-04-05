@@ -1,4 +1,4 @@
-let projectsArr = [];
+export let projectsArr = [];
 
 export const getProjectsArr = () => {
   document.querySelectorAll(".projectWrap h3").forEach(project => {
