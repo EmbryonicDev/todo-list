@@ -73,12 +73,12 @@ export function addTaskForm() {
       elFactory('input', { type: 'date', id: 'dueDate' }, '')
     ),
     elFactory('p', '', '',
-    elFactory('label', { for: 'projectName' }, '', 'Project: '),
-    elFactory('select', { id: 'projectName' }, '',
-      elFactory('option', { id: 'defaultProject' }, '', projectsArr[0]),
-      elFactory('option', { id: 'newProject' }, '', 'New Project'),
-    )
-  ),
+      elFactory('label', { for: 'projectName' }, '', 'Project: '),
+      elFactory('select', { id: 'projectName' }, '',
+        elFactory('option', { id: 'defaultProject' }, '', projectsArr[0]),
+        elFactory('option', { id: 'newProject' }, '', 'New Project'),
+      )
+    ),
     elFactory('p', '', '',
       elFactory('label', { for: 'priority' }, '', 'Priority: '),
       elFactory('select', { id: 'priority' }, '',
@@ -94,6 +94,17 @@ export function addTaskForm() {
     elFactory('button', { type: 'submit' }, '', 'Add Task')
   )
 }
+
+// add project form
+export function addProjectForm() {
+  elFactory('form', { id: 'projectForm' }, document.body,
+    elFactory('p', '', '',
+      elFactory('label', { for: 'newProjectName' }, '', 'New Project Name:'),
+      elFactory('input', { id: 'newProjectName' }, ''),
+    ),
+    elFactory('button', { type: 'submit' }, '', 'Add Project')
+  )
+};
 
 export function buildDom(...domElements) {
   domElements.forEach(element => {
