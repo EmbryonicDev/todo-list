@@ -7,6 +7,7 @@ body {
   width: 100vw;
   display: grid;
   grid-template: 80px 1fr / 280px 1fr;
+  position: relative;
 }
 
 #myHeader {
