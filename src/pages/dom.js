@@ -52,6 +52,41 @@ export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
   )
 );
 
+// add task form 
+export function addTaskForm() {
+  const newTaskForm = elFactory('form', {id: 'myForm'}, document.body,
+    elFactory('p', '', '',
+      elFactory('label', { for: 'dateAdded' }, '', 'Date Added:'),
+      elFactory('input', { type: 'date', id: 'dateAdded', value: new Date().toISOString().slice(0, 10) }, '')
+    ),
+    elFactory('p', '', '',
+      elFactory('label', { for: 'taskName' }, '', 'Task Name: '),
+      elFactory('input', { id: 'taskName' }, '')
+    ),
+    elFactory('p', '', '',
+      elFactory('label', { for: 'description' }, '', 'Description: '),
+      elFactory('input', { id: 'description' }, '')
+    ),
+    elFactory('p', '', '',
+      elFactory('label', { for: 'dueDate' }, '', 'Due Date: '),
+      elFactory('input', { type: 'date', id: 'dueDate' }, '')
+    ),
+    elFactory('p', '', '',
+      elFactory('label', { for: 'priority' }, '', 'Priority: '),
+      elFactory('select', { id: 'priority' }, '',
+        elFactory('option', { id: 'priorityHigh' }, '', "High"),
+        elFactory('option', { id: 'priorityMedium' }, '', "Medium"),
+        elFactory('option', { id: 'priorityLow' }, '', "Low")
+      )
+    ),
+    elFactory('p', '', '',
+      elFactory('label', { for: 'Notes' }, '', 'Notes:'),
+      elFactory('textarea', { id: 'notes', cols: "30", rows: "10", placeHolder: 'Add your notes here...' }, '')
+    ),
+    elFactory('button', {type: 'submit'}, '', 'Add Task')
+  )
+}
+
 export function buildDom(...domElements) {
   domElements.forEach(element => {
     return element;
