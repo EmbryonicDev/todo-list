@@ -74,8 +74,8 @@ export function addTaskForm() {
     elFactory('p', '', '',
       elFactory('label', { for: 'priority' }, '', 'Priority: '),
       elFactory('select', { id: 'priority' }, '',
-        elFactory('option', { id: 'priorityHigh' }, '', "High"),
         elFactory('option', { id: 'priorityMedium' }, '', "Medium"),
+        elFactory('option', { id: 'priorityHigh' }, '', "High"),
         elFactory('option', { id: 'priorityLow' }, '', "Low")
       )
     ),
