@@ -54,7 +54,7 @@ export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
 
 // add task form 
 export function addTaskForm() {
-  const newTaskForm = elFactory('form', {id: 'myForm'}, document.body,
+  elFactory('form', {id: 'myForm'}, document.body,
     elFactory('p', '', '',
       elFactory('label', { for: 'dateAdded' }, '', 'Date Added:'),
       elFactory('input', { type: 'date', id: 'dateAdded', value: new Date().toISOString().slice(0, 10) }, '')
