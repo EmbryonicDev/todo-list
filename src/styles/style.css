@@ -1,0 +1,56 @@
+:root{
+  --tempBorder: solid black;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template: 10vh 1fr / 1fr 3fr;
+}
+
+#myHeader {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  grid-column: 1 / span 2;
+  grid-row-start: 1;
+  border: var(--tempBorder);
+}
+
+#myHeader h1 {
+  margin: 0;
+}
+
+#myHeader img {
+  height: 3rem;
+}
+
+#iconTitle {
+  display: grid;
+  grid-auto-flow: column;
+  border: var(--tempBorder);
+  align-items: center;
+  margin-left: 45vw;
+  gap: 5px;
+}
+
+#sidebar {
+  grid-column: 1 / 2;
+  grid-row-start: 2;
+  border: var(--tempBorder);
+  padding-left: 8px;
+}
+
+.sideTitle {
+  margin-bottom: 0;
+}
+
+.sideNav {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 6px;
+  margin-bottom: 16px;
+}
