@@ -2,7 +2,7 @@ import { addDays, startOfDay, format } from 'date-fns';
 import { header, sidebar, buildDom } from './pages/dom';
 import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
-import '../src/styles/form.css';
+import '../src/styles/forms.css';
 import { getTaskForm } from './pages/new-task.js';
 import { getProjectsArr } from './pages/projects';
 
