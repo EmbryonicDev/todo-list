@@ -34,9 +34,9 @@ export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
   elFactory('div', { class: "sideNav" }, '',
     elFactory('img', { src: priorityIcon }, ''),
     elFactory('div', '', '', 'High Priority'),
-    elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
-    elFactory('hr', '', ''),
-  )
+  ),
+  elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
+  elFactory('hr', '', ''),
 );
 
 export function buildDom(...domElements) {
