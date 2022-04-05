@@ -42,8 +42,23 @@ body {
   padding: 0 8px;
 }
 
+.sideTitleDiv {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.sideTitleDiv button {
+  width: fit-content;
+  border: none;
+  background-color: transparent;
+  font-size: 1.8rem;
+
+}
+
 .sideTitle {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .sideNav {
