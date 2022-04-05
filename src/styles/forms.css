@@ -33,8 +33,10 @@ form p:last-of-type label {
   align-self: start;
 }
 
-form button {
-  margin: auto;
+.formBtnDiv {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
 }
 
 /* project form */
