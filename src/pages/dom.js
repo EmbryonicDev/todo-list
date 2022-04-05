@@ -17,7 +17,7 @@ export const header = elFactory('HEADER', { id: 'myHeader' }, document.body,
 
 // Add sidebar
 export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
-  elFactory('h2', { class: 'sideTitle' }, '', 'Quick View'),
+  elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
   elFactory('hr', '', ''),
   elFactory('div', { class: "sideNav" }, '',
     elFactory('img', { src: allTasksIcon }, ''),
