@@ -11,6 +11,16 @@ export const getProjectsArr = () => {
 
 export const getProjectForm = () => {
   document.getElementById('addProjectBtn').onclick = (e) => {
-    if(!document.getElementById('projectForm') && !document.getElementById('taskForm')) addProjectForm();
+    // check if form is on screen
+    if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
+      addProjectForm();
+      eListenerToProjectSubmit()
+    }
+  }
+}
+
+const eListenerToProjectSubmit = () => {
+  document.getElementById('projectSubmit').onclick = (e) => {
+    e.preventDefault();
   }
 }
