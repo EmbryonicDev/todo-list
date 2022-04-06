@@ -101,7 +101,6 @@ export function addTaskForm() {
     projectsArr.forEach(project => {
       elFactory('option', '', projectName, project);
     });
-    console.log(projectsArr);
   })();
 }
 
@@ -131,7 +130,6 @@ export const newProject = (projectName, checkActiveProjects) => {
   if(checkActiveProjects) {
     activeProjects.push(projectName);
     localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
-    console.log({activeProjects});
   }
 }
 
