@@ -4,9 +4,11 @@ import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
 import '../src/styles/forms.css';
 import { getTaskForm } from './pages/new-task.js';
-import { getProjectForm, getProjectsArr } from './pages/projects';
+import { getProjectForm, getProjectsArr, getStoredProjects } from './pages/projects';
 
 buildDom(header, sidebar);
+
+getStoredProjects();
 
 getTaskForm();
 getProjectForm();
