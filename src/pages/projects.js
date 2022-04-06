@@ -24,6 +24,7 @@ export const getProjectForm = () => {
     if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
       addProjectForm();
       projectSubmit();
+      cancelProject();
     }
   }
 }
@@ -36,6 +37,13 @@ const projectSubmit = () => {
     getProjectsArr();
   }
 }
+
+const cancelProject = () => {
+  document.querySelector('#projectForm .cancelBtn').onclick = (e) => {
+    e.preventDefault();
+      removeProjectForm();
+  }
+};
 
 const removeProjectForm = () => {
   projectForm.parentElement.removeChild(projectForm);
