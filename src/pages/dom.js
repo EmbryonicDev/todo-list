@@ -97,7 +97,7 @@ export function addTaskForm() {
   // add project names to form's project dropdown list
   (() => {
     projectsArr.forEach(project => {
-      elFactory('option', { id: 'defaultProject' }, projectName, project);
+      elFactory('option', projectName, project);
     });
     console.log(projectsArr);
   })();
