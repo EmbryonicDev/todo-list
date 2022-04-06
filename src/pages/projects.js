@@ -16,12 +16,12 @@ export const getProjectForm = () => {
     // check if any form is on screen
     if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
       addProjectForm();
-      eListenerToProjectSubmit();
+      projectSubmit();
     }
   }
 }
 
-const eListenerToProjectSubmit = () => {
+const projectSubmit = () => {
   document.getElementById('projectSubmit').onclick = (e) => {
     e.preventDefault();
     newProject(projectForm.newProjectName.value);
