@@ -5,6 +5,7 @@ let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
     if(!document.getElementById('taskForm') && !document.getElementById('projectForm')) addTaskForm();
+    submitTaskBtn();
   }
 }
 
@@ -19,3 +20,12 @@ const taskFactory = (dateAdded, taskName, description, dueDate, project, priorit
     notes: notes,
   }
 };
+
+const submitTaskBtn = () => {
+  document.getElementById('taskSubmit').onclick = (e) => {
+    e.preventDefault();
+    let newTask = taskFactory(dateAdded.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
+    tasksArr.push(newTask);
+    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+  }
+}
