@@ -75,8 +75,6 @@ export function addTaskForm() {
     elFactory('p', '', '',
       elFactory('label', { for: 'projectName' }, '', 'Project: '),
       elFactory('select', { id: 'projectName' }, '',
-        elFactory('option', { id: 'defaultProject' }, '', projectsArr[0]),
-        elFactory('option', { id: 'newProject' }, '', 'New Project'),
       )
     ),
     elFactory('p', '', '',
@@ -95,7 +93,14 @@ export function addTaskForm() {
       elFactory('button', { type: 'submit' }, '', 'Add Task'),
       elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
     )
-  )
+  );
+  // add project names to form's dropdown list
+  (() => {
+    projectsArr.forEach(project => {
+      elFactory('option', { id: 'defaultProject' }, projectName, project);
+    });
+    console.log(projectsArr);
+  })();
 }
 
 // add project form
