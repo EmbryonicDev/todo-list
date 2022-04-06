@@ -25,7 +25,15 @@ const submitTaskBtn = () => {
   document.getElementById('taskSubmit').onclick = (e) => {
     e.preventDefault();
     let newTask = taskFactory(dateAdded.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
+
     tasksArr.push(newTask);
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+
+    removeTasksForm();
   }
+}
+
+const removeTasksForm = () => {
+  const taskForm = document.getElementById('taskForm');
+  taskForm.parentElement.removeChild(taskForm);
 }
