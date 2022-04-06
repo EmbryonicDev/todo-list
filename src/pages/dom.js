@@ -92,7 +92,7 @@ export function addTaskForm() {
       elFactory('textarea', { id: 'notes', cols: "30", rows: "10", placeHolder: 'Add your notes here...' }, '')
     ),
     elFactory('div', { class: 'formBtnDiv' }, '',
-      elFactory('button', { type: 'submit' }, '', 'Add Task'),
+      elFactory('button', { type: 'submit', id: 'taskSubmit' }, '', 'Add Task'),
       elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
     )
   );
