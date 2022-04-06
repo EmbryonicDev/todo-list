@@ -94,7 +94,7 @@ export function addTaskForm() {
       elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
     )
   );
-  // add project names to form's dropdown list
+  // add project names to form's project dropdown list
   (() => {
     projectsArr.forEach(project => {
       elFactory('option', { id: 'defaultProject' }, projectName, project);
