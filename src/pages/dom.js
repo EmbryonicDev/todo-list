@@ -49,8 +49,7 @@ export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
   elFactory('div', { id: 'projectsDiv' }, '',
     elFactory('div', { class: 'projectWrap' }, '',
       elFactory('img', { src: menuIcon }, ''),
-      elFactory('h3', '', '', 'General Todo List'),
-      elFactory('button', { class: 'rmProject' }, '', 'X')
+      elFactory('h3', '', '', 'General Tasks')
     )
   )
 );
