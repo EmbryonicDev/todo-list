@@ -93,7 +93,7 @@ export function addTaskForm() {
     ),
     elFactory('div', { class: 'formBtnDiv' }, '',
       elFactory('button', { type: 'submit', id: 'taskSubmit' }, '', 'Add Task'),
-      elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
+      elFactory('button', { class: 'cancelBtn' }, '', 'Cancel'),
     )
   );
   // add project names to task form's project dropdown list
@@ -114,7 +114,7 @@ export function addProjectForm() {
     ),
     elFactory('div', { class: 'formBtnDiv' }, '',
       elFactory('button', { type: 'submit', id: 'projectSubmit' }, '', 'Add Project'),
-      elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
+      elFactory('button', { class: 'cancelBtn' }, '', 'Cancel'),
     )
   )
 };
