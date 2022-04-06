@@ -4,6 +4,7 @@ import { newProject } from "./dom";
 export let projectsArr = [];
 
 export const getProjectsArr = () => {
+  projectsArr = [];
   document.querySelectorAll(".projectWrap h3").forEach(project => {
     projectsArr.push(project.innerText);
     console.log({ projectsArr });
