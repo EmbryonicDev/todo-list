@@ -103,7 +103,7 @@ export function addProjectForm() {
   elFactory('form', { id: 'projectForm' }, document.body,
     elFactory('p', '', '',
       elFactory('label', { for: 'newProjectName' }, '', 'New Project Name:'),
-      elFactory('input', { id: 'newProjectName' }, ''),
+      elFactory('input', { id: 'newProjectName', name: 'newProjectname' }, ''),
     ),
     elFactory('div', { class: 'formBtnDiv' }, '',
       elFactory('button', { type: 'submit', id: 'projectSubmit' }, '', 'Add Project'),
@@ -111,6 +111,16 @@ export function addProjectForm() {
     )
   )
 };
+
+// add new project
+export const newProject = (projectName) => {
+  const parent = document.getElementById('projectsDiv');
+  elFactory('div', { class: 'projectWrap' }, parent,
+    elFactory('img', { src: menuIcon }, ''),
+    elFactory('h3', '', '', projectName),
+    elFactory('button', { class: 'rmProject' }, '', 'X')
+  )
+}
 
 export function buildDom(...domElements) {
   domElements.forEach(element => {
