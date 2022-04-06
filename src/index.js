@@ -3,7 +3,7 @@ import { header, sidebar, buildDom } from './pages/dom';
 import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
 import '../src/styles/forms.css';
-import { getTaskForm } from './pages/new-task.js';
+import { getTaskForm } from './pages/tasks.js';
 import { getProjectForm, getProjectsArr, getStoredProjects } from './pages/projects';
 
 buildDom(header, sidebar);
