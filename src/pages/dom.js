@@ -91,9 +91,9 @@ export function addTaskForm() {
       elFactory('label', { for: 'Notes' }, '', 'Notes:'),
       elFactory('textarea', { id: 'notes', cols: "30", rows: "10", placeHolder: 'Add your notes here...' }, '')
     ),
-    elFactory('div', {class: 'formBtnDiv'}, '', 
-    elFactory('button', { type: 'submit' }, '', 'Add Task'),
-    elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
+    elFactory('div', { class: 'formBtnDiv' }, '',
+      elFactory('button', { type: 'submit' }, '', 'Add Task'),
+      elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
     )
   )
 }
@@ -105,9 +105,9 @@ export function addProjectForm() {
       elFactory('label', { for: 'newProjectName' }, '', 'New Project Name:'),
       elFactory('input', { id: 'newProjectName' }, ''),
     ),
-    elFactory('div', {class: 'formBtnDiv'}, '', 
-    elFactory('button', { type: 'submit' }, '', 'Add Project'),
-    elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
+    elFactory('div', { class: 'formBtnDiv' }, '',
+      elFactory('button', { type: 'submit', id: 'projectSubmit' }, '', 'Add Project'),
+      elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
     )
   )
 };
