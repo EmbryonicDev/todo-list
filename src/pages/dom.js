@@ -7,6 +7,8 @@ import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
 import { projectsArr } from "./projects";
 
+export const activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
+
 // add header
 export const header = elFactory('HEADER', { id: 'myHeader' }, document.body,
   elFactory('img', { src: menuIcon }, ''),
@@ -94,10 +96,10 @@ export function addTaskForm() {
       elFactory('button', { class: 'deleteBtn' }, '', 'Cancel'),
     )
   );
-  // add project names to form's project dropdown list
+  // add project names to task form's project dropdown list
   (() => {
     projectsArr.forEach(project => {
-      elFactory('option', projectName, project);
+      elFactory('option', '', projectName, project);
     });
     console.log(projectsArr);
   })();
@@ -108,7 +110,7 @@ export function addProjectForm() {
   elFactory('form', { id: 'projectForm' }, document.body,
     elFactory('p', '', '',
       elFactory('label', { for: 'newProjectName' }, '', 'New Project Name:'),
-      elFactory('input', { id: 'newProjectName', name: 'newProjectname' }, ''),
+      elFactory('input', { id: 'newProjectName', name: 'newProjectName' }, ''),
     ),
     elFactory('div', { class: 'formBtnDiv' }, '',
       elFactory('button', { type: 'submit', id: 'projectSubmit' }, '', 'Add Project'),
@@ -118,13 +120,19 @@ export function addProjectForm() {
 };
 
 // add new project
-export const newProject = (projectName) => {
+export const newProject = (projectName, checkActiveProjects) => {
   const parent = document.getElementById('projectsDiv');
   elFactory('div', { class: 'projectWrap' }, parent,
     elFactory('img', { src: menuIcon }, ''),
     elFactory('h3', '', '', projectName),
     elFactory('button', { class: 'rmProject' }, '', 'X')
   )
+  // ensures that projects in local storage are not duplicated
+  if(checkActiveProjects) {
+    activeProjects.push(projectName);
+    localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+    console.log({activeProjects});
+  }
 }
 
 export function buildDom(...domElements) {
