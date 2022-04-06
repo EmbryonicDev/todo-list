@@ -5,6 +5,7 @@ import allTasksIcon from '../assets/icons/all-tasks.svg';
 import todayIcon from '../assets/icons/today-icon.svg';
 import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
+import dots from '../assets/icons/dots.svg';
 import { projectsArr } from "./projects";
 
 export const activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
@@ -123,7 +124,7 @@ export const newProject = (projectName, checkActiveProjects) => {
   elFactory('div', { class: 'projectWrap' }, parent,
     elFactory('img', { src: menuIcon }, ''),
     elFactory('h3', '', '', projectName),
-    elFactory('button', { class: 'rmProject' }, '', 'X')
+    elFactory('img', { src: dots, class: 'projectMenu' }, '')
   )
   // ensures that projects in local storage are not duplicated
   if(checkActiveProjects) {
