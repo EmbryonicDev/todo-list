@@ -4,8 +4,9 @@ let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
-    if(!document.getElementById('taskForm') && !document.getElementById('projectForm')) addTaskForm();
+    if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) addTaskForm();
     submitTaskBtn();
+    cancelTask();
   }
 }
 
@@ -31,7 +32,14 @@ const submitTaskBtn = () => {
 
     removeTasksForm();
   }
-}
+};
+
+const cancelTask = () => {
+  document.querySelector('#taskForm .cancelBtn').onclick = (e) => {
+    e.preventDefault();
+      removeTasksForm();
+  }
+};
 
 const removeTasksForm = () => {
   const taskForm = document.getElementById('taskForm');
