@@ -1,7 +1,15 @@
-import { addProjectForm } from "./dom";
+import { activeProjects, addProjectForm } from "./dom";
 import { newProject } from "./dom";
 
-export let projectsArr = [];
+export let projectsArr = JSON.parse(localStorage.getItem("projectsArr")) || [];
+
+export const getStoredProjects = () => {
+  if(activeProjects.length > 0) {
+    activeProjects.forEach(element => {
+      newProject(element);
+    });
+  }
+}
 
 export const getProjectsArr = () => {
   projectsArr = [];
@@ -24,7 +32,7 @@ export const getProjectForm = () => {
 const projectSubmit = () => {
   document.getElementById('projectSubmit').onclick = (e) => {
     e.preventDefault();
-    newProject(projectForm.newProjectName.value);
+    newProject(projectForm.newProjectName.value, true);
     removeProjectForm();
     getProjectsArr();
   }
