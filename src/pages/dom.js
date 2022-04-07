@@ -1,4 +1,4 @@
-import { elFactory } from "../functions/global-functions";
+import { elFactory, mainDivTitle } from "../functions/global-functions";
 import menuIcon from '../assets/icons/menu.svg';
 import titleIcon from '../assets/icons/task-icon.svg';
 import allTasksIcon from '../assets/icons/all-tasks.svg';
@@ -130,6 +130,8 @@ export const newProject = (projectName, checkActiveProjects) => {
     elFactory('h3', '', '', projectName),
     elFactory('img', { src: dots, class: 'projectMenu' }, '')
   )
+  // Add eListener to display mainDiv title
+  mainDivTitle('.projectWrap');
   // ensures that projects in local storage are not duplicated
   if (checkActiveProjects) {
     activeProjects.push(projectName);
