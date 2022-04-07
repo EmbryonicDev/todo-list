@@ -11,49 +11,53 @@ import { projectsArr } from "./projects";
 export const activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
 
 // add header
-export const header = elFactory('HEADER', { id: 'myHeader' }, document.body,
-  elFactory('img', { src: menuIcon }, ''),
-  elFactory('div', { id: 'iconTitle' }, '',
-    elFactory('img', { src: titleIcon }, ''),
-    elFactory('h1', '', '', "Todo List")
-  )
-);
-
-// Add sidebar
-export const sidebar = elFactory('div', { id: 'sidebar' }, document.body,
-  elFactory('div', { class: 'sideTitleDiv' }, '',
-    elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
-    elFactory('button', { id: 'addTaskBtn' }, '', '+')
-  ),
-  elFactory('hr', '', ''),
-  elFactory('div', { class: "sideNav" }, '',
-    elFactory('img', { src: allTasksIcon }, ''),
-    elFactory('div', '', '', 'All Tasks')
-  ),
-  elFactory('div', { class: "sideNav" }, '',
-    elFactory('img', { src: todayIcon }, ''),
-    elFactory('div', '', '', 'Today')
-  ),
-  elFactory('div', { class: "sideNav" }, '',
-    elFactory('img', { src: weekIcon }, ''),
-    elFactory('div', '', '', 'Next 7 days')
-  ),
-  elFactory('div', { class: "sideNav" }, '',
-    elFactory('img', { src: priorityIcon }, ''),
-    elFactory('div', '', '', 'High Priority'),
-  ),
-  elFactory('div', { class: 'sideTitleDiv' }, '',
-    elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
-    elFactory('button', { id: 'addProjectBtn' }, '', '+')
-  ),
-  elFactory('hr', '', ''),
-  elFactory('div', { id: 'projectsDiv' }, '',
-    elFactory('div', { class: 'projectWrap' }, '',
-      elFactory('img', { src: menuIcon }, ''),
-      elFactory('h3', '', '', 'General Tasks')
+export const header = () => {
+  elFactory('HEADER', { id: 'myHeader' }, document.body,
+    elFactory('img', { src: menuIcon }, ''),
+    elFactory('div', { id: 'iconTitle' }, '',
+      elFactory('img', { src: titleIcon }, ''),
+      elFactory('h1', '', '', "Todo List")
     )
   )
-);
+};
+
+// Add sidebar
+export const sidebar = () => {
+  elFactory('div', { id: 'sidebar' }, document.body,
+    elFactory('div', { class: 'sideTitleDiv' }, '',
+      elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
+      elFactory('button', { id: 'addTaskBtn' }, '', '+')
+    ),
+    elFactory('hr', '', ''),
+    elFactory('div', { class: "sideNav" }, '',
+      elFactory('img', { src: allTasksIcon }, ''),
+      elFactory('div', '', '', 'All Tasks')
+    ),
+    elFactory('div', { class: "sideNav" }, '',
+      elFactory('img', { src: todayIcon }, ''),
+      elFactory('div', '', '', 'Today')
+    ),
+    elFactory('div', { class: "sideNav" }, '',
+      elFactory('img', { src: weekIcon }, ''),
+      elFactory('div', '', '', 'Next 7 days')
+    ),
+    elFactory('div', { class: "sideNav" }, '',
+      elFactory('img', { src: priorityIcon }, ''),
+      elFactory('div', '', '', 'High Priority'),
+    ),
+    elFactory('div', { class: 'sideTitleDiv' }, '',
+      elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
+      elFactory('button', { id: 'addProjectBtn' }, '', '+')
+    ),
+    elFactory('hr', '', ''),
+    elFactory('div', { id: 'projectsDiv' }, '',
+      elFactory('div', { class: 'projectWrap' }, '',
+        elFactory('img', { src: menuIcon }, ''),
+        elFactory('h3', '', '', 'General Tasks')
+      )
+    )
+  )
+};
 
 // add task form 
 export function addTaskForm() {
@@ -102,7 +106,7 @@ export function addTaskForm() {
       elFactory('option', '', projectName, project);
     });
   })();
-}
+};
 
 // add project form
 export function addProjectForm() {
@@ -127,7 +131,7 @@ export const newProject = (projectName, checkActiveProjects) => {
     elFactory('img', { src: dots, class: 'projectMenu' }, '')
   )
   // ensures that projects in local storage are not duplicated
-  if(checkActiveProjects) {
+  if (checkActiveProjects) {
     activeProjects.push(projectName);
     localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
   }
@@ -138,5 +142,3 @@ export function buildDom(...domElements) {
     return element;
   });
 };
-
-

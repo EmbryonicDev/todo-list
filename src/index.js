@@ -6,7 +6,7 @@ import '../src/styles/forms.css';
 import { getTaskForm } from './pages/tasks.js';
 import { getProjectForm, getProjectsArr, getStoredProjects } from './pages/projects';
 
-buildDom(header, sidebar);
+buildDom(header(), sidebar());
 
 getStoredProjects();
 
