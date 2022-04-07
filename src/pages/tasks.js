@@ -13,7 +13,7 @@ export const getTaskForm = () => {
 const submitTaskBtn = () => {
   document.getElementById('taskSubmit').onclick = (e) => {
     e.preventDefault();
-    let newTask = taskFactory(dateAdded.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
+    let newTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
 
     tasksArr.push(newTask);
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
@@ -34,10 +34,10 @@ const removeTasksForm = () => {
   taskForm.parentElement.removeChild(taskForm);
 }
 
-const taskFactory = (dateAdded, taskName, description, dueDate, project, priority, notes) => {
+const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes) => {
   return {
     taskName: taskName,
-    dateAdded: dateAdded,
+    startDate: startDate,
     description: description,
     dueDate: dueDate,
     project: project,
