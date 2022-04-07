@@ -1,5 +1,5 @@
 import { addDays, startOfDay, format } from 'date-fns';
-import { header, sidebar } from './pages/dom';
+import { activeTitleDisplay, header, sidebar } from './pages/dom';
 import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
 import '../src/styles/forms.css';
@@ -13,7 +13,7 @@ function buildDom(...domElements) {
   });
 };
 
-buildDom(header(), sidebar());
+buildDom(header(), sidebar(), activeTitleDisplay());
 
 getStoredProjects();
 

@@ -88,3 +88,15 @@ body {
   color: red;
   background-color: transparent;
 }
+
+/* mainDiv */
+#mainDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+#activeTitle {
+  border: var(--tempBorder);
+  padding: 16px;
+  margin: 16px;
+}
