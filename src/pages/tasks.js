@@ -1,6 +1,6 @@
 import { addTaskForm, newTask } from "./dom";
 
-let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
+export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
