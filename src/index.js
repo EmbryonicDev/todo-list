@@ -5,6 +5,7 @@ import '../src/styles/style.css';
 import '../src/styles/forms.css';
 import { getTaskForm } from './pages/tasks.js';
 import { getProjectForm, getProjectsArr, getStoredProjects } from './pages/projects';
+import { mainDivTitle } from './functions/global-functions';
 
 
 function buildDom(...domElements) {
@@ -23,3 +24,10 @@ getProjectForm();
 getProjectsArr();
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
+
+(() => {
+  let activeTitleArr = ['.sideNav div', '.projectWrap h3'];
+  activeTitleArr.forEach(element => {
+    mainDivTitle(element);
+  });
+})();
