@@ -48,8 +48,8 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
   }
 };
 
-export const tasksArrToPage = () => {
-  tasksArr.forEach(element => {
+export const tasksArrToPage = (thisArr) => {
+  thisArr.forEach(element => {
     newTask(element.taskName, element.description, element.dueDate)
   });
 }
