@@ -1,4 +1,4 @@
-import { addTaskForm } from "./dom";
+import { addTaskForm, newTask } from "./dom";
 
 let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
@@ -25,10 +25,12 @@ const removeTasksForm = () => {
 const submitTaskBtn = () => {
   document.getElementById('taskSubmit').onclick = (e) => {
     e.preventDefault();
-    let newTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
+    let myNewTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
 
-    tasksArr.push(newTask);
+    tasksArr.push(myNewTask);
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    
+    newTask(myNewTask.taskName, myNewTask.description, myNewTask.dueDate, true);
 
     removeTasksForm();
   }
@@ -45,3 +47,10 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
     notes: notes,
   }
 };
+
+export const tasksArrToPage = () => {
+  tasksArr.forEach(element => {
+    console.log(element.taskName)
+    newTask(element.taskName, element.description, element.dueDate)
+  });
+}
