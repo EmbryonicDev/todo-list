@@ -50,7 +50,6 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
 
 export const tasksArrToPage = () => {
   tasksArr.forEach(element => {
-    console.log(element.taskName)
     newTask(element.taskName, element.description, element.dueDate)
   });
 }
