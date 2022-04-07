@@ -140,6 +140,6 @@ export const newProject = (projectName, checkActiveProjects) => {
 // active project / tasks catagory display
 export const activeTitleDisplay = () => {
   elFactory('div', { id: 'mainDiv' }, document.body,
-    elFactory('h2', { id: 'activeTitle' }, '', 'testing')
+    elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks')
   )
 }
