@@ -55,6 +55,25 @@ export const filteredArrays = () => {
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
 };
 
+export function getSelectedTasks() {
+  filteredArrays();
+  clearTasks();
+  switch (selectedTasks) {
+    case "All Tasks":
+      tasksArrToPage(tasksArr);
+      break;
+    case "Today":
+      tasksArrToPage(todayTasks);
+      break;
+    case "Next 7 Days":
+      tasksArrToPage(weekTasks);
+      break;
+    case "High Priority":
+      tasksArrToPage(highPriority)
+      break;
+  }
+}
+
 function clearTasks() {
   const mainDiv = document.getElementById('mainDiv')
   while (mainDiv.children.length > 1) {
