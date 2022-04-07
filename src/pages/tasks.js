@@ -1,3 +1,4 @@
+import { getSelectedTasks } from "../functions/global-functions";
 import { addTaskForm, newTask } from "./dom";
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
@@ -31,6 +32,7 @@ const submitTaskBtn = () => {
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
     
     newTask(myNewTask.taskName, myNewTask.description, myNewTask.dueDate, true);
+    getSelectedTasks();
 
     removeTasksForm();
   }
