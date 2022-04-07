@@ -26,7 +26,7 @@ getProjectsArr();
 
 // show active project / task group title
 (() => {
-  let activeTitleArr = ['.sideNav div', '.projectWrap h3'];
+  let activeTitleArr = ['.sideNav div', '.projectWrap'];
   activeTitleArr.forEach(element => {
     mainDivTitle(element);
   });
