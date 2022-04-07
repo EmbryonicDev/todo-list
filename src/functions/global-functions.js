@@ -33,6 +33,8 @@ export const mainDivTitle = (querySelectorAll) => {
       if (element.innerText === "Today") selectedTasks = element.innerText;
       if (element.innerText === "Next 7 Days") selectedTasks = element.innerText;
       if (element.innerText === "High Priority") selectedTasks = element.innerText;
+
+      getSelectedTasks();
     })
   });
 };
@@ -42,7 +44,7 @@ let weekTasks = '';
 let highPriority = '';
 
 // create arrays for each tasks catagory
-(() => {
+export const filteredArrays = () => {
   const temp = (new Date());
   const today = format(temp, 'yyyy-MM-dd');
   const tempWeek = addDays(temp, 6);
@@ -51,7 +53,7 @@ let highPriority = '';
   todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
   weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
-})();
+};
 
 function clearTasks() {
   const mainDiv = document.getElementById('mainDiv')
