@@ -136,9 +136,3 @@ export const newProject = (projectName, checkActiveProjects) => {
     localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
   }
 }
-
-export function buildDom(...domElements) {
-  domElements.forEach(element => {
-    return element;
-  });
-};
