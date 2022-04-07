@@ -10,18 +10,6 @@ export const getTaskForm = () => {
   }
 }
 
-const submitTaskBtn = () => {
-  document.getElementById('taskSubmit').onclick = (e) => {
-    e.preventDefault();
-    let newTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
-
-    tasksArr.push(newTask);
-    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
-
-    removeTasksForm();
-  }
-};
-
 const cancelTask = () => {
   document.querySelector('#taskForm .cancelBtn').onclick = (e) => {
     e.preventDefault();
@@ -33,6 +21,18 @@ const removeTasksForm = () => {
   const taskForm = document.getElementById('taskForm');
   taskForm.parentElement.removeChild(taskForm);
 }
+
+const submitTaskBtn = () => {
+  document.getElementById('taskSubmit').onclick = (e) => {
+    e.preventDefault();
+    let newTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
+
+    tasksArr.push(newTask);
+    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+
+    removeTasksForm();
+  }
+};
 
 const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes) => {
   return {
