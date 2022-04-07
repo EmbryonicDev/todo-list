@@ -37,6 +37,22 @@ export const mainDivTitle = (querySelectorAll) => {
   });
 };
 
+let todayTasks = '';
+let weekTasks = '';
+let highPriority = '';
+
+// create arrays for each tasks catagory
+(() => {
+  const temp = (new Date());
+  const today = format(temp, 'yyyy-MM-dd');
+  const tempWeek = addDays(temp, 6);
+  const week = format(tempWeek, 'yyyy-MM-dd');
+
+  todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
+  weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
+  highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+})();
+
 function clearTasks() {
   const mainDiv = document.getElementById('mainDiv')
   while (mainDiv.children.length > 1) {
