@@ -1,4 +1,5 @@
-import { tasksArrToPage } from "../pages/tasks";
+import { tasksArr, tasksArrToPage } from "../pages/tasks";
+import { addDays, format } from "date-fns";
 
 export const elFactory = (type, attributes, appendTo, ...children) => {
   const el = document.createElement(type)
@@ -21,16 +22,17 @@ export const elFactory = (type, attributes, appendTo, ...children) => {
 };
 
 // display selected tasks catagory or project title in mainDiv
+let selectedTasks = '';
 export const mainDivTitle = (querySelectorAll) => {
   document.querySelectorAll(querySelectorAll).forEach(element => {
     element.addEventListener('click', () => {
       const activeTitle = document.getElementById('activeTitle');
       activeTitle.innerText = element.innerText;
 
-      if (element.innerText === "All Tasks") {
-        clearTasks();
-        tasksArrToPage();
-      } console.log('All Tasks added')
+      if (element.innerText === "All Tasks") selectedTasks = element.innerText;
+      if (element.innerText === "Today") selectedTasks = element.innerText;
+      if (element.innerText === "Next 7 Days") selectedTasks = element.innerText;
+      if (element.innerText === "High Priority") selectedTasks = element.innerText;
     })
   });
 };
