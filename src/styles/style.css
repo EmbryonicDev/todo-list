@@ -93,10 +93,43 @@ body {
 #mainDiv {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 #activeTitle {
   border: var(--tempBorder);
   padding: 16px;
-  margin: 16px;
+}
+
+#activeTitle,
+.taskWrap {
+  margin: 16px 16px 0;
+}
+
+/* mainDiv tasks */
+.taskWrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: var(--tempBorder);
+  gap: 15px;
+  padding: 4px 0;
+  margin-top: 0;
+}
+
+.taskWrap input[type='checkbox'] {
+transform: scale(1.5);
+margin-left: 16px;
+}
+
+.nameDescriptionWrap {
+  margin-right: auto;
+}
+
+.nameDescriptionWrap h3 {
+  margin: 0;
+}
+
+.nameDescriptionWrap p {
+  margin: 0;
 }
