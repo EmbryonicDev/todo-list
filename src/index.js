@@ -3,7 +3,7 @@ import { activeTitleDisplay, header, newTask, sidebar } from './pages/dom';
 import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
 import '../src/styles/forms.css';
-import { getTaskForm, tasksArrToPage } from './pages/tasks.js';
+import { getTaskForm, tasksArr, tasksArrToPage } from './pages/tasks.js';
 import { getProjectForm, getProjectsArr, getStoredProjects } from './pages/projects';
 import { mainDivTitle } from './functions/global-functions';
 
@@ -32,4 +32,4 @@ getProjectsArr();
   });
 })();
 
-tasksArrToPage();
+tasksArrToPage(tasksArr);

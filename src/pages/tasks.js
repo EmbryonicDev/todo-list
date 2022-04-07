@@ -1,6 +1,7 @@
+import { getSelectedTasks } from "../functions/global-functions";
 import { addTaskForm, newTask } from "./dom";
 
-let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
+export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
@@ -31,6 +32,7 @@ const submitTaskBtn = () => {
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
     
     newTask(myNewTask.taskName, myNewTask.description, myNewTask.dueDate, true);
+    getSelectedTasks();
 
     removeTasksForm();
   }
@@ -48,8 +50,8 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
   }
 };
 
-export const tasksArrToPage = () => {
-  tasksArr.forEach(element => {
+export const tasksArrToPage = (thisArr) => {
+  thisArr.forEach(element => {
     newTask(element.taskName, element.description, element.dueDate)
   });
 }

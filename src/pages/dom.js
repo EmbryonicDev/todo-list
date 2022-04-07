@@ -39,7 +39,7 @@ export const sidebar = () => {
     ),
     elFactory('div', { class: "sideNav" }, '',
       elFactory('img', { src: weekIcon }, ''),
-      elFactory('div', '', '', 'Next 7 days')
+      elFactory('div', '', '', 'Next 7 Days')
     ),
     elFactory('div', { class: "sideNav" }, '',
       elFactory('img', { src: priorityIcon }, ''),
