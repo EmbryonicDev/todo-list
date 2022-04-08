@@ -154,12 +154,16 @@ export const newTask = (taskName, description, projectName, startDate, dueDate, 
     elFactory('div', { class: 'nameDescriptionWrap' }, '',
       elFactory('H3', '', '', taskName),
       elFactory('p', '', '', description),
-      ),
-      elFactory("p", '', '', projectName),
+    ),
+    elFactory("p", '', '', projectName),
     elFactory('div', { class: 'taskDatesWrap' }, '',
       elFactory('p', '', '', "Start: " + startDate),
       elFactory('p', '', '', "End: " + dueDate),
     ),
-    elFactory('img', { src: dots, class: 'taskMenu' }, '')
+    elFactory('img', { src: dots, class: 'taskMenu' }, ''),
+    elFactory('div', { class: 'taskOptions' }, '',
+      elFactory('button', { class: "taskEditBtn" }, '', 'Edit'),
+      elFactory('button', { class: "taskDeleteBtn" }, '', 'Delete')
+    )
   )
 }
