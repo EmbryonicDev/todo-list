@@ -1,6 +1,7 @@
 import { tasksArr, tasksArrToPage } from "../pages/tasks";
 import { addDays, format } from "date-fns";
 import { activeProjects } from "../pages/dom";
+import { projectsArr } from "../pages/projects";
 
 export const elFactory = (type, attributes, appendTo, ...children) => {
   const el = document.createElement(type)
@@ -37,9 +38,11 @@ export const mainDivTitle = (querySelectorAll) => {
 let todayTasks = '';
 let weekTasks = '';
 let highPriority = '';
+let generalTasks = '';
 
 // create arrays for each tasks catagory
 export const filteredArrays = () => {
+  const activeTitle = document.getElementById('activeTitle').innerText;
   const temp = (new Date());
   const today = format(temp, 'yyyy-MM-dd');
   const tempWeek = addDays(temp, 6);
@@ -48,13 +51,19 @@ export const filteredArrays = () => {
   todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
   weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+  generalTasks = tasksArr.filter(tasksArr => tasksArr.project == 'General Tasks');
+
 };
 
 export function getSelectedTasks() {
   const activeTitle = document.getElementById('activeTitle').innerText;
-  console.log(activeTitle);
   clearTasks();
-  
+
+  if (projectsArr.includes(activeTitle)) {
+    let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
+    tasksArrToPage(filteredProjects);
+  }
+
   filteredArrays();
   switch (activeTitle) {
     case "All Tasks":
@@ -68,6 +77,9 @@ export function getSelectedTasks() {
       break;
     case "High Priority":
       tasksArrToPage(highPriority)
+      break;
+    case "General Tasks":
+      tasksArrToPage(generalTasks);
       break;
   }
 }
