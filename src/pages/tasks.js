@@ -5,9 +5,11 @@ export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
-    if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) addTaskForm();
-    submitTaskBtn();
-    cancelTask();
+    if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
+      addTaskForm();
+      submitTaskBtn();
+      cancelTask();
+    }
   }
 }
 
