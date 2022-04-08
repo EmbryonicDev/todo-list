@@ -52,7 +52,6 @@ export const filteredArrays = () => {
   weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
   generalTasks = tasksArr.filter(tasksArr => tasksArr.project == 'General Tasks');
-
 };
 
 export function getSelectedTasks() {
@@ -62,7 +61,7 @@ export function getSelectedTasks() {
   if (projectsArr.includes(activeTitle)) {
     let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
     tasksArrToPage(filteredProjects);
-  }
+  };
 
   filteredArrays();
   switch (activeTitle) {
