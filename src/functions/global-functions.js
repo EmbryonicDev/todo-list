@@ -56,8 +56,9 @@ export const filteredArrays = () => {
 };
 
 export function getSelectedTasks() {
-  filteredArrays();
   clearTasks();
+  if(!selectedTasks) tasksArrToPage(tasksArr);
+  filteredArrays();
   switch (selectedTasks) {
     case "All Tasks":
       tasksArrToPage(tasksArr);
