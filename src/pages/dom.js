@@ -147,14 +147,15 @@ export const activeTitleDisplay = () => {
 }
 
 // add new task to DOM
-export const newTask = (taskName, description, startDate, dueDate, checkActiveTasks) => {
+export const newTask = (taskName, description, projectName, startDate, dueDate, checkActiveTasks) => {
   const parent = document.getElementById('mainDiv');
   elFactory('div', { class: 'taskWrap' }, parent,
     elFactory('input', { type: 'checkbox' }, ''),
     elFactory('div', { class: 'nameDescriptionWrap' }, '',
       elFactory('H3', '', '', taskName),
       elFactory('p', '', '', description),
-    ),
+      ),
+      elFactory("p", '', '', projectName),
     elFactory('div', { class: 'taskDatesWrap' }, '',
       elFactory('p', '', '', "Start: " + startDate),
       elFactory('p', '', '', "End: " + dueDate),
