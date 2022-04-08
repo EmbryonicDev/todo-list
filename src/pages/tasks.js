@@ -40,6 +40,19 @@ const submitTaskBtn = () => {
   }
 };
 
+export const taskMenuBtn = () => {
+  document.querySelectorAll('.taskMenu').forEach(menu => {
+    menu.addEventListener('click', () => {
+      menu.nextElementSibling.style.visibility = 'visible';
+
+      // Removes popup menu when clicking somewhere after popup
+      document.body.addEventListener('mouseup', (e) => {
+        menu.nextElementSibling.style.visibility = 'hidden';
+      })
+    })
+  })
+}
+
 const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes) => {
   return {
     taskName: taskName,
@@ -56,4 +69,5 @@ export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate)
   });
+  taskMenuBtn();
 }
