@@ -31,7 +31,7 @@ const submitTaskBtn = () => {
     tasksArr.push(myNewTask);
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
     
-    newTask(myNewTask.taskName, myNewTask.description, myNewTask.dueDate, true);
+    newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, true);
     getSelectedTasks();
 
     removeTasksForm();
@@ -52,6 +52,6 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
 
 export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
-    newTask(element.taskName, element.description, element.dueDate)
+    newTask(element.taskName, element.description, element.startDate, element.dueDate)
   });
 }
