@@ -153,7 +153,7 @@ export const newTask = (taskName, description, startDate, dueDate, checkActiveTa
     elFactory('input', { type: 'checkbox' }, ''),
     elFactory('div', { class: 'nameDescriptionWrap' }, '',
       elFactory('H3', '', '', taskName),
-      elFactory('p', { class: 'taskDivDescription' }, '', description),
+      elFactory('p', '', '', description),
     ),
     elFactory('div', { class: 'taskDatesWrap' }, '',
       elFactory('p', '', '', "Start: " + startDate),
