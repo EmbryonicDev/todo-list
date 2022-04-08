@@ -115,6 +115,7 @@ body {
   gap: 15px;
   padding: 4px 0;
   margin-top: 0;
+  position: relative;
 }
 
 .taskWrap input[type='checkbox'] {
@@ -132,4 +133,13 @@ margin-left: 16px;
 
 .taskWrap p {
   margin: 0;
+}
+
+.taskOptions {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 5px;
+  top: -45px;
+  visibility: hidden;
 }
