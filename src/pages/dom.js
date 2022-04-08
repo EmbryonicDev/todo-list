@@ -160,6 +160,6 @@ export const newTask = (taskName, description, projectName, startDate, dueDate, 
       elFactory('p', '', '', "Start: " + startDate),
       elFactory('p', '', '', "End: " + dueDate),
     ),
-    elFactory('img', { src: dots }, '')
+    elFactory('img', { src: dots, class: 'taskMenu' }, '')
   )
 }
