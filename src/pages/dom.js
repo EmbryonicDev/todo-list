@@ -162,7 +162,9 @@ export const newTask = (taskName, description, projectName, startDate, dueDate, 
     ),
     elFactory('div', { class: 'taskBtnWrap' }, '',
       elFactory('img', { src: dots, class: 'taskEditBtn' }, ''),
-      elFactory('button', { class: "taskDeleteBtn" }, '', 'X')
+      elFactory('div', { class: 'btnInfo' }, '', 'Edit Task'),
+      elFactory('button', { class: "taskDeleteBtn" }, '', 'X'),
+      elFactory('div', { class: 'btnInfo' }, '', 'Delete Task')
     )
   )
 }
