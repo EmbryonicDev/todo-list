@@ -87,7 +87,8 @@ body {
 }
 
 .projectWrap h3 {
-  margin: 0 auto 0 0;
+  margin: 0;
+  flex: 1;
 }
 
 .projectBtnWrap {
