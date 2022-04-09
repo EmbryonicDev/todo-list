@@ -25,22 +25,28 @@ const removeTasksForm = () => {
   taskForm.parentElement.removeChild(taskForm);
 }
 
+const getUniqueID = () => {
+  let myID = (Math.random() + 1).toString(36).substring(3);
+  return myID;
+}
+
 const submitTaskBtn = () => {
   document.getElementById('taskSubmit').onclick = (e) => {
+    let myUniqueId = getUniqueID();
     e.preventDefault();
-    let myNewTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value);
+    let myNewTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
     tasksArr.push(myNewTask);
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
 
-    newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, true);
+    newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
     getSelectedTasks();
 
     removeTasksForm();
   }
 };
 
-const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes) => {
+const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes, uniqueID) => {
   return {
     taskName: taskName,
     startDate: startDate,
@@ -49,12 +55,13 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
     project: project,
     priority: priority,
     notes: notes,
+    uniqueID: uniqueID,
   }
 };
 
 export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
-    newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate)
+    newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
 }
