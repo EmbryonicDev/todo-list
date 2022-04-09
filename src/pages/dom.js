@@ -128,11 +128,11 @@ export const newProject = (projectName, checkActiveProjects) => {
   elFactory('div', { class: 'projectWrap' }, parent,
     elFactory('img', { src: menuIcon }, ''),
     elFactory('h3', '', '', projectName),
-    elFactory('div', { class: 'btnWrap' }, '',
+    elFactory('div', { class: 'projectBtnWrap' }, '',
       elFactory('img', { src: dots, class: 'projectEditBtn' }, ''),
-      elFactory('div', { class: 'btnInfo' }, '', 'Edit Task'),
+      elFactory('div', { class: 'projectBtnInfo' }, '', 'Edit Task'),
       elFactory('button', { class: "projectDeleteBtn" }, '', 'X'),
-      elFactory('div', { class: 'btnInfo' }, '', 'Delete Task')
+      elFactory('div', { class: 'projectBtnInfo' }, '', 'Delete Task')
     )
   )
   // Add eListener to display mainDiv title
@@ -165,11 +165,11 @@ export const newTask = (taskName, description, projectName, startDate, dueDate, 
       elFactory('p', '', '', "Start: " + startDate),
       elFactory('p', '', '', "End: " + dueDate),
     ),
-    elFactory('div', { class: 'btnWrap' }, '',
+    elFactory('div', { class: 'taskBtnWrap' }, '',
       elFactory('img', { src: dots, class: 'taskEditBtn' }, ''),
-      elFactory('div', { class: 'btnInfo' }, '', 'Edit Task'),
+      elFactory('div', { class: 'taskBtnInfo' }, '', 'Edit Task'),
       elFactory('button', { class: "taskDeleteBtn" }, '', 'X'),
-      elFactory('div', { class: 'btnInfo' }, '', 'Delete Task')
+      elFactory('div', { class: 'taskBtnInfo' }, '', 'Delete Task')
     )
   )
 }
