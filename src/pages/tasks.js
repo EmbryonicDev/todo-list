@@ -56,4 +56,36 @@ export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate)
   });
+  btnHover()
+}
+
+const btnHover = () => {
+
+  const addListeners = (getThisElement, eListenerToAdd) => {
+    document.querySelectorAll(getThisElement).forEach(element => {
+      element.addEventListener(eListenerToAdd, () => {
+        if (getThisElement == '.taskEditBtn') {
+          const styleMe = element.nextSibling;
+          if (eListenerToAdd == 'mouseover') {
+            styleMe.style.visibility = "visible";
+          } else {
+            styleMe.style.visibility = "hidden";
+          }
+        } else if (getThisElement == '.taskDeleteBtn') {
+          const styleMe = element.nextSibling;
+          if (eListenerToAdd == 'mouseover') {
+            styleMe.style.visibility = "visible";
+          } else {
+            styleMe.style.visibility = "hidden";
+          }
+        }
+      })
+    })
+  }
+
+  const affectedBtn = ['.taskEditBtn', '.taskDeleteBtn'];
+  affectedBtn.forEach(element => {
+    addListeners(element, 'mouseover');
+    addListeners(element, 'mouseout');
+  });
 }
