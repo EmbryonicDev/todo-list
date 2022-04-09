@@ -1,6 +1,5 @@
 import { tasksArr, tasksArrToPage } from "../pages/tasks";
 import { addDays, format } from "date-fns";
-import { activeProjects } from "../pages/dom";
 import { projectsArr } from "../pages/projects";
 
 export const elFactory = (type, attributes, appendTo, ...children) => {
