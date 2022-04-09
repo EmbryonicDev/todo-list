@@ -135,6 +135,16 @@ margin-left: 16px;
   margin: 0;
 }
 
+.btnInfo {
+  position: absolute;
+  right: 0px;
+  bottom: 50px;
+  visibility: hidden;
+  border: var(--tempBorder);
+  background: white;
+  padding: 5px;
+}
+
 .taskBtnWrap {
   display: flex;
 }
