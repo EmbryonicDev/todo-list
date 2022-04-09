@@ -64,4 +64,23 @@ export const tasksArrToPage = (thisArr) => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
+  deleteTask();
+}
+
+const deleteTask = () => {
+  document.querySelectorAll('.taskDeleteBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      let deleteThis = button.closest('.taskWrap');
+      // deleteThis.remove();
+      console.log( deleteThis );
+
+      let deleteMe = (button.closest('.taskWrap').getAttribute('id'))
+      console.log({ deleteMe });
+
+      tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== deleteMe);
+      console.log({tasksArr});
+      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    })
+  })
+
 }
