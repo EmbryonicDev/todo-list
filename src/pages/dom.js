@@ -136,7 +136,7 @@ export const newProject = (projectName, checkActiveProjects) => {
     )
   )
   // Add eListener to display mainDiv title
-  mainDivTitle('.projectWrap');
+  mainDivTitle('.projectWrap h3');
   // ensures that projects in local storage are not duplicated
   if (checkActiveProjects) {
     activeProjects.push(projectName);
