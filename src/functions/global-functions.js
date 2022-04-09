@@ -89,3 +89,34 @@ function clearTasks() {
     mainDiv.removeChild(mainDiv.lastChild);
   }
 }
+
+export const btnHover = (btn1, btn2) => {
+  const affectedBtn = [btn1, btn2];
+
+  const addListeners = (getThisElement, eListenerToAdd) => {
+    document.querySelectorAll(getThisElement).forEach(element => {
+      element.addEventListener(eListenerToAdd, () => {
+        if (getThisElement == btn1) {
+          const styleMe = element.nextSibling;
+          if (eListenerToAdd == 'mouseover') {
+            styleMe.style.visibility = "visible";
+          } else {
+            styleMe.style.visibility = "hidden";
+          }
+        } else if (getThisElement == btn2) {
+          const styleMe = element.nextSibling;
+          if (eListenerToAdd == 'mouseover') {
+            styleMe.style.visibility = "visible";
+          } else {
+            styleMe.style.visibility = "hidden";
+          }
+        }
+      })
+    })
+  }
+
+  affectedBtn.forEach(element => {
+    addListeners(element, 'mouseover');
+    addListeners(element, 'mouseout');
+  });
+}

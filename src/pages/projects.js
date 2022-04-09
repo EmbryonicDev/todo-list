@@ -1,3 +1,4 @@
+import { btnHover } from "../functions/global-functions";
 import { activeProjects, addProjectForm } from "./dom";
 import { newProject } from "./dom";
 
@@ -7,6 +8,7 @@ export const getStoredProjects = () => {
   if(activeProjects.length > 0) {
     activeProjects.forEach(element => {
       newProject(element);
+      btnHover('.projectEditBtn', '.projectDeleteBtn')
     });
   }
 }

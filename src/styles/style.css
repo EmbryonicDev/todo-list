@@ -71,22 +71,43 @@ body {
   margin-bottom: 16px;
 }
 
+#projectsDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .projectWrap {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 6px;
   border: var(--tempBorder);
+  position: relative;
 }
 
 .projectWrap h3 {
   margin: 0 auto 0 0;
 }
 
-.projectWrap button {
-  border: none;
-  color: red;
-  background-color: transparent;
+.projectBtnWrap {
+  display: flex;
+}
+
+.projectBtnInfo {
+  position: absolute;
+  right: 0px;
+  bottom: 26px;
+  visibility: hidden;
+  border: var(--tempBorder);
+  background: white;
+  padding: 5px;
+}
+
+.projectDeleteBtn {
+  padding-left: 0;
+  border: 0;
+  background: none;
 }
 
 /* mainDiv */
@@ -135,7 +156,7 @@ margin-left: 16px;
   margin: 0;
 }
 
-.btnInfo {
+.taskBtnInfo {
   position: absolute;
   right: 0px;
   bottom: 50px;
