@@ -40,19 +40,6 @@ const submitTaskBtn = () => {
   }
 };
 
-export const taskMenuBtn = () => {
-  document.querySelectorAll('.taskMenu').forEach(menu => {
-    menu.addEventListener('click', () => {
-      menu.nextElementSibling.style.visibility = 'visible';
-
-      // Removes popup menu when clicking somewhere after popup
-      document.body.addEventListener('mouseup', (e) => {
-        menu.nextElementSibling.style.visibility = 'hidden';
-      })
-    })
-  })
-}
-
 const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes) => {
   return {
     taskName: taskName,
@@ -69,5 +56,36 @@ export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate)
   });
-  taskMenuBtn();
+  btnHover()
+}
+
+const btnHover = () => {
+
+  const addListeners = (getThisElement, eListenerToAdd) => {
+    document.querySelectorAll(getThisElement).forEach(element => {
+      element.addEventListener(eListenerToAdd, () => {
+        if (getThisElement == '.taskEditBtn') {
+          const styleMe = element.nextSibling;
+          if (eListenerToAdd == 'mouseover') {
+            styleMe.style.visibility = "visible";
+          } else {
+            styleMe.style.visibility = "hidden";
+          }
+        } else if (getThisElement == '.taskDeleteBtn') {
+          const styleMe = element.nextSibling;
+          if (eListenerToAdd == 'mouseover') {
+            styleMe.style.visibility = "visible";
+          } else {
+            styleMe.style.visibility = "hidden";
+          }
+        }
+      })
+    })
+  }
+
+  const affectedBtn = ['.taskEditBtn', '.taskDeleteBtn'];
+  affectedBtn.forEach(element => {
+    addListeners(element, 'mouseover');
+    addListeners(element, 'mouseout');
+  });
 }

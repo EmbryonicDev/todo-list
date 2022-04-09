@@ -135,11 +135,22 @@ margin-left: 16px;
   margin: 0;
 }
 
-.taskOptions {
-  display: flex;
-  flex-direction: column;
+.btnInfo {
   position: absolute;
-  right: 5px;
-  top: -45px;
+  right: 0px;
+  bottom: 50px;
   visibility: hidden;
+  border: var(--tempBorder);
+  background: white;
+  padding: 5px;
+}
+
+.taskBtnWrap {
+  display: flex;
+}
+
+.taskDeleteBtn {
+  border: 0;
+  background: 0;
+  padding-left: 0;
 }
