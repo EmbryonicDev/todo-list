@@ -64,23 +64,37 @@ export const tasksArrToPage = (thisArr) => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
-  deleteTask();
+  editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
 }
 
-const deleteTask = () => {
-  document.querySelectorAll('.taskDeleteBtn').forEach(button => {
-    button.addEventListener('click', () => {
-      let deleteThis = button.closest('.taskWrap');
-      // deleteThis.remove();
-      console.log( deleteThis );
+const editOrDeleteTask = (btn1, btn2) => {
+  const affectedBtn = [btn1, btn2];
 
-      let deleteMe = (button.closest('.taskWrap').getAttribute('id'))
-      console.log({ deleteMe });
+  const addListeners = (getThisElement) => {
+    document.querySelectorAll(getThisElement).forEach(button => {
+      button.addEventListener('click', () => {
+        // get the unique id of the container
+        let deleteMe = (button.closest('.taskWrap').getAttribute('id'));
+        // get the containing div
+        let deleteThis = button.closest('.taskWrap');
 
-      tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== deleteMe);
-      console.log({tasksArr});
-      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+        // action for deleteBtn
+        if (getThisElement == btn1) {
+          // remove from DOM & from local storage
+          deleteThis.remove();
+          tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== deleteMe);
+
+          // action for editBtn
+        } else if (getThisElement == btn2) {
+          let objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == deleteMe);
+          console.log(tasksArr[objIndex]);
+        }
+        localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      })
     })
+  }
+  affectedBtn.forEach(button => {
+    addListeners(button);
   })
 
 }
