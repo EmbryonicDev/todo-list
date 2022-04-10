@@ -130,9 +130,9 @@ export const newProject = (projectName, checkActiveProjects) => {
     elFactory('h3', '', '', projectName),
     elFactory('div', { class: 'projectBtnWrap' }, '',
       elFactory('img', { src: dots, class: 'projectEditBtn' }, ''),
-      elFactory('div', { class: 'projectBtnInfo' }, '', 'Edit Task'),
+      elFactory('div', { class: 'projectBtnInfo' }, '', 'Edit Project'),
       elFactory('button', { class: "projectDeleteBtn" }, '', 'X'),
-      elFactory('div', { class: 'projectBtnInfo' }, '', 'Delete Task')
+      elFactory('div', { class: 'projectBtnInfo' }, '', 'Delete Project')
     )
   )
   // Add eListener to display mainDiv title
