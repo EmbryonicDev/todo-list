@@ -1,5 +1,6 @@
 :root{
   --tempBorder: solid black;
+  --tempBackground: white;
 }
 
 body {
@@ -48,6 +49,17 @@ body {
   grid-auto-flow: column;
   justify-content: space-between;
   margin-top: 20px;
+  position: relative;
+}
+
+#selectProjectFirst {
+  position: absolute;
+  top: -70px;
+  left: 90px;
+  background: var(--tempBackground);
+  padding: 6px;
+  border: var(--tempBorder);
+  visibility: hidden;
 }
 
 .sideTitleDiv button {

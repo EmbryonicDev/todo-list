@@ -25,6 +25,7 @@ export const header = () => {
 export const sidebar = () => {
   elFactory('div', { id: 'sidebar' }, document.body,
     elFactory('div', { class: 'sideTitleDiv' }, '',
+      elFactory('div', { id: 'selectProjectFirst' }, '', 'Select the project you want to add the task to first.'),
       elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
       elFactory('button', { id: 'addTaskBtn' }, '', '+')
     ),
