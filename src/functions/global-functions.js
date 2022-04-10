@@ -41,7 +41,6 @@ let generalTasks = '';
 
 // create arrays for each tasks catagory
 export const filteredArrays = () => {
-  const activeTitle = document.getElementById('activeTitle').innerText;
   const temp = (new Date());
   const today = format(temp, 'yyyy-MM-dd');
   const tempWeek = addDays(temp, 6);
