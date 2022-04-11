@@ -80,8 +80,7 @@ export function addTaskForm() {
     ),
     elFactory('p', '', '',
       elFactory('label', { for: 'projectName' }, '', 'Project: '),
-      elFactory('select', { id: 'projectName' }, '',
-      )
+      elFactory('select', { id: 'projectName' }, '')
     ),
     elFactory('p', '', '',
       elFactory('label', { for: 'priority' }, '', 'Priority: '),
@@ -102,6 +101,26 @@ export function addTaskForm() {
   );
   // add project names to task form's project dropdown list
   (() => {
+    let thisIndex = null;
+    const activeTitle = document.getElementById('activeTitle').innerText;
+
+    // helper function for below
+    function modifyProjectArr(unshiftThis) {
+      projectsArr.splice(thisIndex, 1);
+      projectsArr.unshift(unshiftThis);
+    }
+
+    // Send 'General Tasks' to projectArr[0] if task is added while activeTitle = any tasks category
+    if (!projectsArr.includes(activeTitle)) {
+      thisIndex = projectsArr.findIndex(projectsArr => projectsArr === 'General Tasks');
+      modifyProjectArr('General Tasks');
+    } else {
+      // find the active project on display & move it to projectsArr[0]
+      thisIndex = projectsArr.findIndex(projectsArr => projectsArr === activeTitle);
+      modifyProjectArr(activeTitle);
+    };
+
+    // push the sorted arr to the task form dropdown for projects
     projectsArr.forEach(project => {
       elFactory('option', '', projectName, project);
     });
@@ -130,9 +149,9 @@ export const newProject = (projectName, checkActiveProjects) => {
     elFactory('h3', '', '', projectName),
     elFactory('div', { class: 'projectBtnWrap' }, '',
       elFactory('img', { src: dots, class: 'projectEditBtn' }, ''),
-      elFactory('div', { class: 'projectBtnInfo' }, '', 'Edit Task'),
+      elFactory('div', { class: 'projectBtnInfo' }, '', 'Edit Project'),
       elFactory('button', { class: "projectDeleteBtn" }, '', 'X'),
-      elFactory('div', { class: 'projectBtnInfo' }, '', 'Delete Task')
+      elFactory('div', { class: 'projectBtnInfo' }, '', 'Delete Project')
     )
   )
   // Add eListener to display mainDiv title
@@ -152,9 +171,9 @@ export const activeTitleDisplay = () => {
 }
 
 // add new task to DOM
-export const newTask = (taskName, description, projectName, startDate, dueDate, checkActiveTasks) => {
+export const newTask = (taskName, description, projectName, startDate, dueDate, uniqueID, checkActiveTasks) => {
   const parent = document.getElementById('mainDiv');
-  elFactory('div', { class: 'taskWrap' }, parent,
+  elFactory('div', { class: 'taskWrap', id: uniqueID }, parent,
     elFactory('input', { type: 'checkbox' }, ''),
     elFactory('div', { class: 'nameDescriptionWrap' }, '',
       elFactory('H3', '', '', taskName),

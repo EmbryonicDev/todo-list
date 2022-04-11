@@ -1,3 +1,8 @@
+:root{
+  --tempBorder: solid black;
+  --tempBackground: white;
+}
+
 /* for all forms */
 form {
   display: flex;
@@ -8,6 +13,7 @@ form {
   border: solid red;
   padding: 12px;
   gap: 15px;
+  background: var(--tempBackground);
 }
 
 textarea {

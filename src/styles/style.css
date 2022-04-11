@@ -1,5 +1,6 @@
 :root{
   --tempBorder: solid black;
+  --tempBackground: white;
 }
 
 body {
@@ -48,6 +49,7 @@ body {
   grid-auto-flow: column;
   justify-content: space-between;
   margin-top: 20px;
+  position: relative;
 }
 
 .sideTitleDiv button {
