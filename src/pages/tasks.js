@@ -1,5 +1,6 @@
-import { btnHover, getSelectedTasks } from "../functions/global-functions";
+import { btnHover, elFactory, getSelectedTasks } from "../functions/global-functions";
 import { addTaskForm, newTask } from "./dom";
+import { projectsArr } from "./projects";
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
@@ -12,7 +13,6 @@ export const getTaskForm = () => {
     }
   }
 }
-
 
 const cancelTask = () => {
   document.querySelector('#taskForm .cancelBtn').onclick = (e) => {
@@ -70,6 +70,37 @@ export const tasksArrToPage = (thisArr) => {
 
 const editOrDeleteTask = (btn1, btn2) => {
   const affectedBtn = [btn1, btn2];
+  let modifyThis = null;
+
+  const getTaskDetails = () => {
+    addTaskForm();
+    // get the parent of form's select element (#projectName)
+    const appendHere = document.getElementById('projectName').closest('p');
+    // remove preconfigured project options on form
+    projectName.remove();
+    // add empty select back to same parent
+    elFactory('select', { id: 'projectName' }, appendHere, );
+    
+    // send selected task property values to form
+    let objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == modifyThis);
+    startDate.value = tasksArr[objIndex].startDate
+    taskName.value = tasksArr[objIndex].taskName;
+    description.value = tasksArr[objIndex].description
+    dueDate.value = tasksArr[objIndex].dueDate
+    priority.value = tasksArr[objIndex].priority
+    notes.value = tasksArr[objIndex].notes
+    
+    // find index of task's project in projectArr, remove from array, add to start of array
+    const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[objIndex].project);
+    projectsArr.splice(projectIndex, 1);
+    projectsArr.sort();
+    projectsArr.unshift(tasksArr[objIndex].project);
+    // Create options & append to new select element
+    projectsArr.forEach(project => {
+      elFactory('option', '', projectName, project);
+    });
+
+  }
 
   const addListeners = (getThisElement) => {
     document.querySelectorAll(getThisElement).forEach(button => {
@@ -87,8 +118,7 @@ const editOrDeleteTask = (btn1, btn2) => {
 
           // action for editBtn
         } else if (getThisElement == btn2) {
-          let objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == deleteMe);
-          console.log(tasksArr[objIndex]);
+          getTaskDetails()
         }
         localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
       })
