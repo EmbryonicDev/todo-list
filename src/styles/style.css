@@ -143,8 +143,8 @@ body {
 }
 
 .taskWrap input[type='checkbox'] {
-transform: scale(1.5);
-margin-left: 16px;
+  transform: scale(1.5);
+  margin-left: 16px;
 }
 
 .nameDescriptionWrap {
