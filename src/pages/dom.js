@@ -103,6 +103,13 @@ export function addTaskForm() {
   );
   // add project names to task form's project dropdown list
   (() => {
+    // find the active project on display & move it to projectsArr[0]
+    const activeTitle = document.getElementById('activeTitle').innerText;
+    const thisIndex = projectsArr.findIndex(projectsArr => projectsArr === activeTitle);    
+    projectsArr.splice(thisIndex, 1);    
+    projectsArr.unshift(activeTitle);
+
+    // push the sorted arr to the task for dropdown for projects
     projectsArr.forEach(project => {
       elFactory('option', '', projectName, project);
     });
