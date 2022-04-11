@@ -74,6 +74,7 @@ const editOrDeleteTask = (btn1, btn2) => {
 
   const getTaskDetails = () => {
     addTaskForm();
+    cancelTask();
     // get the parent of form's select element (#projectName)
     const appendHere = document.getElementById('projectName').closest('p');
     // remove preconfigured project options on form
