@@ -99,22 +99,21 @@ const editOrDeleteTask = (btn1, btn2) => {
     projectsArr.forEach(project => {
       elFactory('option', '', projectName, project);
     });
-
   }
 
   const addListeners = (getThisElement) => {
     document.querySelectorAll(getThisElement).forEach(button => {
       button.addEventListener('click', () => {
         // get the unique id of the container
-        let deleteMe = (button.closest('.taskWrap').getAttribute('id'));
+        modifyThis = (button.closest('.taskWrap').getAttribute('id'));
         // get the containing div
         let deleteThis = button.closest('.taskWrap');
 
         // action for deleteBtn
         if (getThisElement == btn1) {
-          // remove from DOM & from local storage
+          // remove from DOM && from taskArr
           deleteThis.remove();
-          tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== deleteMe);
+          tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== modifyThis);
 
           // action for editBtn
         } else if (getThisElement == btn2) {
@@ -127,5 +126,4 @@ const editOrDeleteTask = (btn1, btn2) => {
   affectedBtn.forEach(button => {
     addListeners(button);
   })
-
 }
