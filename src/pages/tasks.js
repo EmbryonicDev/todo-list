@@ -71,6 +71,7 @@ export const tasksArrToPage = (thisArr) => {
 const editOrDeleteTask = (btn1, btn2) => {
   const affectedBtn = [btn1, btn2];
   let modifyThis = null;
+  let objIndex = null;
 
   const getTaskDetails = () => {
     addTaskForm();
@@ -80,17 +81,17 @@ const editOrDeleteTask = (btn1, btn2) => {
     // remove preconfigured project options on form
     projectName.remove();
     // add empty select back to same parent
-    elFactory('select', { id: 'projectName' }, appendHere, );
-    
+    elFactory('select', { id: 'projectName' }, appendHere,);
+
     // send selected task property values to form
-    let objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == modifyThis);
+    objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == modifyThis);
     startDate.value = tasksArr[objIndex].startDate
     taskName.value = tasksArr[objIndex].taskName;
     description.value = tasksArr[objIndex].description
     dueDate.value = tasksArr[objIndex].dueDate
     priority.value = tasksArr[objIndex].priority
     notes.value = tasksArr[objIndex].notes
-    
+
     // find index of task's project in projectArr, remove from array, add to start of array
     const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[objIndex].project);
     projectsArr.splice(projectIndex, 1);
@@ -100,7 +101,26 @@ const editOrDeleteTask = (btn1, btn2) => {
     projectsArr.forEach(project => {
       elFactory('option', '', projectName, project);
     });
+    submitTaskMods();
   }
+
+  const submitTaskMods = () => {
+    document.getElementById('taskSubmit').onclick = (e) => {
+      e.preventDefault();
+      tasksArr[objIndex].startDate = startDate.value;
+      tasksArr[objIndex].taskName = taskName.value;
+      tasksArr[objIndex].description = description.value;
+      tasksArr[objIndex].dueDate = dueDate.value;
+      tasksArr[objIndex].project = projectName.value;
+      tasksArr[objIndex].priority = priority.value;
+      tasksArr[objIndex].notes = notes.value;
+
+      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+
+      getSelectedTasks();
+      removeTasksForm();
+    }
+  };
 
   const addListeners = (getThisElement) => {
     document.querySelectorAll(getThisElement).forEach(button => {
