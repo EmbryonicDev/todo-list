@@ -80,8 +80,7 @@ export function addTaskForm() {
     ),
     elFactory('p', '', '',
       elFactory('label', { for: 'projectName' }, '', 'Project: '),
-      elFactory('select', { id: 'projectName' }, '',
-      )
+      elFactory('select', { id: 'projectName' }, '')
     ),
     elFactory('p', '', '',
       elFactory('label', { for: 'priority' }, '', 'Priority: '),
