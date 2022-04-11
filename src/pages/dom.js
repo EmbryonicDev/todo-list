@@ -114,7 +114,7 @@ export function addTaskForm() {
     // Send 'General Tasks' to projectArr[0] if task is added while activeTitle = any tasks category
     if (!projectsArr.includes(activeTitle)) {
       thisIndex = projectsArr.findIndex(projectsArr => projectsArr === 'General Tasks');
-      modifyProjectArr('Testing Testing');
+      modifyProjectArr('General Tasks');
     } else {
       // find the active project on display & move it to projectsArr[0]
       thisIndex = projectsArr.findIndex(projectsArr => projectsArr === activeTitle);
