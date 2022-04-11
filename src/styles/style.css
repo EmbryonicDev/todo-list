@@ -52,16 +52,6 @@ body {
   position: relative;
 }
 
-#selectProjectFirst {
-  position: absolute;
-  top: -70px;
-  left: 90px;
-  background: var(--tempBackground);
-  padding: 6px;
-  border: var(--tempBorder);
-  visibility: hidden;
-}
-
 .sideTitleDiv button {
   width: fit-content;
   border: none;

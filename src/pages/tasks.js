@@ -3,26 +3,16 @@ import { addTaskForm, newTask } from "./dom";
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 
-const msgSelectProjectFirst = () => {
-
-}
-
 export const getTaskForm = () => {
-  const activeTitle = document.getElementById('activeTitle');
-  const selectProjectFirst = document.getElementById('selectProjectFirst');
   document.getElementById('addTaskBtn').onclick = (e) => {
     if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
-      if(activeTitle.innerText === 'All Tasks') {
-        selectProjectFirst.style.visibility = "visible";   
-        setTimeout("selectProjectFirst.style.visibility = 'hidden'", 3500);
-      } else {
-        addTaskForm();
-        submitTaskBtn();
-        cancelTask();
-      }
+      addTaskForm();
+      submitTaskBtn();
+      cancelTask();
     }
   }
 }
+
 
 const cancelTask = () => {
   document.querySelector('#taskForm .cancelBtn').onclick = (e) => {
