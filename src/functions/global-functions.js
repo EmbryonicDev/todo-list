@@ -75,9 +75,6 @@ export function getSelectedTasks() {
     case "High Priority":
       tasksArrToPage(highPriority)
       break;
-    case "General Tasks":
-      tasksArrToPage(generalTasks);
-      break;
   }
   checkBoxAction();
 }
