@@ -57,6 +57,7 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
     priority: priority,
     notes: notes,
     uniqueID: uniqueID,
+    complete: "No",
   }
 };
 
