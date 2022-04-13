@@ -57,6 +57,7 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
     priority: priority,
     notes: notes,
     uniqueID: uniqueID,
+    complete: "No",
   }
 };
 
@@ -66,6 +67,7 @@ export const tasksArrToPage = (thisArr) => {
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
   editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
+  checkBoxAction();
 }
 
 const editOrDeleteTask = (btn1, btn2) => {
@@ -147,4 +149,57 @@ const editOrDeleteTask = (btn1, btn2) => {
   affectedBtn.forEach(button => {
     addListeners(button);
   })
+}
+
+export const checkBoxAction = () => {
+  let targetWrap = null;
+  let targetId = null;
+  let objIndex = null;
+
+  // tick checkbox for completed tasks after page load / filter
+  const updateCompletedTasks = () => {
+    let displayedIDs = [];
+    document.querySelectorAll('.taskWrap').forEach(taskDiv => {
+      targetId = taskDiv.getAttribute('id');
+      displayedIDs.push(targetId);
+
+      displayedIDs.forEach(id => {
+        targetWrap = document.getElementById(targetId);
+        let taskToMark = tasksArr.filter(tasksArr => tasksArr.uniqueID == id);
+
+        if (taskToMark[0].complete == 'Yes') {
+          targetWrap.querySelector('input[type="checkbox"]').setAttribute("checked", true);
+          targetWrap.querySelector('h3').classList.add('checked');
+          targetWrap.querySelectorAll('p').forEach(p => {
+            p.classList.add('checked');
+          });
+        } else if (taskToMark[0].complete) {
+          targetWrap.querySelector('input[type="checkbox"]').removeAttribute("checked", true);
+          targetWrap.querySelector('h3').classList.remove('checked');
+          targetWrap.querySelectorAll('p').forEach(p => {
+            p.classList.remove('checked');
+          });
+        }
+      });
+      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    });
+  }
+  updateCompletedTasks();
+
+// add eListeners to checkboxes
+  document.querySelectorAll('.taskWrap input[type="checkbox"]').forEach(checkbox => {
+    console.log('listener added')
+    checkbox.addEventListener('change', (e) => {
+      targetId = checkbox.closest('.taskWrap').getAttribute('id');
+      targetWrap = checkbox.closest('.taskWrap');
+      objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == targetId);
+      if (e.target.checked) {
+        tasksArr[objIndex].complete = "Yes"
+      } else {
+        tasksArr[objIndex].complete = "No";
+      }
+      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      updateCompletedTasks();
+    })
+  });
 }
