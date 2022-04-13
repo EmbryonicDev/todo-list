@@ -67,6 +67,7 @@ export const tasksArrToPage = (thisArr) => {
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
   editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
+  checkBoxAction();
 }
 
 const editOrDeleteTask = (btn1, btn2) => {
