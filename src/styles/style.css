@@ -1,4 +1,4 @@
-:root{
+:root {
   --tempBorder: solid black;
   --tempBackground: white;
 }
@@ -159,6 +159,10 @@ body {
   margin: 0;
 }
 
+.checked{
+  text-decoration: line-through;
+}
+
 .taskBtnInfo {
   position: absolute;
   right: 0px;
@@ -177,4 +181,6 @@ body {
   border: 0;
   background: 0;
   padding-left: 0;
+  text-decoration: none;
+
 }
