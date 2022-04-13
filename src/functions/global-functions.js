@@ -1,6 +1,7 @@
-import { tasksArr, tasksArrToPage } from "../pages/tasks";
+import { checkBoxAction, tasksArr, tasksArrToPage } from "../pages/tasks";
 import { addDays, format } from "date-fns";
 import { projectsArr } from "../pages/projects";
+import { id } from "date-fns/locale";
 
 export const elFactory = (type, attributes, appendTo, ...children) => {
   const el = document.createElement(type)
@@ -78,6 +79,7 @@ export function getSelectedTasks() {
       tasksArrToPage(generalTasks);
       break;
   }
+  checkBoxAction();
 }
 
 function clearTasks() {
