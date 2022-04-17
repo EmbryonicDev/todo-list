@@ -253,6 +253,14 @@ const editOrDeleteProject = (btn1, btn2) => {
       projectSubmit();
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
+      // remove all sidebar projectWraps (except General Tasks) so that getStoredProjects()
+      // won't temporarily duplicate any projects
+      for (let i = 0; i < activeProjects.length; i++) {
+        const deleteWrap = document.querySelector('.projectWrap:last-of-type');
+        deleteWrap.remove();
+        console.log(document.querySelector('.projectWrap:last-of-type'))
+      }
+
       // update tasks with new project name
       for (let i = 0; i < tasksToModify.length; i++) {
         tasksToModify[i].project = modifiedProjectName;
@@ -261,7 +269,7 @@ const editOrDeleteProject = (btn1, btn2) => {
       localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
       getSelectedTasks();
       removeProjectForm();
-      location.reload();
+      getStoredProjects();
     }
   };
 
