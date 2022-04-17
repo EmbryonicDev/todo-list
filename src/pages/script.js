@@ -216,6 +216,7 @@ export const checkBoxAction = () => {
 // ***  FROM PROJECTS.JS ***
 export const getStoredProjects = () => {
   if (activeProjects.length > 0) {
+    activeProjects.sort((a, b) => a > b ? 1:-1);
     activeProjects.forEach(element => {
       newProject(element);
       btnHover('.projectEditBtn', '.projectDeleteBtn');
