@@ -80,7 +80,7 @@ export const tasksArrToPage = (thisArr) => {
 
 const editOrDeleteTask = (btn1, btn2) => {
   const affectedBtn = [btn1, btn2];
-  let modifyThis = null;
+  let targetId = null;
   let objIndex = null;
 
   const getTaskDetails = () => {
@@ -94,7 +94,7 @@ const editOrDeleteTask = (btn1, btn2) => {
     elFactory('select', { id: 'projectName' }, appendHere,);
 
     // send selected task property values to form
-    objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == modifyThis);
+    objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == targetId);
     startDate.value = tasksArr[objIndex].startDate
     taskName.value = tasksArr[objIndex].taskName;
     description.value = tasksArr[objIndex].description
@@ -136,7 +136,7 @@ const editOrDeleteTask = (btn1, btn2) => {
     document.querySelectorAll(getThisElement).forEach(button => {
       button.addEventListener('click', () => {
         // get the unique id of the container
-        modifyThis = (button.closest('.taskWrap').getAttribute('id'));
+        targetId = (button.closest('.taskWrap').getAttribute('id'));
         // get the containing div
         let deleteThis = button.closest('.taskWrap');
 
@@ -144,7 +144,7 @@ const editOrDeleteTask = (btn1, btn2) => {
         if (getThisElement == btn1) {
           // remove from DOM && from taskArr
           deleteThis.remove();
-          tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== modifyThis);
+          tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== targetId);
 
           // action for editBtn
         } else if (getThisElement == btn2) {
