@@ -6,7 +6,7 @@ import todayIcon from '../assets/icons/today-icon.svg';
 import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
 import dots from '../assets/icons/dots.svg';
-import { projectsArr, activeProjects } from "./tasks";
+import { projectsArr, activeProjects } from "./script";
 
 // add header
 export const header = () => {
