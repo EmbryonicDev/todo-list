@@ -3,8 +3,7 @@ import { activeTitleDisplay, header, newTask, sidebar } from './pages/dom';
 import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
 import '../src/styles/forms.css';
-import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage } from './pages/tasks.js';
-import { getProjectForm, getProjectsArr, getStoredProjects } from './pages/projects';
+import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects } from './pages/tasks.js';
 import { mainDivTitle } from './functions/global-functions';
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
