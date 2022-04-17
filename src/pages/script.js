@@ -33,6 +33,13 @@ const getUniqueID = () => {
   return myID;
 }
 
+export const taskSortStore = () => {
+  tasksArr.sort((a, b) => a.startDate > b.startDate ? 1 : -1);
+  tasksArr.sort((a, b) => a.project < b.project ? 1 : -1);
+  tasksArr.sort((a, b) => a.complete > b.complete ? 1 : -1);
+  localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+}
+
 const submitTaskBtn = () => {
   document.getElementById('taskSubmit').onclick = (e) => {
     let myUniqueId = getUniqueID();
@@ -40,11 +47,10 @@ const submitTaskBtn = () => {
     let myNewTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
     tasksArr.push(myNewTask);
-    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    taskSortStore();
 
     newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
     getSelectedTasks();
-
     removeTasksForm();
   }
 };
@@ -119,7 +125,7 @@ const editOrDeleteTask = (btn1, btn2) => {
       tasksArr[objIndex].priority = priority.value;
       tasksArr[objIndex].notes = notes.value;
 
-      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      taskSortStore();
 
       getSelectedTasks();
       removeTasksForm();
@@ -144,7 +150,7 @@ const editOrDeleteTask = (btn1, btn2) => {
         } else if (getThisElement == btn2) {
           getTaskDetails()
         }
-        localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+        taskSortStore();
       })
     })
   }
@@ -183,7 +189,7 @@ export const checkBoxAction = () => {
           });
         }
       });
-      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      taskSortStore();
     });
   }
   updateCompletedTasks();
@@ -200,8 +206,9 @@ export const checkBoxAction = () => {
       } else {
         tasksArr[objIndex].complete = "No";
       }
-      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      taskSortStore();
       updateCompletedTasks();
+      getSelectedTasks();
     })
   });
 }
@@ -266,7 +273,7 @@ const editOrDeleteProject = (btn1, btn2) => {
         tasksToModify[i].project = modifiedProjectName;
       }
 
-      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      taskSortStore();
       getSelectedTasks();
       removeProjectForm();
       getStoredProjects();
@@ -345,7 +352,7 @@ const editOrDeleteProject = (btn1, btn2) => {
         } else if (getThisElement == btn4) {
           removeConfirmation();
         }
-        localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+        taskSortStore();
       })
     })
   }
