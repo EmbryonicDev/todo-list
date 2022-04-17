@@ -6,9 +6,7 @@ import todayIcon from '../assets/icons/today-icon.svg';
 import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
 import dots from '../assets/icons/dots.svg';
-import { projectsArr } from "./projects";
-
-export const activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
+import { projectsArr, activeProjects } from "./tasks";
 
 // add header
 export const header = () => {
@@ -167,6 +165,20 @@ export const newProject = (projectName, checkActiveProjects) => {
 export const activeTitleDisplay = () => {
   elFactory('div', { id: 'mainDiv' }, document.body,
     elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks')
+  )
+}
+
+export const addConfirmDelete = () => {
+  elFactory('div', { id: 'confirmDeleteWrap' }, document.body,
+    elFactory('h3', '', '', 'Warning!'),
+    elFactory('p', { id: 'confirmPara' }, '', 'Deleting the project named "',
+      elFactory('span', { id: 'projectNameSpan' }, ''),
+      '" will remove a total of ',
+      elFactory('span', { id: 'taskNumberSpan' }, ''),
+      ' linked tasks. Do you wish to continue?'
+    ),
+    elFactory('button', { id: 'confirmProjectDelete' }, '', 'Confirm'),
+    elFactory('button', { id: 'cancelProjectDelete' }, '', 'Cancel'),
   )
 }
 
