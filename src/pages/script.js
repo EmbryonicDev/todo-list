@@ -196,7 +196,6 @@ export const checkBoxAction = () => {
 
   // add eListeners to checkboxes
   document.querySelectorAll('.taskWrap input[type="checkbox"]').forEach(checkbox => {
-    console.log('listener added')
     checkbox.addEventListener('change', (e) => {
       targetId = checkbox.closest('.taskWrap').getAttribute('id');
       targetWrap = checkbox.closest('.taskWrap');
