@@ -36,7 +36,6 @@ export const mainDivTitle = (getThisElement) => {
 let todayTasks = '';
 let weekTasks = '';
 let highPriority = '';
-let generalTasks = '';
 
 // create arrays for each tasks catagory
 export const filteredArrays = () => {
