@@ -3,7 +3,7 @@ import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
-export let projectsArr = JSON.parse(localStorage.getItem("projectsArr")) || [];
+export let projectsArr = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
 
 export const getTaskForm = () => {
