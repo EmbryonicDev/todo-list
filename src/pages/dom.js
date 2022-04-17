@@ -5,6 +5,7 @@ import allTasksIcon from '../assets/icons/all-tasks.svg';
 import todayIcon from '../assets/icons/today-icon.svg';
 import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
+import completeIcon from '../assets/icons/complete-icon.svg';
 import dots from '../assets/icons/dots.svg';
 import { projectsArr, activeProjects } from "./script";
 
@@ -43,6 +44,10 @@ export const sidebar = () => {
       elFactory('img', { src: priorityIcon }, ''),
       elFactory('div', '', '', 'High Priority'),
     ),
+    elFactory('div', { class: "sideNav" }, '',
+    elFactory('img', { src: completeIcon }, ''),
+    elFactory('div', '', '', 'Completed Tasks'),
+  ),
     elFactory('div', { class: 'sideTitleDiv' }, '',
       elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
       elFactory('button', { id: 'addProjectBtn' }, '', '+')

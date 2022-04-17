@@ -33,9 +33,10 @@ export const mainDivTitle = (getThisElement) => {
   });
 };
 
-let todayTasks = '';
-let weekTasks = '';
-let highPriority = '';
+let todayTasks = null;
+let weekTasks = null;
+let highPriority = null;
+let completedTasks = null;
 
 // create arrays for each tasks catagory
 export const filteredArrays = () => {
@@ -47,6 +48,7 @@ export const filteredArrays = () => {
   todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
   weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+  completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
 };
 
 export function getSelectedTasks() {
@@ -71,6 +73,9 @@ export function getSelectedTasks() {
       break;
     case "High Priority":
       tasksArrToPage(highPriority)
+      break;
+    case "Completed Tasks":
+      tasksArrToPage(completedTasks)
       break;
   }
 }
