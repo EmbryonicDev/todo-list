@@ -1,5 +1,5 @@
 import { addDays, startOfDay, format, quartersToYears } from 'date-fns';
-import { activeTitleDisplay, header, newTask, sidebar } from './pages/dom';
+import { activeTitleDisplay, header, sidebar } from './pages/dom';
 import '../src/styles/modern-normalize.css';
 import '../src/styles/style.css';
 import '../src/styles/forms.css';
