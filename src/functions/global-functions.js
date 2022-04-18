@@ -34,9 +34,13 @@ export const mainDivTitle = (getThisElement) => {
 };
 
 let todayTasks = null;
+let todayHidden = null;
 let weekTasks = null;
+let weekHidden = null;
 let highPriority = null;
+let highHidden = null;
 let completedTasks = null;
+let completedHidden = null
 
 // create arrays for each tasks catagory
 export const filteredArrays = () => {
@@ -46,13 +50,20 @@ export const filteredArrays = () => {
   const week = format(tempWeek, 'yyyy-MM-dd');
 
   todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
+  todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "Yes")
   weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
+  weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "Yes")
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+  highHidden = highPriority.filter(highPriority => highPriority.complete == "Yes")
   completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
+  completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "Yes")
 };
 
 export function getSelectedTasks() {
   const activeTitle = document.getElementById('activeTitle').innerText;
+  const hideBtn = document.getElementById('hideTickedTasksBtn');
+  if(hideBtn.innerText == "Hide Complete") console.log(hideBtn)
+  
   clearTasks();
 
   if (projectsArr.includes(activeTitle)) {
