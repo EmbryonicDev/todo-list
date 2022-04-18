@@ -45,9 +45,9 @@ export const sidebar = () => {
       elFactory('div', '', '', 'High Priority'),
     ),
     elFactory('div', { class: "sideNav" }, '',
-    elFactory('img', { src: completeIcon }, ''),
-    elFactory('div', '', '', 'Completed Tasks'),
-  ),
+      elFactory('img', { src: completeIcon }, ''),
+      elFactory('div', '', '', 'Completed Tasks'),
+    ),
     elFactory('div', { class: 'sideTitleDiv' }, '',
       elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
       elFactory('button', { id: 'addProjectBtn' }, '', '+')
@@ -169,7 +169,10 @@ export const newProject = (projectName, checkActiveProjects) => {
 // active project / tasks catagory display
 export const activeTitleDisplay = () => {
   elFactory('div', { id: 'mainDiv' }, document.body,
-    elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks')
+    elFactory('div', { id: 'activeTitleDiv' }, '',
+      elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks'),
+        elFactory('button', { id: 'hideComplete' }, '', 'Hide Complete')
+    )
   )
 }
 

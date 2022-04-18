@@ -137,12 +137,15 @@ body {
   gap: 16px;
 }
 
-#activeTitle {
-  border: var(--tempBorder);
-  padding: 16px;
+#activeTitleDiv {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 16px;
+border: var(--tempBorder);
 }
 
-#activeTitle,
+#activeTitleDiv,
 .taskWrap {
   margin: 16px 16px 0;
 }
