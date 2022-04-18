@@ -66,7 +66,7 @@ export function getSelectedTasks() {
   const hideBtn = document.getElementById('hideComplete');
   if (projectsArr.includes(activeTitle)) {
     let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
-    if (hideBtn.innerText == 'Unhide Complete') {
+    if (hideBtn.innerText == 'Show Complete') {
       filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
     }
     tasksArrToPage(filteredProjects);
