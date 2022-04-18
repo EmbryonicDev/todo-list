@@ -33,6 +33,7 @@ export const mainDivTitle = (getThisElement) => {
   });
 };
 
+let allHidden = null;
 let todayTasks = null;
 let todayHidden = null;
 let weekTasks = null;
@@ -49,45 +50,79 @@ export const filteredArrays = () => {
   const tempWeek = addDays(temp, 6);
   const week = format(tempWeek, 'yyyy-MM-dd');
 
+  allHidden = tasksArr.filter(tasksArr => tasksArr.complete == "No");
   todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
-  todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "Yes")
+  todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "No")
   weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
-  weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "Yes")
+  weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "No")
   highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
-  highHidden = highPriority.filter(highPriority => highPriority.complete == "Yes")
+  highHidden = highPriority.filter(highPriority => highPriority.complete == "No")
   completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
-  completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "Yes")
+  completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No")
 };
 
 export function getSelectedTasks() {
   const activeTitle = document.getElementById('activeTitle').innerText;
   const hideBtn = document.getElementById('hideTickedTasksBtn');
-  if(hideBtn.innerText == "Hide Complete") console.log(hideBtn)
-  
+
   clearTasks();
 
   if (projectsArr.includes(activeTitle)) {
     let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
+
+    // if (hideBtn.innerText == 'Hide Complete') {
+    //   filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
+    // } else
+
+
+    if (hideBtn.innerText == 'Unhide Complete') {
+      filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
+    }
+
     tasksArrToPage(filteredProjects);
+
   };
 
   filteredArrays();
-  switch (activeTitle) {
-    case "All Tasks":
-      tasksArrToPage(tasksArr);
-      break;
-    case "Today":
-      tasksArrToPage(todayTasks);
-      break;
-    case "Next 7 Days":
-      tasksArrToPage(weekTasks);
-      break;
-    case "High Priority":
-      tasksArrToPage(highPriority)
-      break;
-    case "Completed Tasks":
-      tasksArrToPage(completedTasks)
-      break;
+
+  if (hideBtn.innerText == "Hide Complete") {
+    switch (activeTitle) {
+      case "All Tasks":
+        tasksArrToPage(tasksArr);
+        break;
+      case "Today":
+        tasksArrToPage(todayTasks);
+        break;
+      case "Next 7 Days":
+        tasksArrToPage(weekTasks);
+        break;
+      case "High Priority":
+        tasksArrToPage(highPriority)
+        break;
+      case "Completed Tasks":
+        tasksArrToPage(completedTasks)
+        break;
+    }
+  }
+
+  if (hideBtn.innerText == "Unhide Complete") {
+    switch (activeTitle) {
+      case "All Tasks":
+        tasksArrToPage(allHidden);
+        break;
+      case "Today":
+        tasksArrToPage(todayHidden);
+        break;
+      case "Next 7 Days":
+        tasksArrToPage(weekHidden);
+        break;
+      case "High Priority":
+        tasksArrToPage(highHidden)
+        break;
+      case "Completed Tasks":
+        tasksArrToPage(completedHidden)
+        break;
+    }
   }
 }
 

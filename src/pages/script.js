@@ -92,6 +92,7 @@ const hideDeleteTickedTasks = (btn1, btn2) => {
         } else if (hideBtn.innerText == 'Unhide Complete') {
           hideBtn.innerText = 'Hide Complete'
         }
+        getSelectedTasks();
       }
     }
   }
