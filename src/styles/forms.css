@@ -49,3 +49,22 @@ form p:last-of-type label {
 #projectForm label {
   width: fit-content;
 }
+
+/* confirmation box */
+#confirmDeleteWrap {
+  position: absolute;
+  left: 33%;
+  top: 33%;
+  padding: 15px;
+  width: 300px;
+  border: var(--tempBorder);
+  background: var(--tempBackground);
+}
+
+#confirmDeleteWrap h3 {
+  margin: 0;
+}
+
+#confirmProjectDelete {
+  margin-right: 15px;
+}
