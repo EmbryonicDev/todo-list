@@ -94,7 +94,7 @@ export function getSelectedTasks() {
     }
   }
 
-  if (hideBtn.innerText == "Unhide Complete") {
+  if (hideBtn.innerText == "Show Complete") {
     switch (activeTitle) {
       case "All Tasks":
         tasksArrToPage(allHidden);

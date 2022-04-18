@@ -83,8 +83,8 @@ const hideDeleteTickedTasks = () => {
     document.querySelector('#hideComplete').onclick = (e) => {
         const hideBtn = document.querySelector('#hideComplete');
         if(hideBtn.innerText == 'Hide Complete') {
-          hideBtn.innerText = 'Unhide Complete'
-        } else if (hideBtn.innerText == 'Unhide Complete') {
+          hideBtn.innerText = 'Show Complete'
+        } else if (hideBtn.innerText == 'Show Complete') {
           hideBtn.innerText = 'Hide Complete'
         }
         getSelectedTasks();
