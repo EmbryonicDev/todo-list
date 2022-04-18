@@ -75,31 +75,20 @@ export const tasksArrToPage = (thisArr) => {
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
   editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
-  hideDeleteTickedTasks('#hideTickedTasksBtn', '#removeTickedTasksBtn');
+  hideDeleteTickedTasks();
   checkBoxAction();
 }
 
-const hideDeleteTickedTasks = (btn1, btn2) => {
-  const targetBtns = [btn1, btn2];
-  
-  const addListeners = (getThisElement) => {
-    document.querySelector(getThisElement).onclick = (e) => {
-
-      if(getThisElement == btn1) {
-        const hideBtn = document.querySelector(btn1);
+const hideDeleteTickedTasks = () => {
+    document.querySelector('#hideTickedTasksBtn').onclick = (e) => {
+        const hideBtn = document.querySelector('#hideTickedTasksBtn');
         if(hideBtn.innerText == 'Hide Complete') {
           hideBtn.innerText = 'Unhide Complete'
         } else if (hideBtn.innerText == 'Unhide Complete') {
           hideBtn.innerText = 'Hide Complete'
         }
         getSelectedTasks();
-      }
     }
-  }
-
-  targetBtns.forEach(button => {
-    addListeners(button)
-  });
 }
 
 const editOrDeleteTask = (btn1, btn2) => {

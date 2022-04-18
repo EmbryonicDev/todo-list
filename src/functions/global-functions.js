@@ -69,18 +69,10 @@ export function getSelectedTasks() {
 
   if (projectsArr.includes(activeTitle)) {
     let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
-
-    // if (hideBtn.innerText == 'Hide Complete') {
-    //   filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
-    // } else
-
-
     if (hideBtn.innerText == 'Unhide Complete') {
       filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
     }
-
     tasksArrToPage(filteredProjects);
-
   };
 
   filteredArrays();

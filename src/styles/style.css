@@ -145,12 +145,6 @@ padding: 0 16px;
 border: var(--tempBorder);
 }
 
-#hideDeleteBtnDiv {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 #activeTitleDiv,
 .taskWrap {
   margin: 16px 16px 0;
