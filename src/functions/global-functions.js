@@ -34,34 +34,25 @@ export const mainDivTitle = (getThisElement) => {
 };
 
 export function getSelectedTasks() {
-  let allHidden = null;
-  let todayTasks = null;
-  let todayHidden = null;
-  let weekTasks = null;
-  let weekHidden = null;
-  let highPriority = null;
-  let highHidden = null;
-  let completedTasks = null;
-  let completedHidden = null
-  
-  // create arrays for each tasks catagory
-  const filteredArrays = () => {
+
+  // get arrays
     const temp = (new Date());
     const today = format(temp, 'yyyy-MM-dd');
     const tempWeek = addDays(temp, 6);
     const week = format(tempWeek, 'yyyy-MM-dd');
-    allHidden = tasksArr.filter(tasksArr => tasksArr.complete == "No");
-    todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
-    todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "No")
-    weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
-    weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "No")
-    highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
-    highHidden = highPriority.filter(highPriority => highPriority.complete == "No")
-    completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
-    completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No")
-  };
+    const allHidden = tasksArr.filter(tasksArr => tasksArr.complete == "No");
+    const todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
+    const todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "No")
+    const weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
+    const weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "No")
+    const highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+    const highHidden = highPriority.filter(highPriority => highPriority.complete == "No")
+    const completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
+    const completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No")
+
   clearTasks();
 
+  // sort tasks according to selected project
   const activeTitle = document.getElementById('activeTitle').innerText;
   const hideBtn = document.getElementById('hideComplete');
   if (projectsArr.includes(activeTitle)) {
@@ -72,8 +63,7 @@ export function getSelectedTasks() {
     tasksArrToPage(filteredProjects);
   };
 
-  filteredArrays();
-
+  // sort tasks according to selected taskss category
   if (hideBtn.innerText == "Hide Complete") {
     switch (activeTitle) {
       case "All Tasks":

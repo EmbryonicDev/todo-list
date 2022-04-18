@@ -75,11 +75,11 @@ export const tasksArrToPage = (thisArr) => {
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
   editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
-  hideDeleteTickedTasks();
+  hideTasks();
   checkBoxAction();
 }
 
-const hideDeleteTickedTasks = () => {
+const hideTasks = () => {
     document.querySelector('#hideComplete').onclick = (e) => {
         const hideBtn = document.querySelector('#hideComplete');
         if(hideBtn.innerText == 'Hide Complete') {
