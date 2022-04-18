@@ -75,7 +75,30 @@ export const tasksArrToPage = (thisArr) => {
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
   editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
+  hideDeleteTickedTasks('#hideTickedTasksBtn', '#removeTickedTasksBtn');
   checkBoxAction();
+}
+
+const hideDeleteTickedTasks = (btn1, btn2) => {
+  const targetBtns = [btn1, btn2];
+  
+  const addListeners = (getThisElement) => {
+    document.querySelector(getThisElement).onclick = (e) => {
+
+      if(getThisElement == btn1) {
+        const hideBtn = document.querySelector(btn1);
+        if(hideBtn.innerText == 'Hide Complete') {
+          hideBtn.innerText = 'Unhide Complete'
+        } else if (hideBtn.innerText == 'Unhide Complete') {
+          hideBtn.innerText = 'Hide Complete'
+        }
+      }
+    }
+  }
+
+  targetBtns.forEach(button => {
+    addListeners(button)
+  });
 }
 
 const editOrDeleteTask = (btn1, btn2) => {
@@ -215,7 +238,7 @@ export const checkBoxAction = () => {
 // ***  FROM PROJECTS.JS ***
 export const getStoredProjects = () => {
   if (activeProjects.length > 0) {
-    activeProjects.sort((a, b) => a > b ? 1:-1);
+    activeProjects.sort((a, b) => a > b ? 1 : -1);
     activeProjects.forEach(element => {
       newProject(element);
       btnHover('.projectEditBtn', '.projectDeleteBtn');
