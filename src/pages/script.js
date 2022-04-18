@@ -80,8 +80,8 @@ export const tasksArrToPage = (thisArr) => {
 }
 
 const hideDeleteTickedTasks = () => {
-    document.querySelector('#hideTickedTasksBtn').onclick = (e) => {
-        const hideBtn = document.querySelector('#hideTickedTasksBtn');
+    document.querySelector('#hideComplete').onclick = (e) => {
+        const hideBtn = document.querySelector('#hideComplete');
         if(hideBtn.innerText == 'Hide Complete') {
           hideBtn.innerText = 'Unhide Complete'
         } else if (hideBtn.innerText == 'Unhide Complete') {

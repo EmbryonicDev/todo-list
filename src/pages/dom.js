@@ -171,7 +171,7 @@ export const activeTitleDisplay = () => {
   elFactory('div', { id: 'mainDiv' }, document.body,
     elFactory('div', { id: 'activeTitleDiv' }, '',
       elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks'),
-        elFactory('button', { id: 'hideTickedTasksBtn' }, '', 'Hide Complete')
+        elFactory('button', { id: 'hideComplete' }, '', 'Hide Complete')
     )
   )
 }

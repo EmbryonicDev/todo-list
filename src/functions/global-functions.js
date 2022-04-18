@@ -63,7 +63,7 @@ export const filteredArrays = () => {
 
 export function getSelectedTasks() {
   const activeTitle = document.getElementById('activeTitle').innerText;
-  const hideBtn = document.getElementById('hideTickedTasksBtn');
+  const hideBtn = document.getElementById('hideComplete');
 
   clearTasks();
 
