@@ -33,40 +33,37 @@ export const mainDivTitle = (getThisElement) => {
   });
 };
 
-let allHidden = null;
-let todayTasks = null;
-let todayHidden = null;
-let weekTasks = null;
-let weekHidden = null;
-let highPriority = null;
-let highHidden = null;
-let completedTasks = null;
-let completedHidden = null
-
-// create arrays for each tasks catagory
-export const filteredArrays = () => {
-  const temp = (new Date());
-  const today = format(temp, 'yyyy-MM-dd');
-  const tempWeek = addDays(temp, 6);
-  const week = format(tempWeek, 'yyyy-MM-dd');
-
-  allHidden = tasksArr.filter(tasksArr => tasksArr.complete == "No");
-  todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
-  todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "No")
-  weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
-  weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "No")
-  highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
-  highHidden = highPriority.filter(highPriority => highPriority.complete == "No")
-  completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
-  completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No")
-};
-
 export function getSelectedTasks() {
-  const activeTitle = document.getElementById('activeTitle').innerText;
-  const hideBtn = document.getElementById('hideComplete');
-
+  let allHidden = null;
+  let todayTasks = null;
+  let todayHidden = null;
+  let weekTasks = null;
+  let weekHidden = null;
+  let highPriority = null;
+  let highHidden = null;
+  let completedTasks = null;
+  let completedHidden = null
+  
+  // create arrays for each tasks catagory
+  const filteredArrays = () => {
+    const temp = (new Date());
+    const today = format(temp, 'yyyy-MM-dd');
+    const tempWeek = addDays(temp, 6);
+    const week = format(tempWeek, 'yyyy-MM-dd');
+    allHidden = tasksArr.filter(tasksArr => tasksArr.complete == "No");
+    todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
+    todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "No")
+    weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
+    weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "No")
+    highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+    highHidden = highPriority.filter(highPriority => highPriority.complete == "No")
+    completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
+    completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No")
+  };
   clearTasks();
 
+  const activeTitle = document.getElementById('activeTitle').innerText;
+  const hideBtn = document.getElementById('hideComplete');
   if (projectsArr.includes(activeTitle)) {
     let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == activeTitle);
     if (hideBtn.innerText == 'Unhide Complete') {
