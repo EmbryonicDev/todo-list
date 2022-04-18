@@ -127,6 +127,10 @@ padding: 0 16px;
 border: var(--tempBorder);
 }
 
+#hideComplete {
+  width: 145px;
+}
+
 #activeTitleDiv,
 .taskWrap {
   margin: 16px 16px 0;
