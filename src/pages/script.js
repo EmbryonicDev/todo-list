@@ -268,7 +268,6 @@ export const checkBoxAction = () => {
       }
       taskSortStore();
       updateCompletedTasks();
-      getSelectedTasks();
     })
   });
 }
