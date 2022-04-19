@@ -27,7 +27,7 @@
 
 #bodyStyled {
   color: var(--font-color);
-  background: var(--colorStone100);
+  background: var(--colorStone50);
 }
 
 #bodyStyled #myHeader {
