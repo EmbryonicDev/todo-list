@@ -34,133 +34,126 @@
   background-color: var(--colorRed600);
   border: 0;
   box-shadow: 0 4px 4px var(--colorStone900);
+  z-index: 1;
 }
 
-#bodyStyled #styleBtnsDiv {
-
-}
-
-#myHeader img {
-
-}
+#bodyStyled #styleBtnsDiv {}
 
 #bodyStyled #iconTitle,
-#bodyStyled #styleBtnsDiv{
-background: var(--colorRed800);
-color: var(--colorRed50);
-border: 0;
-border-radius: 12px;
-padding: 6px 16px;
-box-shadow: 4px 4px 4px var(--colorStone900);
+#bodyStyled #styleBtnsDiv {
+  background: var(--colorRed800);
+  color: var(--colorRed50);
+  border: 0;
+  border-radius: 12px;
+  padding: 6px 16px;
+  box-shadow: 4px 4px 4px var(--colorStone900);
 }
 
-#iconTitle img {
+#iconTitle img {}
 
+#myHeader h1 {}
+
+#iconTitle {}
+
+#bodyStyled #sidebar {
+  background: var(--colorRed800);
 }
 
-#myHeader h1 {
-
+#bodyStyled .sideTitleDiv,
+#bodyStyled .sideNav,
+#bodyStyled .projectWrap {
+  background: var(--colorRed300);
+  padding-left: 6px;
+  padding-top: 6px;
+  border-radius: 8px;
 }
 
-#iconTitle {
-
+#bodyStyled .sideTitleDiv {
+  background: var(--colorRed900);
+  border: 0;
+  color: var(--colorRed50);
+  box-shadow: 4px 4px 4px var(--colorStone900);
 }
 
-#sidebar {
-
+#bodyStyled .sideTitleDiv button {
+  color: var(--colorRed50);
 }
 
-.sideTitleDiv {
-
+#bodyStyled .sideTitleDiv button:hover {
+  transform: scale(1.5);
+  cursor: pointer;
 }
 
-.sideTitleDiv button {
-
+#bodyStyled .sideNav:hover,
+#bodyStyled .projectWrap:hover {
+  background: var(--colorRed100);
+  cursor: pointer;
+  transform: scale(1.01);
+  box-shadow: 4px 4px 4px var(--colorStone900);
 }
 
-.sideTitle {
-
+#bodyStyled .sideNav,
+#bodyStyled .projectWrap {
+  padding: 3px;
+  font-weight: bold;
 }
 
-.sideNav {
-
+#bodyStyled .projectWrap {
+  font-weight: normal;
+  border: 0;
 }
 
-#projectsDiv {
-
-}
-
-.projectWrap {
-
-}
-
-.projectWrap h3 {
-
-}
-
-.projectBtnWrap {
-
-}
-
-.projectBtnInfo {
-
+#bodyStyled .projectBtnInfo {
+  border-radius: 6px;
+  font-weight: 600;
+  background: var(--colorRed300);
+  border: var(--border)
 }
 
 .projectDeleteBtn {
-
+  font-weight: 600;
 }
+
+
+.sideTitleDiv button {}
+
+.sideTitle {}
+
+
+#projectsDiv {}
+
+.projectWrap {}
+
+.projectWrap h3 {}
+
+.projectBtnWrap {}
+
 
 /* mainDiv */
-#mainDiv {
- 
-}
+#mainDiv {}
 
-#activeTitleDiv {
+#activeTitleDiv {}
 
-}
-
-#hideComplete {
- 
-}
+#hideComplete {}
 
 #activeTitleDiv,
-.taskWrap {
-  
-}
+.taskWrap {}
 
 /* mainDiv tasks */
-.taskWrap {
+.taskWrap {}
 
-}
+.taskWrap input[type='checkbox'] {}
 
-.taskWrap input[type='checkbox'] {
+.nameDescriptionWrap {}
 
-}
+.nameDescriptionWrap h3 {}
 
-.nameDescriptionWrap {
+.taskWrap p {}
 
-}
+.checked {}
 
-.nameDescriptionWrap h3 {
+.taskBtnInfo {}
 
-}
+.taskBtnWrap {}
 
-.taskWrap p {
-
-}
-
-.checked {
-
-}
-
-.taskBtnInfo {
-
-}
-
-.taskBtnWrap {
-
-}
-
-.taskDeleteBtn {
-
-}
+.taskDeleteBtn {}
