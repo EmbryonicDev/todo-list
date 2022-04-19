@@ -1,7 +1,7 @@
 import { addDays, startOfDay, format, quartersToYears } from 'date-fns';
 import { activeTitleDisplay, header, sidebar } from './pages/dom';
 import '../src/styles/modern-normalize.css';
-import '../src/styles/style.css';
+import '../src/styles/plain-style.css';
 import '../src/styles/forms.css';
 import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects, taskSortStore } from './pages/script.js';
 import { mainDivTitle } from './functions/global-functions';
