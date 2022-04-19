@@ -38,6 +38,10 @@
   z-index: 2;
 }
 
+#bodyStyled #styleOnBtn {
+  background: var(--colorStone800);
+}
+
 #bodyStyled #iconTitle,
 #bodyStyled #styleBtnsDiv {
   background: var(--colorRed800);

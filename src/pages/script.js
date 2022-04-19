@@ -20,6 +20,7 @@ export const chooseStyle = () => {
   document.getElementById('styleOffBtn').addEventListener('click', () => {
     document.body.id = '';
     styleOnIcon.setAttribute('src', blackStyleOn);
+    styleOffIcon.style.cssText = "background: #a3a3a3";
     styleOffIcon.setAttribute('src', blackStyleOff);
     headerTitleIcon.setAttribute('src', blackTitleIcon);
   });
@@ -28,6 +29,7 @@ export const chooseStyle = () => {
     document.body.id = 'bodyStyled';
     styleOnIcon.setAttribute('src', styleOn);
     styleOffIcon.setAttribute('src', styleOff);
+    styleOffIcon.style.cssText = "background: 0";
     headerTitleIcon.setAttribute('src', titleIcon);
   });
 }
