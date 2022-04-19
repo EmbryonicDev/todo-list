@@ -30,8 +30,12 @@ body {
   height: 2rem;
 }
 
+#iconTitle {
+  padding: 5px;
+}
+
 #iconTitle img {
-height: 3rem;
+  height: 3rem;
 }
 
 #myHeader h1 {
@@ -133,11 +137,11 @@ height: 3rem;
 }
 
 #activeTitleDiv {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 0 16px;
-border: var(--tempBorder);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border: var(--tempBorder);
 }
 
 #hideComplete {
