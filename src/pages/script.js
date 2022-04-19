@@ -97,6 +97,23 @@ const taskFactory = (startDate, taskName, description, dueDate, project, priorit
   }
 };
 
+const priorityColors = () => {
+  tasksArr.forEach(task => {
+    if (document.getElementById(task.uniqueID)) {
+      const taskDiv = document.getElementById(task.uniqueID)
+      if (!taskDiv.classList.contains('checked')) {
+        if (task.priority == "High") {
+          taskDiv.classList.add('red')
+        } else if (task.priority == "Medium") {
+          taskDiv.classList.add('orange')
+        } else if (task.priority == "Low") {
+          taskDiv.classList.add('yellow')
+        }
+      }
+    }
+  });
+}
+
 export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
@@ -105,6 +122,7 @@ export const tasksArrToPage = (thisArr) => {
   editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
   hideTasks();
   checkBoxAction();
+  priorityColors();
 }
 
 const hideTasks = () => {

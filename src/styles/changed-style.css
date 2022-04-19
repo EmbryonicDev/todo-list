@@ -132,11 +132,23 @@
 
 /* mainDiv tasks */
 #bodyStyled .taskWrap {
-  background: var(--colorRed400);
+  /* background: var(--colorRed400); */
   border: 0;
   border-radius: 8px;
   box-shadow: var(--myShadow);
   border: solid transparent
+}
+
+.yellow {
+  background: #fde047;
+}
+
+.orange {
+  background: #fb923c;
+}
+
+.red {
+  background: var(--colorRed500);
 }
 
 #bodyStyled .taskWrap:hover {
