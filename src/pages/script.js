@@ -189,12 +189,14 @@ export const checkBoxAction = () => {
         let taskToMark = tasksArr.filter(tasksArr => tasksArr.uniqueID == id);
 
         if (taskToMark[0].complete == 'Yes') {
+          targetWrap.classList.add('checked');
           targetWrap.querySelector('input[type="checkbox"]').setAttribute("checked", true);
           targetWrap.querySelector('h3').classList.add('checked');
           targetWrap.querySelectorAll('p').forEach(p => {
             p.classList.add('checked');
           });
         } else if (taskToMark[0].complete) {
+          targetWrap.classList.remove('checked');
           targetWrap.querySelector('input[type="checkbox"]').removeAttribute("checked", true);
           targetWrap.querySelector('h3').classList.remove('checked');
           targetWrap.querySelectorAll('p').forEach(p => {
