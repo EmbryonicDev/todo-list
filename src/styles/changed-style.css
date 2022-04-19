@@ -1,0 +1,148 @@
+:root {
+  --tempBorder: solid black;
+  --tempBackground: white;
+  --colorRed50: #fef2f2;
+  --colorRed100: #fee2e2;
+  --colorRed200: #fecaca;
+  --colorRed300: #fca5a5;
+  --colorRed400: #f87171;
+  --colorRed500: #ef4444;
+  --colorRed600: #dc2626;
+  --colorRed700: #b91c1c;
+  --colorRed800: #991b1b;
+  --colorRed900: #7f1d1d;
+  --colorStone50: #fafafa;
+  --colorStone100: #f5f5f5;
+  --colorStone200: #e5e5e5;
+  --colorStone300: #d4d4d4;
+  --colorStone400: #a3a3a3;
+  --colorStone500: #737373;
+  --colorStone600: #525252;
+  --colorStone700: #404040;
+  --colorStone800: #262626;
+  --colorStone900: #171717;
+  --border: solid var(--colorStone900);
+  --font-color: var(--colorStone800);
+  --myShadow: 4px 4px 4px var(--colorStone900);
+}
+
+#bodyStyled {
+  color: var(--font-color);
+  background: var(--colorRed100);
+}
+
+#bodyStyled #myHeader {
+  background-color: var(--colorRed600);
+  border: 0;
+  box-shadow: 0 4px 4px var(--colorStone900);
+  z-index: 2;
+}
+
+#bodyStyled #styleOnBtn {
+  background: var(--colorStone800);
+}
+
+#bodyStyled #iconTitle,
+#bodyStyled #styleBtnsDiv {
+  background: var(--colorRed800);
+  color: var(--colorRed50);
+  border: 0;
+  border-radius: 12px;
+  padding: 6px 16px;
+  box-shadow: var(--myShadow)
+}
+
+#bodyStyled #sidebar {
+  border: 0;
+  box-shadow: 4px 0px 4px 0px var(--colorStone900);
+  z-index: 1;
+}
+
+#bodyStyled .sideTitleDiv,
+#bodyStyled .sideNav,
+#bodyStyled .projectWrap,
+#bodyStyled #activeTitleDiv {
+  background: var(--colorRed300);
+  padding-left: 6px;
+  padding-top: 6px;
+  border-radius: 8px;
+}
+
+#bodyStyled .sideTitleDiv,
+#bodyStyled #activeTitleDiv {
+  background: var(--colorRed800);
+  border: 0;
+  color: var(--colorRed50);
+  box-shadow: var(--myShadow);
+}
+
+#bodyStyled .sideTitleDiv button {
+  color: var(--colorRed50);
+}
+
+#bodyStyled .sideTitleDiv button:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+#bodyStyled .sideNav:hover,
+#bodyStyled .projectWrap:hover {
+  background: var(--colorRed400);
+  cursor: pointer;
+  transform: scale(1.01);
+  box-shadow: var(--myShadow);
+}
+
+#bodyStyled .sideNav,
+#bodyStyled .projectWrap {
+  padding: 3px;
+  font-weight: bold;
+  box-shadow: var(--myShadow);
+}
+
+#bodyStyled .projectWrap {
+  border: 0;
+}
+
+#bodyStyled .projectBtnInfo,
+#bodyStyled .taskBtnInfo {
+  border-radius: 6px;
+  font-weight: 600;
+  background: var(--colorRed100);
+  border: var(--border)
+}
+
+.projectDeleteBtn {
+  font-weight: 600;
+}
+
+/* mainDiv */
+#bodyStyled #hideComplete {
+  font-weight: 500;
+  box-shadow: var(--myShadow);
+  background: var(--colorRed100);
+  border: 0;
+  border-radius: 6px;
+}
+
+#bodyStyled #hideComplete:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* mainDiv tasks */
+#bodyStyled .taskWrap {
+  background: var(--colorRed400);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: var(--myShadow);
+  border: solid transparent
+}
+
+#bodyStyled .taskWrap:hover {
+  border: dotted var(--colorStone900)
+}
+
+#bodyStyled .checked {
+  background: #86efac;
+}

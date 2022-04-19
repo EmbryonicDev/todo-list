@@ -7,12 +7,17 @@ import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
 import completeIcon from '../assets/icons/complete-icon.svg';
 import dots from '../assets/icons/dots.svg';
+import styleOn from '../assets/icons/style-on-icon.svg'
+import styleOff from '../assets/icons/style-off-icon.svg'
 import { projectsArr, activeProjects } from "./script";
 
 // add header
 export const header = () => {
   elFactory('HEADER', { id: 'myHeader' }, document.body,
-    elFactory('img', { src: menuIcon }, ''),
+    elFactory('div', { id: 'styleBtnsDiv' }, '',
+      elFactory('img', { src: styleOff, id: 'styleOffBtn' }, ''),
+      elFactory('img', { src: styleOn, id: 'styleOnBtn' }, ''),
+    ),
     elFactory('div', { id: 'iconTitle' }, '',
       elFactory('img', { src: titleIcon }, ''),
       elFactory('h1', '', '', "Todo List")
@@ -27,7 +32,6 @@ export const sidebar = () => {
       elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
       elFactory('button', { id: 'addTaskBtn' }, '', '+')
     ),
-    elFactory('hr', '', ''),
     elFactory('div', { class: "sideNav" }, '',
       elFactory('img', { src: allTasksIcon }, ''),
       elFactory('div', '', '', 'All Tasks')
@@ -52,7 +56,6 @@ export const sidebar = () => {
       elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
       elFactory('button', { id: 'addProjectBtn' }, '', '+')
     ),
-    elFactory('hr', '', ''),
     elFactory('div', { id: 'projectsDiv' }, '',
       elFactory('div', { class: 'projectWrap' }, '',
         elFactory('img', { src: menuIcon }, ''),
@@ -171,7 +174,7 @@ export const activeTitleDisplay = () => {
   elFactory('div', { id: 'mainDiv' }, document.body,
     elFactory('div', { id: 'activeTitleDiv' }, '',
       elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks'),
-        elFactory('button', { id: 'hideComplete' }, '', 'Hide Complete')
+      elFactory('button', { id: 'hideComplete' }, '', 'Hide Complete')
     )
   )
 }

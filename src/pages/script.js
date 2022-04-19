@@ -1,10 +1,38 @@
 import { btnHover, elFactory, getSelectedTasks } from "../functions/global-functions";
 import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
+import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
+import blackStyleOff from '../assets/icons/style-off-icon-black.svg';
+import blackTitleIcon from '../assets/icons/task-icon-black.svg';
+import styleOn from '../assets/icons/style-on-icon.svg';
+import styleOff from '../assets/icons/style-off-icon.svg';
+import titleIcon from '../assets/icons/task-icon.svg';
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
+
+export const chooseStyle = () => {
+  const styleOnIcon = document.getElementById('styleOnBtn');
+  const styleOffIcon = document.getElementById('styleOffBtn');
+  const headerTitleIcon = document.querySelector('#iconTitle img');
+
+  document.getElementById('styleOffBtn').addEventListener('click', () => {
+    document.body.id = '';
+    styleOnIcon.setAttribute('src', blackStyleOn);
+    styleOffIcon.style.cssText = "background: #a3a3a3";
+    styleOffIcon.setAttribute('src', blackStyleOff);
+    headerTitleIcon.setAttribute('src', blackTitleIcon);
+  });
+
+  document.getElementById('styleOnBtn').addEventListener('click', () => {
+    document.body.id = 'bodyStyled';
+    styleOnIcon.setAttribute('src', styleOn);
+    styleOffIcon.setAttribute('src', styleOff);
+    styleOffIcon.style.cssText = "background: 0";
+    headerTitleIcon.setAttribute('src', titleIcon);
+  });
+}
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
@@ -80,15 +108,15 @@ export const tasksArrToPage = (thisArr) => {
 }
 
 const hideTasks = () => {
-    document.querySelector('#hideComplete').onclick = (e) => {
-        const hideBtn = document.querySelector('#hideComplete');
-        if(hideBtn.innerText == 'Hide Complete') {
-          hideBtn.innerText = 'Show Complete'
-        } else if (hideBtn.innerText == 'Show Complete') {
-          hideBtn.innerText = 'Hide Complete'
-        }
-        getSelectedTasks();
+  document.querySelector('#hideComplete').onclick = (e) => {
+    const hideBtn = document.querySelector('#hideComplete');
+    if (hideBtn.innerText == 'Hide Complete') {
+      hideBtn.innerText = 'Show Complete'
+    } else if (hideBtn.innerText == 'Show Complete') {
+      hideBtn.innerText = 'Hide Complete'
     }
+    getSelectedTasks();
+  }
 }
 
 const editOrDeleteTask = (btn1, btn2) => {
@@ -189,12 +217,14 @@ export const checkBoxAction = () => {
         let taskToMark = tasksArr.filter(tasksArr => tasksArr.uniqueID == id);
 
         if (taskToMark[0].complete == 'Yes') {
+          targetWrap.classList.add('checked');
           targetWrap.querySelector('input[type="checkbox"]').setAttribute("checked", true);
           targetWrap.querySelector('h3').classList.add('checked');
           targetWrap.querySelectorAll('p').forEach(p => {
             p.classList.add('checked');
           });
         } else if (taskToMark[0].complete) {
+          targetWrap.classList.remove('checked');
           targetWrap.querySelector('input[type="checkbox"]').removeAttribute("checked", true);
           targetWrap.querySelector('h3').classList.remove('checked');
           targetWrap.querySelectorAll('p').forEach(p => {

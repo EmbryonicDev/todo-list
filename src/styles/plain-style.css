@@ -7,7 +7,7 @@ body {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template: 80px 1fr / 280px 1fr;
+  grid-template: 90px 1fr / 280px 1fr;
   position: relative;
 }
 
@@ -20,12 +20,36 @@ body {
   border: var(--tempBorder);
 }
 
-#myHeader h1 {
-  margin: 0;
+#styleBtnsDiv {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+#styleBtnsDiv img {
+border-radius: 3px;
+}
+
+#styleOnBtn:hover,
+#styleOffBtn:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 #myHeader img {
+  height: 2rem;
+}
+
+#iconTitle {
+  padding: 5px;
+}
+
+#iconTitle img {
   height: 3rem;
+}
+
+#myHeader h1 {
+  margin: 0;
 }
 
 #iconTitle {
@@ -33,7 +57,7 @@ body {
   grid-auto-flow: column;
   border: var(--tempBorder);
   align-items: center;
-  margin-left: 45vw;
+  margin-left: 36vw;
   gap: 5px;
 }
 
@@ -41,6 +65,7 @@ body {
   grid-column: 1 / 2;
   grid-row-start: 2;
   border: var(--tempBorder);
+  border-top: 0;
   padding: 0 8px;
 }
 
@@ -48,8 +73,10 @@ body {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
+  margin: 20px 0 16px;
   margin-top: 20px;
   position: relative;
+  border-bottom: 2px var(--tempBorder);
 }
 
 .sideTitleDiv button {
@@ -67,9 +94,9 @@ body {
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 #projectsDiv {
@@ -98,8 +125,8 @@ body {
 
 .projectBtnInfo {
   position: absolute;
-  right: 0px;
-  bottom: 26px;
+  right: -12px;
+  bottom: 32px;
   visibility: hidden;
   border: var(--tempBorder);
   background: white;
@@ -120,11 +147,11 @@ body {
 }
 
 #activeTitleDiv {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 0 16px;
-border: var(--tempBorder);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border: var(--tempBorder);
 }
 
 #hideComplete {
@@ -163,9 +190,11 @@ border: var(--tempBorder);
 
 .taskWrap p {
   margin: 0;
+  font-weight: 500;
 }
 
-.checked {
+.checked p,
+.checked h3 {
   text-decoration: line-through;
 }
 
@@ -188,5 +217,4 @@ border: var(--tempBorder);
   background: 0;
   padding-left: 0;
   text-decoration: none;
-
 }
