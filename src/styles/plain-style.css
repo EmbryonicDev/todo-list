@@ -181,9 +181,11 @@ body {
 
 .taskWrap p {
   margin: 0;
+  font-weight: 500;
 }
 
-.checked {
+.checked p,
+.checked h3 {
   text-decoration: line-through;
 }
 
@@ -206,5 +208,4 @@ body {
   background: 0;
   padding-left: 0;
   text-decoration: none;
-
 }
