@@ -1,10 +1,36 @@
 import { btnHover, elFactory, getSelectedTasks } from "../functions/global-functions";
 import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
+import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
+import blackStyleOff from '../assets/icons/style-off-icon-black.svg';
+import blackTitleIcon from '../assets/icons/task-icon-black.svg';
+import styleOn from '../assets/icons/style-on-icon.svg';
+import styleOff from '../assets/icons/style-off-icon.svg';
+import titleIcon from '../assets/icons/task-icon.svg';
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
+
+export const chooseStyle = () => {
+  const styleOnIcon = document.getElementById('styleOnBtn');
+  const styleOffIcon = document.getElementById('styleOffBtn');
+  const headerTitleIcon = document.querySelector('#iconTitle img');
+
+  document.getElementById('styleOffBtn').addEventListener('click', () => {
+    document.body.id = '';
+    styleOnIcon.setAttribute('src', blackStyleOn);
+    styleOffIcon.setAttribute('src', blackStyleOff);
+    headerTitleIcon.setAttribute('src', blackTitleIcon);
+  });
+
+  document.getElementById('styleOnBtn').addEventListener('click', () => {
+    document.body.id = 'bodyStyled';
+    styleOnIcon.setAttribute('src', styleOn);
+    styleOffIcon.setAttribute('src', styleOff);
+    headerTitleIcon.setAttribute('src', titleIcon);
+  });
+}
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
@@ -80,15 +106,15 @@ export const tasksArrToPage = (thisArr) => {
 }
 
 const hideTasks = () => {
-    document.querySelector('#hideComplete').onclick = (e) => {
-        const hideBtn = document.querySelector('#hideComplete');
-        if(hideBtn.innerText == 'Hide Complete') {
-          hideBtn.innerText = 'Show Complete'
-        } else if (hideBtn.innerText == 'Show Complete') {
-          hideBtn.innerText = 'Hide Complete'
-        }
-        getSelectedTasks();
+  document.querySelector('#hideComplete').onclick = (e) => {
+    const hideBtn = document.querySelector('#hideComplete');
+    if (hideBtn.innerText == 'Hide Complete') {
+      hideBtn.innerText = 'Show Complete'
+    } else if (hideBtn.innerText == 'Show Complete') {
+      hideBtn.innerText = 'Hide Complete'
     }
+    getSelectedTasks();
+  }
 }
 
 const editOrDeleteTask = (btn1, btn2) => {

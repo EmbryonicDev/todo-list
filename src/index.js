@@ -4,10 +4,14 @@ import '../src/styles/modern-normalize.css';
 import '../src/styles/plain-style.css';
 import '../src/styles/changed-style.css';
 import '../src/styles/forms.css';
-import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects, taskSortStore } from './pages/script.js';
+import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects, taskSortStore, chooseStyle } from './pages/script.js';
 import { mainDivTitle } from './functions/global-functions';
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
+
+const addStyle = (() => {
+  document.body.id = "bodyStyled";
+})();
 
 function buildDom(...domElements) {
   domElements.forEach(element => {
@@ -16,6 +20,8 @@ function buildDom(...domElements) {
 };
 
 buildDom(header(), sidebar(), activeTitleDisplay());
+
+chooseStyle();
 
 getStoredProjects();
 

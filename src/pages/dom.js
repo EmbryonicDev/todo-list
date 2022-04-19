@@ -15,8 +15,8 @@ import { projectsArr, activeProjects } from "./script";
 export const header = () => {
   elFactory('HEADER', { id: 'myHeader' }, document.body,
     elFactory('div', { id: 'styleBtnsDiv' }, '',
-    elFactory('img', { src: styleOff, id:'styleOffBtn'}, ''),
-      elFactory('img', { src: styleOn, id:'styleOffBtn' }, ''),
+      elFactory('img', { src: styleOff, id: 'styleOffBtn' }, ''),
+      elFactory('img', { src: styleOn, id: 'styleOnBtn' }, ''),
     ),
     elFactory('div', { id: 'iconTitle' }, '',
       elFactory('img', { src: titleIcon }, ''),
