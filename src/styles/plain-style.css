@@ -41,6 +41,7 @@ body {
   grid-column: 1 / 2;
   grid-row-start: 2;
   border: var(--tempBorder);
+  border-top: 0;
   padding: 0 8px;
 }
 
@@ -48,8 +49,10 @@ body {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
+  margin: 20px 0 16px;
   margin-top: 20px;
   position: relative;
+  border-bottom: 2px var(--tempBorder);
 }
 
 .sideTitleDiv button {
@@ -69,7 +72,7 @@ body {
   justify-content: flex-start;
   align-items: flex-end;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 #projectsDiv {
