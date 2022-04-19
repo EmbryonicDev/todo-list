@@ -27,7 +27,6 @@ export const sidebar = () => {
       elFactory('h2', { class: 'sideTitle' }, '', 'Tasks'),
       elFactory('button', { id: 'addTaskBtn' }, '', '+')
     ),
-    elFactory('hr', '', ''),
     elFactory('div', { class: "sideNav" }, '',
       elFactory('img', { src: allTasksIcon }, ''),
       elFactory('div', '', '', 'All Tasks')
@@ -52,7 +51,6 @@ export const sidebar = () => {
       elFactory('h2', { class: 'sideTitle' }, '', 'Projects'),
       elFactory('button', { id: 'addProjectBtn' }, '', '+')
     ),
-    elFactory('hr', '', ''),
     elFactory('div', { id: 'projectsDiv' }, '',
       elFactory('div', { class: 'projectWrap' }, '',
         elFactory('img', { src: menuIcon }, ''),
