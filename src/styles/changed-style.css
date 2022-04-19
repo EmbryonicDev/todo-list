@@ -28,14 +28,14 @@
 
 #bodyStyled {
   color: var(--font-color);
-  background: var(--colorStone50);
+  background: var(--colorRed100);
 }
 
 #bodyStyled #myHeader {
   background-color: var(--colorRed600);
   border: 0;
   box-shadow: 0 4px 4px var(--colorStone900);
-  z-index: 1;
+  z-index: 2;
 }
 
 #bodyStyled #iconTitle,
@@ -48,15 +48,10 @@
   box-shadow: var(--myShadow)
 }
 
-#iconTitle img {}
-
-#myHeader h1 {}
-
-#iconTitle {}
-
 #bodyStyled #sidebar {
-  background: var(--colorRed600);
   border: 0;
+  box-shadow: 4px 0px 4px 0px var(--colorStone900);
+  z-index: 1;
 }
 
 #bodyStyled .sideTitleDiv,
@@ -88,7 +83,7 @@
 
 #bodyStyled .sideNav:hover,
 #bodyStyled .projectWrap:hover {
-  background: var(--colorRed100);
+  background: var(--colorRed400);
   cursor: pointer;
   transform: scale(1.01);
   box-shadow: var(--myShadow);
@@ -98,6 +93,7 @@
 #bodyStyled .projectWrap {
   padding: 3px;
   font-weight: bold;
+  box-shadow: var(--myShadow);
 }
 
 #bodyStyled .projectWrap {
@@ -115,26 +111,7 @@
   font-weight: 600;
 }
 
-
-.sideTitleDiv button {}
-
-.sideTitle {}
-
-
-#projectsDiv {}
-
-.projectWrap {}
-
-.projectWrap h3 {}
-
-.projectBtnWrap {}
-
-
 /* mainDiv */
-#bodyStyled #mainDiv {
-  background: var(--colorRed100);
-}
-
 #bodyStyled #hideComplete {
   font-weight: 500;
   box-shadow: var(--myShadow);
@@ -147,11 +124,6 @@
   transform: scale(1.1);
   cursor: pointer;
 }
-
-#hideComplete {}
-
-#activeTitleDiv,
-.taskWrap {}
 
 /* mainDiv tasks */
 #bodyStyled .taskWrap {
@@ -166,20 +138,6 @@
   border: dotted var(--colorStone900)
 }
 
-.taskWrap input[type='checkbox'] {}
-
-.nameDescriptionWrap {}
-
-.nameDescriptionWrap h3 {}
-
-.taskWrap p {}
-
 #bodyStyled .checked {
   background: #86efac;
 }
-
-.taskBtnInfo {}
-
-.taskBtnWrap {}
-
-.taskDeleteBtn {}
