@@ -104,10 +104,11 @@
   border: 0;
 }
 
-#bodyStyled .projectBtnInfo {
+#bodyStyled .projectBtnInfo,
+#bodyStyled .taskBtnInfo {
   border-radius: 6px;
   font-weight: 600;
-  background: var(--colorRed300);
+  background: var(--colorRed100);
   border: var(--border)
 }
 
