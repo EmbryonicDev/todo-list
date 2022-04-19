@@ -7,12 +7,17 @@ import weekIcon from '../assets/icons/week-icon.svg';
 import priorityIcon from '../assets/icons/priority-high.svg';
 import completeIcon from '../assets/icons/complete-icon.svg';
 import dots from '../assets/icons/dots.svg';
+import styleOn from '../assets/icons/style-on-icon.svg'
+import styleOff from '../assets/icons/style-off-icon.svg'
 import { projectsArr, activeProjects } from "./script";
 
 // add header
 export const header = () => {
   elFactory('HEADER', { id: 'myHeader' }, document.body,
-    elFactory('img', { src: menuIcon }, ''),
+    elFactory('div', { id: 'styleBtnsDiv' }, '',
+    elFactory('img', { src: styleOff }, ''),
+      elFactory('img', { src: styleOn }, ''),
+    ),
     elFactory('div', { id: 'iconTitle' }, '',
       elFactory('img', { src: titleIcon }, ''),
       elFactory('h1', '', '', "Todo List")
@@ -169,7 +174,7 @@ export const activeTitleDisplay = () => {
   elFactory('div', { id: 'mainDiv' }, document.body,
     elFactory('div', { id: 'activeTitleDiv' }, '',
       elFactory('h2', { id: 'activeTitle' }, '', 'All Tasks'),
-        elFactory('button', { id: 'hideComplete' }, '', 'Hide Complete')
+      elFactory('button', { id: 'hideComplete' }, '', 'Hide Complete')
     )
   )
 }

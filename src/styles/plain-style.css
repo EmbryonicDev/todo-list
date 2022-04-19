@@ -20,12 +20,22 @@ body {
   border: var(--tempBorder);
 }
 
-#myHeader h1 {
-  margin: 0;
+#styleBtnsDiv {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
 }
 
 #myHeader img {
-  height: 3rem;
+  height: 2rem;
+}
+
+#iconTitle img {
+height: 3rem;
+}
+
+#myHeader h1 {
+  margin: 0;
 }
 
 #iconTitle {
