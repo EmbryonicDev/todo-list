@@ -23,7 +23,6 @@ export const pageStyle = {
     this.styleOffIcon = this.myHeader.querySelector('#styleOffBtn');
     this.headerTitleIcon = this.myHeader.querySelector('#iconTitle img');
   },
-
   bindEvents: function () {
     this.styleOffIcon.addEventListener('click', this.changePageStyling.bind(this.changePageStyling, '', 'id', blackStyleOn, blackStyleOff, blackTitleIcon, 'background: #a3a3a3'));
     this.styleOnIcon.addEventListener('click', this.changePageStyling.bind(this.changePageStyling, 'bodyStyled', '', styleOn, styleOff, titleIcon, 'background: 0'));
@@ -36,7 +35,7 @@ export const pageStyle = {
     pageStyle.headerTitleIcon.setAttribute('src', headerTitleIconSrc);
     pageStyle.styleOffIcon.style.cssText = styleOffBgc;
   }
-}
+};
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {

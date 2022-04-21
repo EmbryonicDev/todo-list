@@ -21,6 +21,7 @@ function buildDom(...domElements) {
 
 buildDom(header(), sidebar(), activeTitleDisplay());
 
+
 pageStyle.init();
 
 getStoredProjects();
