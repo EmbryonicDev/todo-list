@@ -21,30 +21,6 @@ function buildDom(...domElements) {
 
 buildDom(header(), sidebar(), activeTitleDisplay());
 
-// chooseStyle();
-
-// export const chooseStyle = () => {
-//   const styleOnIcon = document.getElementById('styleOnBtn');
-//   const styleOffIcon = document.getElementById('styleOffBtn');
-//   const headerTitleIcon = document.querySelector('#iconTitle img');
-
-//   document.getElementById('styleOffBtn').addEventListener('click', () => {
-//     document.body.id = '';
-//     styleOnIcon.setAttribute('src', blackStyleOn);
-//     styleOffIcon.setAttribute('src', blackStyleOff);
-//     styleOffIcon.style.cssText = "background: #a3a3a3";
-//     headerTitleIcon.setAttribute('src', blackTitleIcon);
-//   });
-
-//   document.getElementById('styleOnBtn').addEventListener('click', () => {
-//     document.body.id = 'bodyStyled';
-//     styleOnIcon.setAttribute('src', styleOn);
-//     styleOffIcon.setAttribute('src', styleOff);
-//     styleOffIcon.style.cssText = "background: 0";
-//     headerTitleIcon.setAttribute('src', titleIcon);
-//   });
-// }
-
 pageStyle.init();
 
 getStoredProjects();
