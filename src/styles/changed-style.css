@@ -28,7 +28,7 @@
 
 #bodyStyled {
   color: var(--font-color);
-  background: var(--colorRed100);
+  background: var(--colorStone100);
 }
 
 #bodyStyled #myHeader {
@@ -58,11 +58,17 @@
   z-index: 1;
 }
 
+#bodyStyled .sideNav:nth-of-type(odd),
+#bodyStyled .projectWrap:nth-of-type(odd) {
+  background: var(--colorStone400);
+  color: black;
+}
+
 #bodyStyled .sideTitleDiv,
 #bodyStyled .sideNav,
 #bodyStyled .projectWrap,
 #bodyStyled #activeTitleDiv {
-  background: var(--colorRed300);
+  background: var(--colorStone200);
   padding-left: 6px;
   padding-top: 6px;
   border-radius: 8px;
