@@ -4,7 +4,7 @@ import '../src/styles/modern-normalize.css';
 import '../src/styles/plain-style.css';
 import '../src/styles/changed-style.css';
 import '../src/styles/forms.css';
-import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects, taskSortStore, chooseStyle } from './pages/script.js';
+import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects, taskSortStore, chooseStyle, pageStyle } from './pages/script.js';
 import { mainDivTitle } from './functions/global-functions';
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
@@ -21,7 +21,31 @@ function buildDom(...domElements) {
 
 buildDom(header(), sidebar(), activeTitleDisplay());
 
-chooseStyle();
+// chooseStyle();
+
+// export const chooseStyle = () => {
+//   const styleOnIcon = document.getElementById('styleOnBtn');
+//   const styleOffIcon = document.getElementById('styleOffBtn');
+//   const headerTitleIcon = document.querySelector('#iconTitle img');
+
+//   document.getElementById('styleOffBtn').addEventListener('click', () => {
+//     document.body.id = '';
+//     styleOnIcon.setAttribute('src', blackStyleOn);
+//     styleOffIcon.setAttribute('src', blackStyleOff);
+//     styleOffIcon.style.cssText = "background: #a3a3a3";
+//     headerTitleIcon.setAttribute('src', blackTitleIcon);
+//   });
+
+//   document.getElementById('styleOnBtn').addEventListener('click', () => {
+//     document.body.id = 'bodyStyled';
+//     styleOnIcon.setAttribute('src', styleOn);
+//     styleOffIcon.setAttribute('src', styleOff);
+//     styleOffIcon.style.cssText = "background: 0";
+//     headerTitleIcon.setAttribute('src', titleIcon);
+//   });
+// }
+
+pageStyle.init();
 
 getStoredProjects();
 

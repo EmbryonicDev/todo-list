@@ -12,27 +12,51 @@ export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
 
-export const chooseStyle = () => {
-  const styleOnIcon = document.getElementById('styleOnBtn');
-  const styleOffIcon = document.getElementById('styleOffBtn');
-  const headerTitleIcon = document.querySelector('#iconTitle img');
-
-  document.getElementById('styleOffBtn').addEventListener('click', () => {
-    document.body.id = '';
-    styleOnIcon.setAttribute('src', blackStyleOn);
-    styleOffIcon.style.cssText = "background: #a3a3a3";
-    styleOffIcon.setAttribute('src', blackStyleOff);
-    headerTitleIcon.setAttribute('src', blackTitleIcon);
-  });
-
-  document.getElementById('styleOnBtn').addEventListener('click', () => {
-    document.body.id = 'bodyStyled';
-    styleOnIcon.setAttribute('src', styleOn);
-    styleOffIcon.setAttribute('src', styleOff);
-    styleOffIcon.style.cssText = "background: 0";
-    headerTitleIcon.setAttribute('src', titleIcon);
-  });
+export const pageStyle = {
+  init: function () {
+    this.cacheDom();
+    this.bindEvents();
+  },
+  cacheDom: function () {
+    this.myHeader = document.getElementById('myHeader');
+    this.styleOnIcon = this.myHeader.querySelector('#styleOnBtn');
+    this.styleOffIcon = this.myHeader.querySelector('#styleOffBtn');
+    this.headerTitleIcon = this.myHeader.querySelector('#iconTitle img');
+  },
+  bindEvents: function () {
+    this.styleOffIcon.addEventListener('click', this.changePageStyling.bind('', blackStyleOn, blackStyleOff, blackTitleIcon, 'background: #a3a3a3'));
+    this.styleOnIcon.addEventListener('click', this.changePageStyling.bind('bodyStyled', styleOn, styleOff, titleIcon, 'background: 0'));
+  },
+  changePageStyling: (bodyId, styleOnSrc, styleOffSrc, headerTitleIconSrc, styleOffBgc) => {
+    document.body.id = bodyId;
+    this.styleOnIcon.setAttribute('src', styleOnSrc);
+    this.styleOffIcon.setAttribute('src', styleOffSrc);
+    this.headerTitleIcon.setAttribute('src', headerTitleIconSrc);
+    this.styleOffIcon.style.cssText = styleOffBgc;
+  }
 }
+
+// export const chooseStyle = () => {
+//   const styleOnIcon = document.getElementById('styleOnBtn');
+//   const styleOffIcon = document.getElementById('styleOffBtn');
+//   const headerTitleIcon = document.querySelector('#iconTitle img');
+
+//   document.getElementById('styleOffBtn').addEventListener('click', () => {
+//     document.body.id = '';
+//     styleOnIcon.setAttribute('src', blackStyleOn);
+//     styleOffIcon.style.cssText = "background: #a3a3a3";
+//     styleOffIcon.setAttribute('src', blackStyleOff);
+//     headerTitleIcon.setAttribute('src', blackTitleIcon);
+//   });
+
+//   document.getElementById('styleOnBtn').addEventListener('click', () => {
+//     document.body.id = 'bodyStyled';
+//     styleOnIcon.setAttribute('src', styleOn);
+//     styleOffIcon.setAttribute('src', styleOff);
+//     styleOffIcon.style.cssText = "background: 0";
+//     headerTitleIcon.setAttribute('src', titleIcon);
+//   });
+// }
 
 export const getTaskForm = () => {
   document.getElementById('addTaskBtn').onclick = (e) => {
