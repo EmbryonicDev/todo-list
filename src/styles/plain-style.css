@@ -161,6 +161,9 @@ border-radius: 3px;
 #activeTitleDiv,
 .taskWrap {
   margin: 16px 16px 0;
+  max-width: 800px;
+  min-width: 700px;
+  align-self: center;
 }
 
 /* mainDiv tasks */
