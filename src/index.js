@@ -41,6 +41,5 @@ getProjectsArr();
 })();
 
 taskSortStore();
-// tasksArrToPage(tasksArr);
 
 checkBoxAction();

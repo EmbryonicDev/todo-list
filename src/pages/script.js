@@ -138,11 +138,7 @@ export const tasks = {
         editBtn.addEventListener('click', () => {
           this.targetId = editBtn.closest('.taskWrap').getAttribute('id');
           this.getTaskForm();
-          // get the parent of form's <select> element (#projectName) & remove
-          this.appendTo = document.getElementById('projectName').closest('p');
-          projectName.remove();
-          // add empty select back to the same parent
-          elFactory('select', { id: 'projectName' }, this.appendTo,);
+
         });
       });
     },
@@ -153,6 +149,12 @@ export const tasks = {
       }
     },
     taskDetailsToForm: () => {
+      // get the parent of form's <select> element (#projectName) & remove
+      tasks.addEditTaskForm.appendTo = document.getElementById('projectName').closest('p');
+      projectName.remove();
+      // add empty select back to the same parent
+      elFactory('select', { id: 'projectName' }, tasks.addEditTaskForm.appendTo,);
+
       // find the task to be edited in tasksArr
       tasks.addEditTaskForm.objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == tasks.addEditTaskForm.targetId);
 
@@ -166,17 +168,42 @@ export const tasks = {
 
       // find index of task's project in projectArr, remove from projectsArr, add to start of array
       // this is so that the form's dropdown list has the task's project first in line
-      const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[this.objIndex].project);
+      const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[tasks.addEditTaskForm.objIndex].project);
+
       projectsArr.splice(projectIndex, 1);
       projectsArr.sort();
-      projectsArr.unshift(tasksArr[this.objIndex].project);
+      projectsArr.unshift(tasksArr[tasks.addEditTaskForm.objIndex].project);
       // Create options & append to new select element
       projectsArr.forEach(project => {
+        console.log(project)
+        console.log(projectsArr)
         elFactory('option', '', projectName, project);
       });
-      // submitTaskMods();
+
+      // tasks.modifyTask.init();
     }
   },
+  modifyTask: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.form = document.getElementById('taskForm');
+    },
+    bindEvents: function () {
+      this.form.addEventListener('submit', this.submitTaskMods.bind())
+    },
+    submitTaskMods: (e) => {
+      tasksArr[objIndex].startDate = startDate.value;
+      tasksArr[objIndex].taskName = taskName.value;
+      tasksArr[objIndex].description = description.value;
+      tasksArr[objIndex].dueDate = dueDate.value;
+      tasksArr[objIndex].project = projectName.value;
+      tasksArr[objIndex].priority = priority.value;
+      tasksArr[objIndex].notes = notes.value;
+    }
+  }
 }
 
 // editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
