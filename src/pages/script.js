@@ -102,7 +102,7 @@ export const tasks = {
       addTask.removeTasksForm();
     },
     removeTasksForm: () => {
-      addTask.form.parentElement.removeChild(taskForm);
+      tasks.addTask.form.parentElement.removeChild(taskForm);
     },
     getUniqueID: () => {
       return (Math.random() + 1).toString(36).substring(3);
@@ -179,31 +179,8 @@ export const tasks = {
         console.log(projectsArr)
         elFactory('option', '', projectName, project);
       });
-
-      // tasks.modifyTask.init();
     }
   },
-  modifyTask: {
-    init: function () {
-      this.cacheDom();
-      this.bindEvents();
-    },
-    cacheDom: function () {
-      this.form = document.getElementById('taskForm');
-    },
-    bindEvents: function () {
-      this.form.addEventListener('submit', this.submitTaskMods.bind())
-    },
-    submitTaskMods: (e) => {
-      tasksArr[objIndex].startDate = startDate.value;
-      tasksArr[objIndex].taskName = taskName.value;
-      tasksArr[objIndex].description = description.value;
-      tasksArr[objIndex].dueDate = dueDate.value;
-      tasksArr[objIndex].project = projectName.value;
-      tasksArr[objIndex].priority = priority.value;
-      tasksArr[objIndex].notes = notes.value;
-    }
-  }
 }
 
 // editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
