@@ -34,34 +34,82 @@ export const pageStyle = {
     pageStyle.styleOffIcon.setAttribute('src', styleOffSrc);
     pageStyle.headerTitleIcon.setAttribute('src', headerTitleIconSrc);
     pageStyle.styleOffIcon.style.cssText = styleOffBgc;
-  }
+  },
 };
 
-export const getTaskForm = () => {
-  document.getElementById('addTaskBtn').onclick = (e) => {
+export const addNewTaskForm = {
+  init: function () {
+    this.cacheDom();
+    this.bindEvents();
+  },
+  cacheDom: function () {
+    this.addTaskBtn = document.getElementById('addTaskBtn');
+  },
+  bindEvents: function () {
+    this.addTaskBtn.addEventListener('click', this.getTaskForm.bind());
+  },
+  getTaskForm: () => {
     if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
       addTaskForm();
-      submitTaskBtn();
-      cancelTask();
+
+      addTask.init()
+    }
+  },
+};
+
+const addTask = {
+  init: function () {
+    this.cacheDom();
+    this.bindEvents();
+  },
+  cacheDom: function () {
+    this.form = document.getElementById('taskForm');
+    this.submitBtn = this.form.querySelector('#taskSubmit');
+    this.cancelBtn = this.form.querySelector('.cancelBtn');
+  },
+  bindEvents: function () {
+    this.form.addEventListener('submit', this.submitTask.bind(), this.removeTasksForm.bind());
+    this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
+  },
+  submitTask: (e) => {
+    e.preventDefault();
+    let myUniqueId = addTask.getUniqueID();
+    let myNewTask = addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
+
+    console.log(myNewTask)
+
+    tasksArr.push(myNewTask);
+    taskSortStore();
+
+    newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
+
+    getSelectedTasks();
+    addTask.removeTasksForm();
+  },
+  removeTasksForm: () => {
+    addTask.form.parentElement.removeChild(taskForm);
+  },
+  getUniqueID: () => {
+    return (Math.random() + 1).toString(36).substring(3);
+  },
+  taskFactory: (startDate, taskName, description, dueDate, project, priority, notes, uniqueID) => {
+    return {
+      taskName: taskName,
+      startDate: startDate,
+      description: description,
+      dueDate: dueDate,
+      project: project,
+      priority: priority,
+      notes: notes,
+      uniqueID: uniqueID,
+      complete: "No",
     }
   }
 }
 
-const cancelTask = () => {
-  document.querySelector('#taskForm .cancelBtn').onclick = (e) => {
-    e.preventDefault();
-    removeTasksForm();
-  }
-};
-
-const removeTasksForm = () => {
+const removeTasksForm = () => {  // This should be moved into task module when ready, then alos remove remove tasksForm from addTask
   const taskForm = document.getElementById('taskForm');
   taskForm.parentElement.removeChild(taskForm);
-}
-
-const getUniqueID = () => {
-  let myID = (Math.random() + 1).toString(36).substring(3);
-  return myID;
 }
 
 export const taskSortStore = () => {
@@ -70,35 +118,6 @@ export const taskSortStore = () => {
   tasksArr.sort((a, b) => a.complete > b.complete ? 1 : -1);
   localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
 }
-
-const submitTaskBtn = () => {
-  document.getElementById('taskSubmit').onclick = (e) => {
-    let myUniqueId = getUniqueID();
-    e.preventDefault();
-    let myNewTask = taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
-
-    tasksArr.push(myNewTask);
-    taskSortStore();
-
-    newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
-    getSelectedTasks();
-    removeTasksForm();
-  }
-};
-
-const taskFactory = (startDate, taskName, description, dueDate, project, priority, notes, uniqueID) => {
-  return {
-    taskName: taskName,
-    startDate: startDate,
-    description: description,
-    dueDate: dueDate,
-    project: project,
-    priority: priority,
-    notes: notes,
-    uniqueID: uniqueID,
-    complete: "No",
-  }
-};
 
 const priorityColors = () => {
   tasksArr.forEach(task => {
