@@ -36,76 +36,230 @@ export const pageStyle = {
     pageStyle.styleOffIcon.style.cssText = styleOffBgc;
   },
 };
-
-export const addNewTaskForm = {
+export const tasks = {
   init: function () {
-    this.cacheDom();
-    this.bindEvents();
+    this.addNewTaskForm.init();
+    this.tasksArrToPage(tasksArr);
   },
-  cacheDom: function () {
-    this.addTaskBtn = document.getElementById('addTaskBtn');
-  },
-  bindEvents: function () {
-    this.addTaskBtn.addEventListener('click', this.getTaskForm.bind());
-  },
-  getTaskForm: () => {
-    if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
-      addTaskForm();
 
-      addTask.init()
+  tasksArrToPage: (thisArr) => {
+    thisArr.forEach(element => {
+      newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
+    });
+    btnHover('.taskEditBtn', '.taskDeleteBtn')
+    tasks.addEditTaskForm.init();
+    hideTasks();
+    checkBoxAction();
+    priorityColors();
+  },
+
+  addNewTaskForm: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.addTaskBtn = document.getElementById('addTaskBtn');
+    },
+    bindEvents: function () {
+      this.addTaskBtn.addEventListener('click', this.getTaskForm.bind());
+    },
+    getTaskForm: () => {
+      if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
+        addTaskForm();
+        tasks.addTask.init()
+      }
     }
   },
-};
 
-const addTask = {
-  init: function () {
-    this.cacheDom();
-    this.bindEvents();
-  },
-  cacheDom: function () {
-    this.form = document.getElementById('taskForm');
-    this.submitBtn = this.form.querySelector('#taskSubmit');
-    this.cancelBtn = this.form.querySelector('.cancelBtn');
-  },
-  bindEvents: function () {
-    this.form.addEventListener('submit', this.submitTask.bind(), this.removeTasksForm.bind());
-    this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
-  },
-  submitTask: (e) => {
-    e.preventDefault();
-    let myUniqueId = addTask.getUniqueID();
-    let myNewTask = addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
+  addTask: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.form = document.getElementById('taskForm');
+      this.submitBtn = this.form.querySelector('#taskSubmit');
+      this.cancelBtn = this.form.querySelector('.cancelBtn');
+    },
+    bindEvents: function () {
+      this.form.addEventListener('submit', this.submitTask.bind(), this.removeTasksForm.bind());
+      this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
+    },
+    submitTask: (e) => {
+      e.preventDefault();
+      let myUniqueId = addTask.getUniqueID();
+      let myNewTask = addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
-    console.log(myNewTask)
+      console.log(myNewTask)
 
-    tasksArr.push(myNewTask);
-    taskSortStore();
+      tasksArr.push(myNewTask);
+      taskSortStore();
 
-    newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
+      newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
-    getSelectedTasks();
-    addTask.removeTasksForm();
-  },
-  removeTasksForm: () => {
-    addTask.form.parentElement.removeChild(taskForm);
-  },
-  getUniqueID: () => {
-    return (Math.random() + 1).toString(36).substring(3);
-  },
-  taskFactory: (startDate, taskName, description, dueDate, project, priority, notes, uniqueID) => {
-    return {
-      taskName: taskName,
-      startDate: startDate,
-      description: description,
-      dueDate: dueDate,
-      project: project,
-      priority: priority,
-      notes: notes,
-      uniqueID: uniqueID,
-      complete: "No",
+      getSelectedTasks();
+      addTask.removeTasksForm();
+    },
+    removeTasksForm: () => {
+      addTask.form.parentElement.removeChild(taskForm);
+    },
+    getUniqueID: () => {
+      return (Math.random() + 1).toString(36).substring(3);
+    },
+    taskFactory: (startDate, taskName, description, dueDate, project, priority, notes, uniqueID) => {
+      return {
+        taskName: taskName,
+        startDate: startDate,
+        description: description,
+        dueDate: dueDate,
+        project: project,
+        priority: priority,
+        notes: notes,
+        uniqueID: uniqueID,
+        complete: "No",
+      }
     }
-  }
+  },
+
+  addEditTaskForm: {
+    targetId: null,
+    appendTo: null,
+    objIndex: null,
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.editTaskBtn = document.querySelectorAll('.taskEditBtn');
+    },
+    bindEvents: function () {
+      this.editTaskBtn.forEach(editBtn => {
+        editBtn.addEventListener('click', () => {
+          this.targetId = editBtn.closest('.taskWrap').getAttribute('id');
+          this.getTaskForm();
+          // get the parent of form's <select> element (#projectName) & remove
+          this.appendTo = document.getElementById('projectName').closest('p');
+          projectName.remove();
+          // add empty select back to the same parent
+          elFactory('select', { id: 'projectName' }, this.appendTo,);
+        });
+      });
+    },
+    getTaskForm: (e) => {
+      if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
+        addTaskForm();
+        tasks.addEditTaskForm.taskDetailsToForm();
+      }
+    },
+    taskDetailsToForm: () => {
+      // find the task to be edited in tasksArr
+      tasks.addEditTaskForm.objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == tasks.addEditTaskForm.targetId);
+
+      // send selected task property values to form
+      startDate.value = tasksArr[tasks.addEditTaskForm.objIndex].startDate
+      taskName.value = tasksArr[tasks.addEditTaskForm.objIndex].taskName;
+      description.value = tasksArr[tasks.addEditTaskForm.objIndex].description
+      dueDate.value = tasksArr[tasks.addEditTaskForm.objIndex].dueDate
+      priority.value = tasksArr[tasks.addEditTaskForm.objIndex].priority
+      notes.value = tasksArr[tasks.addEditTaskForm.objIndex].notes
+
+      // find index of task's project in projectArr, remove from projectsArr, add to start of array
+      // this is so that the form's dropdown list has the task's project first in line
+      const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[this.objIndex].project);
+      projectsArr.splice(projectIndex, 1);
+      projectsArr.sort();
+      projectsArr.unshift(tasksArr[this.objIndex].project);
+      // Create options & append to new select element
+      projectsArr.forEach(project => {
+        elFactory('option', '', projectName, project);
+      });
+      // submitTaskMods();
+    }
+  },
 }
+
+// editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
+// const editOrDeleteTask = (btn1, btn2) => {
+//   const affectedBtn = [btn1, btn2];
+//   let targetId = null;
+//   let objIndex = null;
+
+//   const getTaskDetails = () => {
+//     // addTaskForm();
+//     cancelTask();
+//     // get the parent of form's select element (#projectName)
+//     const appendHere = document.getElementById('projectName').closest('p');
+//     // remove preconfigured project options on form
+//     projectName.remove();
+//     // add empty select back to same parent
+//     elFactory('select', { id: 'projectName' }, appendHere,);
+
+//     // send selected task property values to form
+//     objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == targetId);
+//     startDate.value = tasksArr[objIndex].startDate
+//     taskName.value = tasksArr[objIndex].taskName;
+//     description.value = tasksArr[objIndex].description
+//     dueDate.value = tasksArr[objIndex].dueDate
+//     priority.value = tasksArr[objIndex].priority
+//     notes.value = tasksArr[objIndex].notes
+
+//     // find index of task's project in projectArr, remove from array, add to start of array
+//     const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[objIndex].project);
+//     projectsArr.splice(projectIndex, 1);
+//     projectsArr.sort();
+//     projectsArr.unshift(tasksArr[objIndex].project);
+//     // Create options & append to new select element
+//     projectsArr.forEach(project => {
+//       elFactory('option', '', projectName, project);
+//     });
+//     submitTaskMods();
+//   }
+
+//   const submitTaskMods = () => {
+//     document.getElementById('taskSubmit').onclick = (e) => {
+//       e.preventDefault();
+//       tasksArr[objIndex].startDate = startDate.value;
+//       tasksArr[objIndex].taskName = taskName.value;
+//       tasksArr[objIndex].description = description.value;
+//       tasksArr[objIndex].dueDate = dueDate.value;
+//       tasksArr[objIndex].project = projectName.value;
+//       tasksArr[objIndex].priority = priority.value;
+//       tasksArr[objIndex].notes = notes.value;
+
+//       taskSortStore();
+
+//       getSelectedTasks();
+//       removeTasksForm();
+//     }
+//   };
+
+//   const addListeners = (getThisElement) => {
+//     document.querySelectorAll(getThisElement).forEach(button => {
+//       button.addEventListener('click', () => {
+//         // get the unique id of the container
+//         targetId = (button.closest('.taskWrap').getAttribute('id'));
+//         // get the containing div
+//         let deleteThis = button.closest('.taskWrap');
+
+//         // action for deleteBtn
+//         if (getThisElement == btn1) {
+//           // remove from DOM && from taskArr
+//           deleteThis.remove();
+//           tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== targetId);
+
+//           // action for editBtn
+//         } else if (getThisElement == btn2) {
+//           getTaskDetails()
+//         }
+//         taskSortStore();
+//       })
+//     })
+//   }
+//   affectedBtn.forEach(button => {
+//     addListeners(button);
+//   })
+// }
 
 const removeTasksForm = () => {  // This should be moved into task module when ready, then alos remove remove tasksForm from addTask
   const taskForm = document.getElementById('taskForm');
@@ -141,7 +295,8 @@ export const tasksArrToPage = (thisArr) => {
     newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
   });
   btnHover('.taskEditBtn', '.taskDeleteBtn')
-  editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
+  // editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
+  tasks.addEditTaskForm.init();
   hideTasks();
   checkBoxAction();
   priorityColors();
@@ -159,86 +314,86 @@ const hideTasks = () => {
   }
 }
 
-const editOrDeleteTask = (btn1, btn2) => {
-  const affectedBtn = [btn1, btn2];
-  let targetId = null;
-  let objIndex = null;
+// const editOrDeleteTask = (btn1, btn2) => {
+//   const affectedBtn = [btn1, btn2];
+//   let targetId = null;
+//   let objIndex = null;
 
-  const getTaskDetails = () => {
-    addTaskForm();
-    cancelTask();
-    // get the parent of form's select element (#projectName)
-    const appendHere = document.getElementById('projectName').closest('p');
-    // remove preconfigured project options on form
-    projectName.remove();
-    // add empty select back to same parent
-    elFactory('select', { id: 'projectName' }, appendHere,);
+//   const getTaskDetails = () => {
+//     addTaskForm();
+//     cancelTask();
+//     // get the parent of form's select element (#projectName)
+//     const appendHere = document.getElementById('projectName').closest('p');
+//     // remove preconfigured project options on form
+//     projectName.remove();
+//     // add empty select back to same parent
+//     elFactory('select', { id: 'projectName' }, appendHere,);
 
-    // send selected task property values to form
-    objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == targetId);
-    startDate.value = tasksArr[objIndex].startDate
-    taskName.value = tasksArr[objIndex].taskName;
-    description.value = tasksArr[objIndex].description
-    dueDate.value = tasksArr[objIndex].dueDate
-    priority.value = tasksArr[objIndex].priority
-    notes.value = tasksArr[objIndex].notes
+//     // send selected task property values to form
+//     objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == targetId);
+//     startDate.value = tasksArr[objIndex].startDate
+//     taskName.value = tasksArr[objIndex].taskName;
+//     description.value = tasksArr[objIndex].description
+//     dueDate.value = tasksArr[objIndex].dueDate
+//     priority.value = tasksArr[objIndex].priority
+//     notes.value = tasksArr[objIndex].notes
 
-    // find index of task's project in projectArr, remove from array, add to start of array
-    const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[objIndex].project);
-    projectsArr.splice(projectIndex, 1);
-    projectsArr.sort();
-    projectsArr.unshift(tasksArr[objIndex].project);
-    // Create options & append to new select element
-    projectsArr.forEach(project => {
-      elFactory('option', '', projectName, project);
-    });
-    submitTaskMods();
-  }
+//     // find index of task's project in projectArr, remove from array, add to start of array
+//     const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[objIndex].project);
+//     projectsArr.splice(projectIndex, 1);
+//     projectsArr.sort();
+//     projectsArr.unshift(tasksArr[objIndex].project);
+//     // Create options & append to new select element
+//     projectsArr.forEach(project => {
+//       elFactory('option', '', projectName, project);
+//     });
+//     submitTaskMods();
+//   }
 
-  const submitTaskMods = () => {
-    document.getElementById('taskSubmit').onclick = (e) => {
-      e.preventDefault();
-      tasksArr[objIndex].startDate = startDate.value;
-      tasksArr[objIndex].taskName = taskName.value;
-      tasksArr[objIndex].description = description.value;
-      tasksArr[objIndex].dueDate = dueDate.value;
-      tasksArr[objIndex].project = projectName.value;
-      tasksArr[objIndex].priority = priority.value;
-      tasksArr[objIndex].notes = notes.value;
+//   const submitTaskMods = () => {
+//     document.getElementById('taskSubmit').onclick = (e) => {
+//       e.preventDefault();
+//       tasksArr[objIndex].startDate = startDate.value;
+//       tasksArr[objIndex].taskName = taskName.value;
+//       tasksArr[objIndex].description = description.value;
+//       tasksArr[objIndex].dueDate = dueDate.value;
+//       tasksArr[objIndex].project = projectName.value;
+//       tasksArr[objIndex].priority = priority.value;
+//       tasksArr[objIndex].notes = notes.value;
 
-      taskSortStore();
+//       taskSortStore();
 
-      getSelectedTasks();
-      removeTasksForm();
-    }
-  };
+//       getSelectedTasks();
+//       removeTasksForm();
+//     }
+//   };
 
-  const addListeners = (getThisElement) => {
-    document.querySelectorAll(getThisElement).forEach(button => {
-      button.addEventListener('click', () => {
-        // get the unique id of the container
-        targetId = (button.closest('.taskWrap').getAttribute('id'));
-        // get the containing div
-        let deleteThis = button.closest('.taskWrap');
+//   const addListeners = (getThisElement) => {
+//     document.querySelectorAll(getThisElement).forEach(button => {
+//       button.addEventListener('click', () => {
+//         // get the unique id of the container
+//         targetId = (button.closest('.taskWrap').getAttribute('id'));
+//         // get the containing div
+//         let deleteThis = button.closest('.taskWrap');
 
-        // action for deleteBtn
-        if (getThisElement == btn1) {
-          // remove from DOM && from taskArr
-          deleteThis.remove();
-          tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== targetId);
+//         // action for deleteBtn
+//         if (getThisElement == btn1) {
+//           // remove from DOM && from taskArr
+//           deleteThis.remove();
+//           tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== targetId);
 
-          // action for editBtn
-        } else if (getThisElement == btn2) {
-          getTaskDetails()
-        }
-        taskSortStore();
-      })
-    })
-  }
-  affectedBtn.forEach(button => {
-    addListeners(button);
-  })
-}
+//           // action for editBtn
+//         } else if (getThisElement == btn2) {
+//           getTaskDetails()
+//         }
+//         taskSortStore();
+//       })
+//     })
+//   }
+//   affectedBtn.forEach(button => {
+//     addListeners(button);
+//   })
+// }
 
 export const checkBoxAction = () => {
   let targetWrap = null;
