@@ -48,6 +48,7 @@ export const tasks = {
     });
     btnHover('.taskEditBtn', '.taskDeleteBtn')
     tasks.addEditTaskForm.init();
+    tasks.deleteTask.init();
     hideTasks();
     checkBoxAction();
     priorityColors();
@@ -172,8 +173,64 @@ export const tasks = {
       projectsArr.forEach(project => {
         elFactory('option', '', projectName, project);
       });
+      tasks.modifyTask.init();
     }
   },
+  modifyTask: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.form = document.getElementById('taskForm');
+      this.cancelBtn = this.form.querySelector('.cancelBtn');
+    },
+    bindEvents: function () {
+      this.form.addEventListener('submit', this.submitTaskMods.bind(), this.removeTasksForm.bind());
+      this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
+    },
+    submitTaskMods: (e) => {
+      e.preventDefault();
+      tasksArr[tasks.addEditTaskForm.objIndex].startDate = startDate.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].taskName = taskName.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].description = description.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].dueDate = dueDate.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].project = projectName.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].priority = priority.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].notes = notes.value;
+
+      tasks.modifyTask.removeTasksForm();
+      taskSortStore();
+      getSelectedTasks();
+    },
+    removeTasksForm: () => {
+      tasks.modifyTask.form.parentElement.removeChild(taskForm);
+    }
+  },
+  deleteTask: {
+    taskToDelete: null,
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.deleteTaskBtns = document.querySelectorAll('.taskDeleteBtn');
+    },
+    bindEvents: function () {
+      this.deleteTaskBtns.forEach(taskDelBtn => {
+        taskDelBtn.addEventListener('click', () => {
+          this.taskToDelete = taskDelBtn.closest('.taskWrap');
+          this.targetId = taskDelBtn.closest('.taskWrap').getAttribute('id');
+          this.removeTask();
+        })
+      });
+    },
+    removeTask: function () {
+      this.taskToDelete.remove();
+      tasksArr = tasksArr.filter(tasksArr => tasksArr.uniqueID !== tasks.deleteTask.targetId);
+      localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+    }
+  }
 }
 
 // editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
