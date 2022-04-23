@@ -79,7 +79,6 @@ export const tasks = {
     },
     cacheDom: function () {
       this.form = document.getElementById('taskForm');
-      this.submitBtn = this.form.querySelector('#taskSubmit'); // remove this!!!
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
