@@ -79,19 +79,17 @@ export const tasks = {
     },
     cacheDom: function () {
       this.form = document.getElementById('taskForm');
-      this.submitBtn = this.form.querySelector('#taskSubmit');
+      this.submitBtn = this.form.querySelector('#taskSubmit'); // remove this!!!
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', this.submitTask.bind(), this.removeTasksForm.bind());
+      this.form.addEventListener('submit', this.submitTask.bind());
       this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
     },
     submitTask: (e) => {
       e.preventDefault();
-      let myUniqueId = addTask.getUniqueID();
-      let myNewTask = addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
-
-      console.log(myNewTask)
+      let myUniqueId = tasks.addTask.getUniqueID();
+      let myNewTask = tasks.addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
       tasksArr.push(myNewTask);
       taskSortStore();
@@ -99,7 +97,7 @@ export const tasks = {
       newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
       getSelectedTasks();
-      addTask.removeTasksForm();
+      tasks.addTask.removeTasksForm();
     },
     removeTasksForm: () => {
       tasks.addTask.form.parentElement.removeChild(taskForm);
@@ -138,7 +136,6 @@ export const tasks = {
         editBtn.addEventListener('click', () => {
           this.targetId = editBtn.closest('.taskWrap').getAttribute('id');
           this.getTaskForm();
-
         });
       });
     },
@@ -169,14 +166,11 @@ export const tasks = {
       // find index of task's project in projectArr, remove from projectsArr, add to start of array
       // this is so that the form's dropdown list has the task's project first in line
       const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[tasks.addEditTaskForm.objIndex].project);
-
       projectsArr.splice(projectIndex, 1);
       projectsArr.sort();
       projectsArr.unshift(tasksArr[tasks.addEditTaskForm.objIndex].project);
       // Create options & append to new select element
       projectsArr.forEach(project => {
-        console.log(project)
-        console.log(projectsArr)
         elFactory('option', '', projectName, project);
       });
     }
