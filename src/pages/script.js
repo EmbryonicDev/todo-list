@@ -36,6 +36,7 @@ export const pageStyle = {
     pageStyle.styleOffIcon.style.cssText = styleOffBgc;
   },
 };
+
 export const tasks = {
   init: function () {
     this.addNewTaskForm.init();
@@ -50,7 +51,7 @@ export const tasks = {
     tasks.addEditTaskForm.init();
     tasks.deleteTask.init();
     tasks.hideTasks.init();
-    checkBoxAction();
+    tasks.checkBoxAction.init();
     priorityColors();
   },
 
@@ -73,6 +74,88 @@ export const tasks = {
       }
       getSelectedTasks();
     }
+  },
+
+  checkBoxAction: {
+    targetWrap: null,
+    targetId: null,
+    taskToMark: null,
+    init: function () {
+      this.markStorageComplete.init();
+      this.checkboxFunction.init();
+    },
+    
+    markStorageComplete: {
+      displayedIDs: [],
+      init: function () {
+        this.cacheDom();
+        this.bindEvents();
+      },
+      cacheDom: function () {
+        tasks.checkBoxAction.taskWrap = document.querySelectorAll('.taskWrap')
+      },
+      bindEvents: function () {
+        tasks.checkBoxAction.taskWrap.forEach(taskDiv => {
+          tasks.checkBoxAction.targetId = taskDiv.getAttribute('id');
+          this.displayedIDs.push(tasks.checkBoxAction.targetId);
+          this.markStoredTasks();
+        });
+      },
+      markStoredTasks: function () {
+        this.displayedIDs.forEach(id => {
+          tasks.checkBoxAction.targetWrap = document.getElementById(tasks.checkBoxAction.targetId);
+          this.taskToMark = tasksArr.filter(tasksArr => tasksArr.uniqueID == id);
+
+
+          if (this.taskToMark[0].complete == 'Yes') {
+            tasks.checkBoxAction.targetWrap.classList.add('checked');
+            tasks.checkBoxAction.targetWrap.querySelector('input[type="checkbox"]').setAttribute("checked", true);
+            tasks.checkBoxAction.targetWrap.querySelector('h3').classList.add('checked');
+            tasks.checkBoxAction.targetWrap.querySelectorAll('p').forEach(p => {
+              p.classList.add('checked');
+            });
+          } else if (this.taskToMark[0].complete) {
+            tasks.checkBoxAction.targetWrap.classList.remove('checked');
+            tasks.checkBoxAction.targetWrap.querySelector('input[type="checkbox"]').removeAttribute("checked", true);
+            tasks.checkBoxAction.targetWrap.querySelector('h3').classList.remove('checked');
+            tasks.checkBoxAction.targetWrap.querySelectorAll('p').forEach(p => {
+              p.classList.remove('checked');
+            });
+          }
+        })
+      }
+    },
+
+    checkboxFunction: {
+      _objIndex: null,
+      _eTarget: null,
+      init: function () {
+        this.cacheDom();
+        this.bindEvents();
+      },
+      cacheDom: function () {
+        this.checkboxes = document.querySelectorAll('.taskWrap input[type="checkbox"]');
+      },
+      bindEvents: function () {
+        this.checkboxes.forEach(box => {
+          box.addEventListener('change', (e) => {
+            this._eTarget = e.target;
+            tasks.checkBoxAction.targetId = box.closest('.taskWrap').getAttribute('id');
+            tasks.checkBoxAction.targetWrap = box.closest('.taskWrap');
+            this._objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == tasks.checkBoxAction.targetId.targetId);
+            this.addCheckboxFunction.bind()
+          });
+        });
+      },
+      addCheckboxFunction: function (e) {
+        if (tasks.checkBoxAction.checkboxFunction._eTarget.checked) {
+          tasksArr[tasks.checkBoxAction._objIndex].complete = "Yes"
+        } else {
+          tasksArr[tasks.checkBoxAction._objIndex].complete = "No";
+        }
+        taskSortStore();
+      }
+    },
   },
 
   addNewTaskForm: {
