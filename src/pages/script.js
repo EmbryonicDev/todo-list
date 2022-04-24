@@ -49,9 +49,30 @@ export const tasks = {
     btnHover('.taskEditBtn', '.taskDeleteBtn')
     tasks.addEditTaskForm.init();
     tasks.deleteTask.init();
-    hideTasks();
+    tasks.hideTasks.init();
     checkBoxAction();
     priorityColors();
+  },
+
+  hideTasks: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.hideBtn = document.getElementById('hideComplete')
+    },
+    bindEvents: function () {
+      this.hideBtn.addEventListener('click', this.hideCompletedTasks.bind());
+    },
+    hideCompletedTasks: function () {
+      if (hideBtn.innerText == 'Hide Complete') {
+        hideBtn.innerText = 'Show Complete'
+      } else if (hideBtn.innerText == 'Show Complete') {
+        hideBtn.innerText = 'Hide Complete'
+      }
+      getSelectedTasks();
+    }
   },
 
   addNewTaskForm: {
