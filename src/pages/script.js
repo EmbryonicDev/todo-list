@@ -52,7 +52,7 @@ export const tasks = {
     tasks.deleteTask.init();
     tasks.hideTasks.init();
     tasks.checkBoxAction.init();
-    priorityColors();
+    tasks.priorityColors();
   },
 
   hideTasks: {
@@ -84,7 +84,7 @@ export const tasks = {
       this.markStorageComplete.init();
       this.checkboxFunction.init();
     },
-    
+
     markStorageComplete: {
       displayedIDs: [],
       init: function () {
@@ -156,6 +156,23 @@ export const tasks = {
         taskSortStore();
       }
     },
+  },
+
+  priorityColors: function () {
+    tasksArr.forEach(task => {
+      if (document.getElementById(task.uniqueID)) {
+        const taskDiv = document.getElementById(task.uniqueID)
+        if (!taskDiv.classList.contains('checked')) {
+          if (task.priority == "High") {
+            taskDiv.classList.add('red')
+          } else if (task.priority == "Medium") {
+            taskDiv.classList.add('orange')
+          } else if (task.priority == "Low") {
+            taskDiv.classList.add('yellow')
+          }
+        }
+      }
+    })
   },
 
   addNewTaskForm: {
@@ -347,24 +364,7 @@ export const taskSortStore = () => {
   tasksArr.sort((a, b) => a.project < b.project ? 1 : -1);
   tasksArr.sort((a, b) => a.complete > b.complete ? 1 : -1);
   localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
-}
-
-const priorityColors = () => {
-  tasksArr.forEach(task => {
-    if (document.getElementById(task.uniqueID)) {
-      const taskDiv = document.getElementById(task.uniqueID)
-      if (!taskDiv.classList.contains('checked')) {
-        if (task.priority == "High") {
-          taskDiv.classList.add('red')
-        } else if (task.priority == "Medium") {
-          taskDiv.classList.add('orange')
-        } else if (task.priority == "Low") {
-          taskDiv.classList.add('yellow')
-        }
-      }
-    }
-  });
-}
+};
 
 export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
