@@ -4,7 +4,7 @@ import '../src/styles/modern-normalize.css';
 import '../src/styles/plain-style.css';
 import '../src/styles/changed-style.css';
 import '../src/styles/forms.css';
-import { checkBoxAction, getTaskForm, tasksArr, tasksArrToPage, getProjectForm, getProjectsArr, getStoredProjects, taskSortStore, chooseStyle, pageStyle, tasks } from './pages/script.js';
+import { getProjectForm, getProjectsArr, getStoredProjects, pageStyle, tasks } from './pages/script.js';
 import { mainDivTitle } from './functions/global-functions';
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
