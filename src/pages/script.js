@@ -434,19 +434,7 @@ export const tasks = {
       localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
     }
   }
-}
-
-export const tasksArrToPage = (thisArr) => {
-  thisArr.forEach(element => {
-    newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
-  });
-  btnHover('.taskEditBtn', '.taskDeleteBtn')
-  // editOrDeleteTask('.taskDeleteBtn', '.taskEditBtn');
-  tasks.addEditTaskForm.init();
-  hideTasks();
-  checkBoxAction();
-  priorityColors();
-}
+};
 
 // ***  FROM PROJECTS.JS ***
 export const getStoredProjects = () => {
