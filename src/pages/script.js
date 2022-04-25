@@ -106,7 +106,6 @@ export const tasks = {
           tasks.checkBoxAction.targetWrap = document.getElementById(tasks.checkBoxAction.targetId);
           this.taskToMark = tasksArr.filter(tasksArr => tasksArr.uniqueID == id);
 
-
           if (this.taskToMark[0].complete == 'Yes') {
             tasks.checkBoxAction.targetWrap.classList.add('checked');
             tasks.checkBoxAction.targetWrap.querySelector('input[type="checkbox"]').setAttribute("checked", true);
@@ -142,18 +141,20 @@ export const tasks = {
             this._eTarget = e.target;
             tasks.checkBoxAction.targetId = box.closest('.taskWrap').getAttribute('id');
             tasks.checkBoxAction.targetWrap = box.closest('.taskWrap');
-            this._objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == tasks.checkBoxAction.targetId.targetId);
-            this.addCheckboxFunction.bind()
+            tasks.checkBoxAction.checkboxFunction._objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == tasks.checkBoxAction.targetId);
+            this.addCheckboxFunction()
           });
         });
       },
       addCheckboxFunction: function (e) {
         if (tasks.checkBoxAction.checkboxFunction._eTarget.checked) {
-          tasksArr[tasks.checkBoxAction._objIndex].complete = "Yes"
+          tasksArr[tasks.checkBoxAction.checkboxFunction._objIndex].complete = "Yes"
         } else {
-          tasksArr[tasks.checkBoxAction._objIndex].complete = "No";
+          tasksArr[tasks.checkBoxAction.checkboxFunction._objIndex].complete = "No";
         }
+        tasks.checkBoxAction.markStorageComplete.init();
         taskSortStore();
+        tasks.priorityColors();
       }
     },
   },
@@ -388,60 +389,6 @@ const hideTasks = () => {
     }
     getSelectedTasks();
   }
-}
-
-export const checkBoxAction = () => {
-  let targetWrap = null;
-  let targetId = null;
-  let objIndex = null;
-
-  // tick checkbox for completed tasks after page load / filter
-  const updateCompletedTasks = () => {
-    let displayedIDs = [];
-    document.querySelectorAll('.taskWrap').forEach(taskDiv => {
-      targetId = taskDiv.getAttribute('id');
-      displayedIDs.push(targetId);
-
-      displayedIDs.forEach(id => {
-        targetWrap = document.getElementById(targetId);
-        let taskToMark = tasksArr.filter(tasksArr => tasksArr.uniqueID == id);
-
-        if (taskToMark[0].complete == 'Yes') {
-          targetWrap.classList.add('checked');
-          targetWrap.querySelector('input[type="checkbox"]').setAttribute("checked", true);
-          targetWrap.querySelector('h3').classList.add('checked');
-          targetWrap.querySelectorAll('p').forEach(p => {
-            p.classList.add('checked');
-          });
-        } else if (taskToMark[0].complete) {
-          targetWrap.classList.remove('checked');
-          targetWrap.querySelector('input[type="checkbox"]').removeAttribute("checked", true);
-          targetWrap.querySelector('h3').classList.remove('checked');
-          targetWrap.querySelectorAll('p').forEach(p => {
-            p.classList.remove('checked');
-          });
-        }
-      });
-      taskSortStore();
-    });
-  }
-  updateCompletedTasks();
-
-  // add eListeners to checkboxes
-  document.querySelectorAll('.taskWrap input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', (e) => {
-      targetId = checkbox.closest('.taskWrap').getAttribute('id');
-      targetWrap = checkbox.closest('.taskWrap');
-      objIndex = tasksArr.findIndex(tasksArr => tasksArr.uniqueID == targetId);
-      if (e.target.checked) {
-        tasksArr[objIndex].complete = "Yes"
-      } else {
-        tasksArr[objIndex].complete = "No";
-      }
-      taskSortStore();
-      updateCompletedTasks();
-    })
-  });
 }
 
 // ***  FROM PROJECTS.JS ***
