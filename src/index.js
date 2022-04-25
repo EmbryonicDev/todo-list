@@ -40,4 +40,4 @@ getProjectsArr();
   });
 })();
 
-taskSortStore();
+// taskSortStore();

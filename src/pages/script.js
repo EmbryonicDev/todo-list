@@ -76,6 +76,13 @@ export const tasks = {
     }
   },
 
+  taskSortStore: () => {
+    tasksArr.sort((a, b) => a.startDate > b.startDate ? 1 : -1);
+    tasksArr.sort((a, b) => a.project < b.project ? 1 : -1);
+    tasksArr.sort((a, b) => a.complete > b.complete ? 1 : -1);
+    localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+  },
+
   checkBoxAction: {
     targetWrap: null,
     targetId: null,
@@ -153,7 +160,7 @@ export const tasks = {
           tasksArr[tasks.checkBoxAction.checkboxFunction._objIndex].complete = "No";
         }
         tasks.checkBoxAction.markStorageComplete.init();
-        taskSortStore();
+        tasks.taskSortStore();
         tasks.priorityColors();
       }
     },
@@ -214,7 +221,7 @@ export const tasks = {
       let myNewTask = tasks.addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
       tasksArr.push(myNewTask);
-      taskSortStore();
+      tasks.taskSortStore();
 
       newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
@@ -322,7 +329,7 @@ export const tasks = {
       tasksArr[tasks.addEditTaskForm.objIndex].notes = notes.value;
 
       tasks.modifyTask.removeTasksForm();
-      taskSortStore();
+      tasks.taskSortStore();
       getSelectedTasks();
     },
     removeTasksForm: () => {
@@ -354,13 +361,6 @@ export const tasks = {
     }
   }
 }
-
-export const taskSortStore = () => {
-  tasksArr.sort((a, b) => a.startDate > b.startDate ? 1 : -1);
-  tasksArr.sort((a, b) => a.project < b.project ? 1 : -1);
-  tasksArr.sort((a, b) => a.complete > b.complete ? 1 : -1);
-  localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
-};
 
 export const tasksArrToPage = (thisArr) => {
   thisArr.forEach(element => {
@@ -447,7 +447,7 @@ const editOrDeleteProject = (btn1, btn2) => {
         tasksToModify[i].project = modifiedProjectName;
       }
 
-      taskSortStore();
+      tasks.taskSortStore();
       getSelectedTasks();
       removeProjectForm();
       getStoredProjects();
@@ -526,7 +526,7 @@ const editOrDeleteProject = (btn1, btn2) => {
         } else if (getThisElement == btn4) {
           removeConfirmation();
         }
-        taskSortStore();
+        tasks.taskSortStore();
       })
     })
   }
