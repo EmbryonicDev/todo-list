@@ -7,6 +7,7 @@ import blackTitleIcon from '../assets/icons/task-icon-black.svg';
 import styleOn from '../assets/icons/style-on-icon.svg';
 import styleOff from '../assets/icons/style-off-icon.svg';
 import titleIcon from '../assets/icons/task-icon.svg';
+import { addDays, format } from "date-fns";
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
@@ -72,7 +73,7 @@ export const tasks = {
       } else if (hideBtn.innerText == 'Show Complete') {
         hideBtn.innerText = 'Hide Complete'
       }
-      getSelectedTasks();
+      tasks.getSelectedTasks.init();
     }
   },
 
@@ -181,6 +182,89 @@ export const tasks = {
         }
       }
     })
+  },
+
+  getSelectedTasks: { // change name to getFilterTasks
+    init: function () {
+      // this.getTaskArrays();
+      this.cacheDom();
+      this.clearTasks();
+      this.filterTasks();
+    },
+    cacheDom: function () {
+      this.mainDiv = document.getElementById('mainDiv');
+      this.activeTitle = document.getElementById('activeTitle').innerText;
+      this.hideBtn = document.getElementById('hideComplete');
+    },
+    clearTasks: function () {
+      while (tasks.getSelectedTasks.mainDiv.children.length > 1) {
+        tasks.getSelectedTasks.mainDiv.removeChild(tasks.getSelectedTasks.mainDiv.lastChild);
+      }
+    },
+    filterTasks: function () {
+      // date-fns
+      const temp = (new Date());
+      const today = format(temp, 'yyyy-MM-dd');
+      const tempWeek = addDays(temp, 6);
+      const week = format(tempWeek, 'yyyy-MM-dd');
+      // arrays
+      const allHidden = tasksArr.filter(tasksArr => tasksArr.complete == "No");
+      const todayTasks = tasksArr.filter(tasksArr => tasksArr.startDate <= today);
+      const todayHidden = todayTasks.filter(todayTasks => todayTasks.complete == "No");
+      const weekTasks = tasksArr.filter(tasksArr => tasksArr.startDate < week);
+      const weekHidden = weekTasks.filter(weekTasks => weekTasks.complete == "No");
+      const highPriority = tasksArr.filter(tasksArr => tasksArr.priority == 'High');
+      const highHidden = highPriority.filter(highPriority => highPriority.complete == "No");
+      const completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
+      const completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No");
+
+      if (projectsArr.includes(tasks.getSelectedTasks.activeTitle)) {
+        let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == tasks.getSelectedTasks.activeTitle);
+        if (tasks.getSelectedTasks.hideBtn.innerText == 'Show Complete') {
+          filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
+        }
+        tasks.tasksArrToPage(filteredProjects);
+      };
+      // sort tasks according to selected taskss category
+      if (tasks.getSelectedTasks.hideBtn.innerText == "Hide Complete") {
+        switch (tasks.getSelectedTasks.activeTitle) {
+          case "All Tasks":
+            tasks.tasksArrToPage(tasksArr);
+            break;
+          case "Today":
+            tasks.tasksArrToPage(todayTasks);
+            break;
+          case "Next 7 Days":
+            tasks.tasksArrToPage(weekTasks);
+            break;
+          case "High Priority":
+            tasks.tasksArrToPage(highPriority)
+            break;
+          case "Completed Tasks":
+            tasks.tasksArrToPage(completedTasks)
+            break;
+        }
+      }
+      if (tasks.getSelectedTasks.hideBtn.innerText == "Show Complete") {
+        switch (tasks.getSelectedTasks.activeTitle) {
+          case "All Tasks":
+            tasks.tasksArrToPage(allHidden);
+            break;
+          case "Today":
+            tasks.tasksArrToPage(todayHidden);
+            break;
+          case "Next 7 Days":
+            tasks.tasksArrToPage(weekHidden);
+            break;
+          case "High Priority":
+            tasks.tasksArrToPage(highHidden)
+            break;
+          case "Completed Tasks":
+            tasks.tasksArrToPage(completedHidden)
+            break;
+        }
+      }
+    }
   },
 
   addNewTaskForm: {
