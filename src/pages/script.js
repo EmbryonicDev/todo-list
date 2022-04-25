@@ -465,24 +465,34 @@ export const projects = {
       // check if any form is on screen
       if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
         addProjectForm();
-        projects.projectSubmit();
-        projects.cancelProject();
+        projects.activateFormBtns.init();
       }
     }
   },
-  projectSubmit: function () {
-    document.getElementById('projectSubmit').onclick = (e) => {
+
+  activateFormBtns: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.projectForm = document.getElementById('projectForm');
+      this.submitBtn = this.projectForm.querySelector('#projectSubmit');
+      this.cancelBtn = this.projectForm.querySelector('.cancelBtn');
+    },
+    bindEvents: function () {
+      this.submitBtn.addEventListener('click', this.projectSubmit.bind());
+      this.cancelBtn.addEventListener('click', this.cancelProject.bind());
+    },
+    projectSubmit: function (e) {
       e.preventDefault();
-      newProject(projectForm.newProjectName.value, true);
-      removeProjectForm();
+      newProject(projects.activateFormBtns.projectForm.newProjectName.value, true);
       projects.getProjectsArr();
-    }
-  },
-  cancelProject: function () {
-    document.querySelector('#projectForm .cancelBtn').onclick = (e) => {
-      e.preventDefault();
-      removeProjectForm();
-    }
+      projects.activateFormBtns.cancelProject();
+    },
+    cancelProject: function () {
+      projects.activateFormBtns.projectForm.parentElement.removeChild(projectForm);
+    },
   },
 }
 
