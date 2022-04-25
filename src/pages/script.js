@@ -355,11 +355,6 @@ export const tasks = {
   }
 }
 
-const removeTasksForm = () => {  // This should be moved into task module when ready, then alos remove remove tasksForm from addTask
-  const taskForm = document.getElementById('taskForm');
-  taskForm.parentElement.removeChild(taskForm);
-}
-
 export const taskSortStore = () => {
   tasksArr.sort((a, b) => a.startDate > b.startDate ? 1 : -1);
   tasksArr.sort((a, b) => a.project < b.project ? 1 : -1);
