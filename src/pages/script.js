@@ -436,15 +436,20 @@ export const tasks = {
   }
 };
 
-// ***  FROM PROJECTS.JS ***
-export const getStoredProjects = () => {
-  if (activeProjects.length > 0) {
-    activeProjects.sort((a, b) => a > b ? 1 : -1);
-    activeProjects.forEach(element => {
-      newProject(element);
-      btnHover('.projectEditBtn', '.projectDeleteBtn');
-      editOrDeleteProject('.projectDeleteBtn', '.projectEditBtn');
-    });
+export const projects = {
+  init: function(){
+    this.getStoredProjects();
+  },
+
+  getStoredProjects: function () {
+    if (activeProjects.length > 0) {
+      activeProjects.sort((a, b) => a > b ? 1 : -1);
+      activeProjects.forEach(element => {
+        newProject(element);
+        btnHover('.projectEditBtn', '.projectDeleteBtn');
+        editOrDeleteProject('.projectDeleteBtn', '.projectEditBtn');
+      });
+    }
   }
 }
 
@@ -500,7 +505,7 @@ const editOrDeleteProject = (btn1, btn2) => {
       tasks.taskSortStore();
       getSelectedTasks();
       removeProjectForm();
-      getStoredProjects();
+      projects.getStoredProjects();
     }
   };
 

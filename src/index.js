@@ -4,7 +4,7 @@ import '../src/styles/modern-normalize.css';
 import '../src/styles/plain-style.css';
 import '../src/styles/changed-style.css';
 import '../src/styles/forms.css';
-import { getProjectForm, getProjectsArr, getStoredProjects, pageStyle, tasks } from './pages/script.js';
+import { getProjectForm, getProjectsArr, getStoredProjects, pageStyle, projects, tasks } from './pages/script.js';
 import { mainDivTitle } from './functions/global-functions';
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
@@ -24,7 +24,8 @@ buildDom(header(), sidebar(), activeTitleDisplay());
 
 pageStyle.init();
 
-getStoredProjects();
+// getStoredProjects();
+projects.init();
 
 // getTaskForm();
 tasks.init();
