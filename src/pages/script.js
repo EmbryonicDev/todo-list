@@ -466,7 +466,7 @@ export const projects = {
       if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
         addProjectForm();
         projects.projectSubmit();
-        cancelProject();
+        projects.cancelProject();
       }
     }
   },
@@ -476,6 +476,12 @@ export const projects = {
       newProject(projectForm.newProjectName.value, true);
       removeProjectForm();
       projects.getProjectsArr();
+    }
+  },
+  cancelProject: function () {
+    document.querySelector('#projectForm .cancelBtn').onclick = (e) => {
+      e.preventDefault();
+      removeProjectForm();
     }
   },
 }
@@ -609,13 +615,6 @@ const editOrDeleteProject = (btn1, btn2) => {
     addListeners(button);
   });
 }
-
-const cancelProject = () => {
-  document.querySelector('#projectForm .cancelBtn').onclick = (e) => {
-    e.preventDefault();
-    removeProjectForm();
-  }
-};
 
 const removeProjectForm = () => {
   projectForm.parentElement.removeChild(projectForm);
