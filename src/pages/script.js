@@ -436,9 +436,11 @@ export const tasks = {
   }
 };
 
+// MOVE getProjectsArr into projects{}
 export const projects = {
   init: function(){
     this.getStoredProjects();
+    this.getProjectsArr();
   },
 
   getStoredProjects: function () {
@@ -450,15 +452,21 @@ export const projects = {
         editOrDeleteProject('.projectDeleteBtn', '.projectEditBtn');
       });
     }
-  }
+  },
+  getProjectsArr: function () {
+    projectsArr = [];
+    document.querySelectorAll(".projectWrap h3").forEach(project => {
+      projectsArr.push(project.innerText);
+    })
+  },
 }
 
-export const getProjectsArr = () => {
-  projectsArr = [];
-  document.querySelectorAll(".projectWrap h3").forEach(project => {
-    projectsArr.push(project.innerText);
-  })
-}
+// export const getProjectsArr = () => {
+//   projectsArr = [];
+//   document.querySelectorAll(".projectWrap h3").forEach(project => {
+//     projectsArr.push(project.innerText);
+//   })
+// }
 
 const editOrDeleteProject = (btn1, btn2) => {
   const projectWrapBtns = [btn1, btn2];
@@ -568,7 +576,7 @@ const editOrDeleteProject = (btn1, btn2) => {
         } else if (getThisElement == btn3) {
           activeProjects = activeProjects.filter(activeProjects => activeProjects !== projectToModify)
           localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
-          getProjectsArr();
+          projects.getProjectsArr();
           location.reload();
 
           // remove tasks from tasksArr
@@ -606,7 +614,7 @@ const projectSubmit = () => {
     e.preventDefault();
     newProject(projectForm.newProjectName.value, true);
     removeProjectForm();
-    getProjectsArr();
+    projects.getProjectsArr();
   }
 }
 

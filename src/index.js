@@ -31,8 +31,6 @@ projects.init();
 tasks.init();
 getProjectForm();
 
-getProjectsArr();
-
 // show active project / task group title
 (() => {
   let activeTitleArr = ['.sideNav div', '.projectWrap h3'];
