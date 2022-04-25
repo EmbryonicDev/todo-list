@@ -465,11 +465,19 @@ export const projects = {
       // check if any form is on screen
       if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
         addProjectForm();
-        projectSubmit();
+        projects.projectSubmit();
         cancelProject();
       }
     }
-  }
+  },
+  projectSubmit: function () {
+    document.getElementById('projectSubmit').onclick = (e) => {
+      e.preventDefault();
+      newProject(projectForm.newProjectName.value, true);
+      removeProjectForm();
+      projects.getProjectsArr();
+    }
+  },
 }
 
 const editOrDeleteProject = (btn1, btn2) => {
@@ -600,15 +608,6 @@ const editOrDeleteProject = (btn1, btn2) => {
   projectWrapBtns.forEach(button => {
     addListeners(button);
   });
-}
-
-const projectSubmit = () => {
-  document.getElementById('projectSubmit').onclick = (e) => {
-    e.preventDefault();
-    newProject(projectForm.newProjectName.value, true);
-    removeProjectForm();
-    projects.getProjectsArr();
-  }
 }
 
 const cancelProject = () => {
