@@ -1,4 +1,4 @@
-import { btnHover, elFactory, getSelectedTasks } from "../functions/global-functions";
+import { btnHover, elFactory } from "../functions/global-functions";
 import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
 import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
@@ -51,23 +51,14 @@ export const tasks = {
     btnHover('.taskEditBtn', '.taskDeleteBtn')
     tasks.addEditTaskForm.init();
     tasks.deleteTask.init();
-    tasks.hideTasks.init();
     tasks.checkBoxAction.init();
     tasks.priorityColors();
+    tasks.hideTasks();
   },
 
-  hideTasks: {
-    init: function () {
-      this.cacheDom();
-      this.bindEvents();
-    },
-    cacheDom: function () {
-      this.hideBtn = document.getElementById('hideComplete')
-    },
-    bindEvents: function () {
-      this.hideBtn.addEventListener('click', this.hideCompletedTasks.bind());
-    },
-    hideCompletedTasks: function () {
+  hideTasks: function () {
+    const hideBtn = document.querySelector('#hideComplete');
+    document.querySelector('#hideComplete').onclick = (e) => {
       if (hideBtn.innerText == 'Hide Complete') {
         hideBtn.innerText = 'Show Complete'
       } else if (hideBtn.innerText == 'Show Complete') {
@@ -186,7 +177,6 @@ export const tasks = {
 
   getSelectedTasks: { // change name to getFilterTasks
     init: function () {
-      // this.getTaskArrays();
       this.cacheDom();
       this.clearTasks();
       this.filterTasks();
@@ -456,18 +446,6 @@ export const tasksArrToPage = (thisArr) => {
   hideTasks();
   checkBoxAction();
   priorityColors();
-}
-
-const hideTasks = () => {
-  document.querySelector('#hideComplete').onclick = (e) => {
-    const hideBtn = document.querySelector('#hideComplete');
-    if (hideBtn.innerText == 'Hide Complete') {
-      hideBtn.innerText = 'Show Complete'
-    } else if (hideBtn.innerText == 'Show Complete') {
-      hideBtn.innerText = 'Hide Complete'
-    }
-    getSelectedTasks();
-  }
 }
 
 // ***  FROM PROJECTS.JS ***
