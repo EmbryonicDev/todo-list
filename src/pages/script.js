@@ -438,9 +438,10 @@ export const tasks = {
 
 // MOVE getProjectsArr into projects{}
 export const projects = {
-  init: function(){
+  init: function () {
     this.getStoredProjects();
     this.getProjectsArr();
+    this.getProjectForm();
   },
 
   getStoredProjects: function () {
@@ -459,14 +460,17 @@ export const projects = {
       projectsArr.push(project.innerText);
     })
   },
+  getProjectForm: function () {
+    document.getElementById('addProjectBtn').onclick = (e) => {
+      // check if any form is on screen
+      if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
+        addProjectForm();
+        projectSubmit();
+        cancelProject();
+      }
+    }
+  }
 }
-
-// export const getProjectsArr = () => {
-//   projectsArr = [];
-//   document.querySelectorAll(".projectWrap h3").forEach(project => {
-//     projectsArr.push(project.innerText);
-//   })
-// }
 
 const editOrDeleteProject = (btn1, btn2) => {
   const projectWrapBtns = [btn1, btn2];
@@ -596,17 +600,6 @@ const editOrDeleteProject = (btn1, btn2) => {
   projectWrapBtns.forEach(button => {
     addListeners(button);
   });
-}
-
-export const getProjectForm = () => {
-  document.getElementById('addProjectBtn').onclick = (e) => {
-    // check if any form is on screen
-    if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
-      addProjectForm();
-      projectSubmit();
-      cancelProject();
-    }
-  }
 }
 
 const projectSubmit = () => {

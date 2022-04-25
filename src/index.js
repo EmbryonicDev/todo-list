@@ -29,7 +29,7 @@ projects.init();
 
 // getTaskForm();
 tasks.init();
-getProjectForm();
+// getProjectForm();
 
 // show active project / task group title
 (() => {
