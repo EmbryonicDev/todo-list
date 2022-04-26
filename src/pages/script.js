@@ -437,10 +437,10 @@ export const tasks = {
 };
 
 export const projects = {
-  init: function () {
+ init: function () {
     this.getStoredProjects();
     this.getProjectsArr();
-    this.getProjectForm.init();
+    this.projectForm.init();
     this.getProjectEditForm.init();
   },
   getStoredProjects: function () {
@@ -458,8 +458,17 @@ export const projects = {
       projectsArr.push(project.innerText);
     })
   },
+  getProjectForm: function () {
+    if (!document.getElementById('taskForm') && !document.getElementById('projectForm') && !document.getElementById('confirmDeleteWrap')) {
+      addProjectForm();
+      projects.addProject.init();
+    }
+  },
+  removeProjectForm: function () {
+    document.getElementById('projectForm').parentElement.removeChild(projectForm);
+  },
 
-  getProjectForm: {
+  projectForm: {
     init: function () {
       this.cacheDom();
       this.bindEvents();
@@ -468,14 +477,8 @@ export const projects = {
       this.addProjectBtn = document.getElementById('addProjectBtn');
     },
     bindEvents: function () {
-      this.addProjectBtn.addEventListener('click', this.getProjectForm.bind())
+      this.addProjectBtn.addEventListener('click', projects.getProjectForm.bind(), projects.addProject.init.bind())
     },
-    getProjectForm: function () {
-      if (!document.getElementById('taskForm') && !document.getElementById('projectForm') && !document.getElementById('confirmDeleteWrap')) {
-        addProjectForm();
-        projects.addProject.init();
-      }
-    }
   },
 
   addProject: {
@@ -489,16 +492,13 @@ export const projects = {
     },
     bindEvents: function () {
       this.form.addEventListener('submit', this.projectSubmit.bind());
-      this.cancelBtn.addEventListener('click', this.removeProjectForm.bind());
+      this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
-    projectSubmit: function (e) {
+    projectSubmit: (e) => {
       e.preventDefault();
-      newProject(projectForm.newProjectName.value, true);
-      projects.addProject.removeProjectForm();
+      newProject(projects.addProject.form.newProjectName.value, true);
+      projects.removeProjectForm();
       projects.getProjectsArr();
-    },
-    removeProjectForm: function () {
-      projectForm.parentElement.removeChild(projectForm);
     },
   },
 
