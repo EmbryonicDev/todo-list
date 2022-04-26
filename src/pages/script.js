@@ -437,7 +437,10 @@ export const tasks = {
 };
 
 export const projects = {
- init: function () {
+  tasksToModify: null,
+  projectToModify: null,
+
+  init: function () {
     this.getStoredProjects();
     this.getProjectsArr();
     this.projectForm.init();
@@ -465,7 +468,9 @@ export const projects = {
     }
   },
   removeProjectForm: function () {
-    document.getElementById('projectForm').parentElement.removeChild(projectForm);
+    if (document.getElementById('projectForm')) {
+      document.getElementById('projectForm').parentElement.removeChild(projectForm);
+    }
   },
 
   projectForm: {
@@ -477,7 +482,7 @@ export const projects = {
       this.addProjectBtn = document.getElementById('addProjectBtn');
     },
     bindEvents: function () {
-      this.addProjectBtn.addEventListener('click', projects.getProjectForm.bind(), projects.addProject.init.bind())
+      this.addProjectBtn.addEventListener('click', projects.getProjectForm.bind())
     },
   },
 
@@ -517,20 +522,71 @@ export const projects = {
           // get the project name of the container
           projects.projectToModify = editBtn.closest('.projectWrap').children[1].innerText;
 
-          this.getProjectForm();
+          projects.getProjectForm();
+          this.projectDetailsToForm();
+          projects.applyProjectMods.init();
         })
       });
-    },
-    getProjectForm: function () {
-      if (!document.getElementById('projectForm') && !document.getElementById('taskForm') && !document.getElementById('confirmDeleteWrap')) {
-        addProjectForm();
-        projects.getProjectEditForm.projectDetailsToForm();
-      }
     },
     projectDetailsToForm: function () {
       newProjectName.value = projects.projectToModify;
     },
   },
+
+  applyProjectMods: {
+    modifiedProjectName: null,
+    init: function () {
+      this.cacheDom();
+      this.getProjectTasks();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.projectForm = document.getElementById('projectForm');
+      this.cancelBtn = this.projectForm.querySelector('.cancelBtn');
+    },
+    bindEvents: function () {
+      this.projectForm.addEventListener('submit', this.submitProjectMods.bind());
+      this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
+    },
+    getProjectTasks: function () {
+      for (let i = 0; i < tasksArr.length; i++) {
+        projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
+      }
+    },
+    submitProjectMods: function (e) {
+      e.preventDefault();
+      // Remove original name from activeProjects & push new name
+      projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
+      let index = activeProjects.indexOf(projects.projectToModify);
+      activeProjects.splice(index, 1);
+      localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+      projects.applyProjectMods.updateProjectTasks();
+      projects.applyProjectMods.removeProjectWraps();
+      projects.getStoredProjects();
+      projects.applyProjectMods.projectSubmit();
+      projects.applyProjectMods.getProjectTasks();
+    },
+    projectSubmit: function () {
+      tasks.taskSortStore();
+      tasks.getSelectedTasks.init();
+      projects.removeProjectForm();
+      projects.getProjectsArr();
+    },
+    removeProjectWraps: function () {
+      const projectsDiv = document.getElementById('projectsDiv');
+      while (projectsDiv.children.length > 1) {
+        projectsDiv.removeChild(projectsDiv.lastChild);
+      }
+    },
+    updateProjectTasks: function () {
+      if (projects.tasksToModify !== null) {
+        for (let i = 0; i < projects.tasksToModify.length; i++) {
+          projects.tasksToModify[i].project = projects.applyProjectMods.modifiedProjectName;
+        }
+      }
+    }
+  }
+
 }
 
 // const editOrDeleteProject = (btn1, btn2) => {
