@@ -42,6 +42,7 @@ export const tasks = {
   init: function () {
     this.addNewTaskForm.init();
     this.tasksArrToPage(tasksArr);
+    this.taskSortStore();
   },
 
   tasksArrToPage: (thisArr) => {
@@ -299,7 +300,7 @@ export const tasks = {
 
       newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
-      getSelectedTasks();
+      tasks.getSelectedTasks.init();
       tasks.addTask.removeTasksForm();
     },
     removeTasksForm: () => {
@@ -404,7 +405,7 @@ export const tasks = {
 
       tasks.modifyTask.removeTasksForm();
       tasks.taskSortStore();
-      getSelectedTasks();
+      tasks.getSelectedTasks.init();
     },
     removeTasksForm: () => {
       tasks.modifyTask.form.parentElement.removeChild(taskForm);
