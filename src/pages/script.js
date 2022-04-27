@@ -183,12 +183,12 @@ export const tasks = {
       this.activeTitle = document.getElementById('activeTitle').innerText;
       this.hideBtn = document.getElementById('hideComplete');
     },
-  clearTasks: function () {
-    const MAIN_DIV = document.getElementById('mainDiv');
-    while (MAIN_DIV.children.length > 1) {
-      MAIN_DIV.removeChild(MAIN_DIV.lastChild);
-    }
-  },
+    clearTasks: function () {
+      const MAIN_DIV = document.getElementById('mainDiv');
+      while (MAIN_DIV.children.length > 1) {
+        MAIN_DIV.removeChild(MAIN_DIV.lastChild);
+      }
+    },
     filterTasks: function () {
       // date-fns
       const temp = (new Date());
@@ -409,7 +409,7 @@ export const tasks = {
       tasks.modifyTask.form.parentElement.removeChild(taskForm);
     }
   },
-  
+
   deleteTask: {
     taskToDelete: null,
     init: function () {
@@ -451,7 +451,9 @@ export const projects = {
 
   getStoredProjects: function () {
     if (activeProjects.length > 0) {
-      activeProjects.sort((a, b) => a > b ? 1 : -1);
+      activeProjects.sort(function (a, b) {
+        return a - b
+      });
       activeProjects.forEach(element => {
         newProject(element);
         btnHover('.projectEditBtn', '.projectDeleteBtn');
