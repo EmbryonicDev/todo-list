@@ -76,6 +76,13 @@ export const tasks = {
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
   },
 
+  clearTasks: function () {
+    const MAIN_DIV = document.getElementById('mainDiv');
+    while (MAIN_DIV.children.length > 1) {
+      MAIN_DIV.removeChild(MAIN_DIV.lastChild);
+    }
+  },
+
   checkBoxAction: {
     targetWrap: null,
     targetId: null,
@@ -639,10 +646,13 @@ export const projects = {
       this.confirmBox = document.getElementById('confirmDeleteWrap');
       this.confirmBtn = this.confirmBox.querySelector('#confirmProjectDelete');
       this.cancelBtn = this.confirmBox.querySelector('#cancelProjectDelete');
+      this.activeTitle = document.getElementById('activeTitle');
     },
     bindEvents: function () {
       this.confirmBtn.addEventListener('click', () => {
         this.deleteProjectDiv();
+        this.deleteProjectTasks();
+        this.showAllTasks();
       });
       this.cancelBtn.addEventListener('click', this.deleteConfirmationBox.bind());
     },
@@ -652,9 +662,21 @@ export const projects = {
       projects.getProjectsArr();
       projects.projectDivToDelete.remove();
       projects.confirmProjectDelete.deleteConfirmationBox();
+      projects.confirmProjectDelete.showAllTasks();
     },
     deleteConfirmationBox: function () {
       projects.confirmProjectDelete.confirmBox.remove();
+    },
+    deleteProjectTasks: function () {
+      if (projects.tasksToModify.length > 0) {
+        tasksArr = tasksArr.filter(tasksArr => tasksArr.project !== projects.projectToModify);
+        localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      }
+    },
+    showAllTasks: function () {
+      tasks.clearTasks();
+      projects.confirmProjectDelete.activeTitle.innerText = 'All Tasks';
+      tasks.tasksArrToPage(tasksArr);
     }
   }
 }
@@ -693,7 +715,6 @@ export const projects = {
 //       for (let i = 0; i < activeProjects.length; i++) {
 //         const deleteWrap = document.querySelector('.projectWrap:last-of-type');
 //         deleteWrap.remove();
-//         console.log(document.querySelector('.projectWrap:last-of-type'))
 //       }
 
 //       // update tasks with new project name
