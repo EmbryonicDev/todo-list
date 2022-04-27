@@ -63,6 +63,7 @@ export const sidebar = () => {
       )
     )
   )
+  mainDivTitle('.sideNav');
 };
 
 // add task form 

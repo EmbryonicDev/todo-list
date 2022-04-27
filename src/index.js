@@ -25,11 +25,3 @@ pageStyle.init();
 projects.init();
 
 tasks.init();
-
-(() => {
-  let activeTitleArr = ['.sideNav div', '.projectWrap h3'];
-  activeTitleArr.forEach(element => {
-    mainDivTitle(element);
-  });
-})();
-
