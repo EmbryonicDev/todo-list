@@ -76,13 +76,6 @@ export const tasks = {
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
   },
 
-  clearTasks: function () {
-    const MAIN_DIV = document.getElementById('mainDiv');
-    while (MAIN_DIV.children.length > 1) {
-      MAIN_DIV.removeChild(MAIN_DIV.lastChild);
-    }
-  },
-
   checkBoxAction: {
     targetWrap: null,
     targetId: null,
@@ -186,13 +179,19 @@ export const tasks = {
   getSelectedTasks: { // change name to getFilterTasks
     init: function () {
       this.cacheDom();
-      tasks.clearTasks();
+      this.clearTasks();
       this.filterTasks();
     },
     cacheDom: function () {
       this.activeTitle = document.getElementById('activeTitle').innerText;
       this.hideBtn = document.getElementById('hideComplete');
     },
+  clearTasks: function () {
+    const MAIN_DIV = document.getElementById('mainDiv');
+    while (MAIN_DIV.children.length > 1) {
+      MAIN_DIV.removeChild(MAIN_DIV.lastChild);
+    }
+  },
     filterTasks: function () {
       // date-fns
       const temp = (new Date());
