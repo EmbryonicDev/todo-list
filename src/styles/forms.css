@@ -1,6 +1,7 @@
 :root{
   --tempBorder: solid black;
   --tempBackground: white;
+  --myShadow: 4px 4px 4px var(--colorStone900);
 }
 
 /* for all forms */
@@ -14,6 +15,10 @@ form {
   padding: 12px;
   gap: 15px;
   background: var(--tempBackground);
+}
+
+input {
+  line-height: 1.3rem;
 }
 
 textarea {
@@ -52,9 +57,9 @@ form p:last-of-type label {
 
 /* confirmation box */
 #confirmDeleteWrap {
-  position: absolute;
-  left: 33%;
-  top: 33%;
+  position: fixed;
+  top: 20vh;
+  left: 40vw;
   padding: 15px;
   width: 300px;
   border: var(--tempBorder);
@@ -67,4 +72,45 @@ form p:last-of-type label {
 
 #confirmProjectDelete {
   margin-right: 15px;
+}
+
+/* bodyStyled */
+#bodyStyled form,
+#bodyStyled #confirmDeleteWrap {
+  background-color: rgb(71, 85, 105, 0.95);
+  border: 0;
+  color: #fef2f2;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: var(--myShadow);
+}
+
+#bodyStyled form button,
+#bodyStyled #confirmDeleteWrap button {
+  background-color:#22c55e;
+  border: 0;
+  color: #fef2f2;
+  font-weight: 500;
+  border-radius: 3px;
+  padding: 5px;
+  box-shadow: var(--myShadow);
+}
+
+#bodyStyled form button:hover,
+#bodyStyled #confirmDeleteWrap button:hover {
+background-color:#fef2f2;
+color: #22c55e;
+cursor: pointer;
+}
+
+#bodyStyled .cancelBtn,
+#bodyStyled #confirmDeleteWrap #cancelProjectDelete {
+  background-color:#dc2626;
+}
+
+#bodyStyled .cancelBtn:hover,
+#bodyStyled #confirmDeleteWrap #cancelProjectDelete:hover {
+  color:#dc2626;
+  background-color:#fef2f2;
+  cursor: pointer;
 }
