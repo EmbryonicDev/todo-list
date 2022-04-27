@@ -481,6 +481,10 @@ export const projects = {
       projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
     }
   },
+  reAddeListeners:function(){
+    projects.getProjectEditForm.init();
+    projects.getConfirmProjectDeleteBox.init();
+  },
 
   projectForm: {
     init: function () {
@@ -513,6 +517,7 @@ export const projects = {
       newProject(projects.addProject.form.newProjectName.value, true);
       projects.removeProjectForm();
       projects.getProjectsArr();
+      projects.reAddeListeners();
     },
   },
 
@@ -569,6 +574,7 @@ export const projects = {
       projects.applyProjectMods.removeProjectWraps();
       projects.getStoredProjects();
       projects.applyProjectMods.projectSubmit();
+      projects.reAddeListeners();
     },
     projectSubmit: function () {
       tasks.taskSortStore();
