@@ -440,13 +440,16 @@ export const tasks = {
 export const projects = {
   tasksToModify: null,
   projectToModify: null,
+  projectDivToDelete: null,
 
   init: function () {
     this.getStoredProjects();
     this.getProjectsArr();
     this.projectForm.init();
     this.getProjectEditForm.init();
+    this.getConfirmProjectDeleteBox.init();
   },
+
   getStoredProjects: function () {
     if (activeProjects.length > 0) {
       activeProjects.sort((a, b) => a > b ? 1 : -1);
@@ -471,6 +474,11 @@ export const projects = {
   removeProjectForm: function () {
     if (document.getElementById('projectForm')) {
       document.getElementById('projectForm').parentElement.removeChild(projectForm);
+    }
+  },
+  getProjectTasks: function () {
+    for (let i = 0; i < tasksArr.length; i++) {
+      projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
     }
   },
 
@@ -586,8 +594,41 @@ export const projects = {
         }
       }
     }
-  }
+  },
 
+  getConfirmProjectDeleteBox: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.projectDeleteBtn = document.querySelectorAll('.projectDeleteBtn');
+    },
+    bindEvents: function () {
+      this.projectDeleteBtn.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', () => {
+          projects.projectDivToDelete = deleteBtn.closest('.projectWrap');
+          this.buildConfirmProjectDeleteBox();
+        })
+      });
+    },
+    buildConfirmProjectDeleteBox: function () {
+      projects.projectToModify = projects.projectDivToDelete.children[1].innerText;
+      // get tasksToModify
+      projects.getProjectTasks();
+
+      if (!document.getElementById('confirmDeleteWrap') && !document.getElementById('projectForm') && !document.getElementById('taskForm')) {
+        addConfirmDelete();
+        projects.getConfirmProjectDeleteBox.addBoldText('projectNameSpan', projects.projectToModify);
+        projects.getConfirmProjectDeleteBox.addBoldText('taskNumberSpan', projects.tasksToModify.length);
+      }
+    },
+    addBoldText: function (getThisElement, textToAdd) {
+      const span = document.getElementById(getThisElement);
+      span.innerText = textToAdd;
+      span.style.cssText = 'font-weight: bold';
+    }
+  }
 }
 
 // const editOrDeleteProject = (btn1, btn2) => {
@@ -607,37 +648,37 @@ export const projects = {
 //     submitProjectMods();
 //   }
 
-// const submitProjectMods = () => {
-//   document.getElementById('projectSubmit').onclick = (e) => {
-//     e.preventDefault();
+//   const submitProjectMods = () => {
+//     document.getElementById('projectSubmit').onclick = (e) => {
+//       e.preventDefault();
 
-//     // Remove original name from activeProjects & push new name to activeProjects
-//     const modifiedProjectName = newProjectName.value;
-//     let index = activeProjects.indexOf(projectToModify)
-//     activeProjects.splice(index, 1);
-//     activeProjects.push(modifiedProjectName);
-//     projectSubmit();
-//     localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+//       // Remove original name from activeProjects & push new name to activeProjects
+//       const modifiedProjectName = newProjectName.value;
+//       let index = activeProjects.indexOf(projectToModify)
+//       activeProjects.splice(index, 1);
+//       activeProjects.push(modifiedProjectName);
+//       projectSubmit();
+//       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
-//     // remove all sidebar projectWraps (except General Tasks) so that getStoredProjects()
-//     // won't temporarily duplicate any projects
-//     for (let i = 0; i < activeProjects.length; i++) {
-//       const deleteWrap = document.querySelector('.projectWrap:last-of-type');
-//       deleteWrap.remove();
-//       console.log(document.querySelector('.projectWrap:last-of-type'))
+//       // remove all sidebar projectWraps (except General Tasks) so that getStoredProjects()
+//       // won't temporarily duplicate any projects
+//       for (let i = 0; i < activeProjects.length; i++) {
+//         const deleteWrap = document.querySelector('.projectWrap:last-of-type');
+//         deleteWrap.remove();
+//         console.log(document.querySelector('.projectWrap:last-of-type'))
+//       }
+
+//       // update tasks with new project name
+//       for (let i = 0; i < tasksToModify.length; i++) {
+//         tasksToModify[i].project = modifiedProjectName;
+//       }
+
+//       tasks.taskSortStore();
+//       getSelectedTasks();
+//       removeProjectForm();
+//       projects.getStoredProjects();
 //     }
-
-//     // update tasks with new project name
-//     for (let i = 0; i < tasksToModify.length; i++) {
-//       tasksToModify[i].project = modifiedProjectName;
-//     }
-
-//     tasks.taskSortStore();
-//     getSelectedTasks();
-//     removeProjectForm();
-//     projects.getStoredProjects();
-//   }
-// };
+//   };
 
 //   const addBoldText = (getThisElement, textToAdd) => {
 //     const span = document.getElementById(getThisElement);
