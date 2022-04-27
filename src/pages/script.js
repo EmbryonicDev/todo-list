@@ -341,7 +341,7 @@ export const tasks = {
       });
     },
     getTaskForm: (e) => {
-      if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
+      if (!document.getElementById('taskForm') && !document.getElementById('projectForm') && !document.getElementById('confirmDeleteWrap')) {
         addTaskForm();
         tasks.addEditTaskForm.taskDetailsToForm();
       }
