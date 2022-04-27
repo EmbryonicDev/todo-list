@@ -129,6 +129,8 @@
   background: var(--colorRed100);
   border: 0;
   border-radius: 6px;
+  padding: 3.6px 0;
+  font-weight: 500;
 }
 
 #bodyStyled #hideComplete:hover {
