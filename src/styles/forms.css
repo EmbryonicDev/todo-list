@@ -10,7 +10,7 @@ form {
   position: fixed;
   top: 20vh;
   left: 40vw;
-  border: solid red;
+  border: var(--tempBorder);
   padding: 12px;
   gap: 15px;
   background: var(--tempBackground);
