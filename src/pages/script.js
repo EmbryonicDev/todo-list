@@ -186,18 +186,12 @@ export const tasks = {
   getSelectedTasks: { // change name to getFilterTasks
     init: function () {
       this.cacheDom();
-      this.clearTasks();
+      tasks.clearTasks();
       this.filterTasks();
     },
     cacheDom: function () {
-      this.mainDiv = document.getElementById('mainDiv');
       this.activeTitle = document.getElementById('activeTitle').innerText;
       this.hideBtn = document.getElementById('hideComplete');
-    },
-    clearTasks: function () {
-      while (tasks.getSelectedTasks.mainDiv.children.length > 1) {
-        tasks.getSelectedTasks.mainDiv.removeChild(tasks.getSelectedTasks.mainDiv.lastChild);
-      }
     },
     filterTasks: function () {
       // date-fns
