@@ -8,10 +8,6 @@ import { mainDivTitle } from './functions/global-functions';
 
 console.log('Locked \n \n(⊙.⊙(☉̃ₒ☉)⊙.⊙) \n \n & Loaded ');
 
-const addStyle = (() => {
-  document.body.id = "bodyStyled";
-})();
-
 function buildDom(...domElements) {
   domElements.forEach(element => {
     return element;
