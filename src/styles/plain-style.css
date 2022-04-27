@@ -114,7 +114,8 @@ border-radius: 3px;
   position: relative;
 }
 
-.projectWrap h3 {
+.projectWrap h3,
+.sideNav h3 {
   margin: 0;
   flex: 1;
 }
