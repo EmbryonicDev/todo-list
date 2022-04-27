@@ -123,7 +123,7 @@
 }
 
 /* mainDiv */
-#bodyStyled #hideComplete {
+#bodyStyled #hideComplete {                     
   font-weight: 500;
   box-shadow: var(--myShadow);
   background: var(--colorRed100);
@@ -140,7 +140,6 @@
 
 /* mainDiv tasks */
 #bodyStyled .taskWrap {
-  /* background: var(--colorRed400); */
   border: 0;
   border-radius: 8px;
   box-shadow: var(--myShadow);
