@@ -44,7 +44,6 @@ export const tasks = {
     this.tasksArrToPage(tasksArr);
     this.taskSortStore();
   },
-
   tasksArrToPage: (thisArr) => {
     thisArr.forEach(element => {
       newTask(element.taskName, element.description, element.project, element.startDate, element.dueDate, element.uniqueID)
@@ -56,7 +55,6 @@ export const tasks = {
     tasks.priorityColors();
     tasks.hideTasks();
   },
-
   hideTasks: function () {
     const hideBtn = document.querySelector('#hideComplete');
     document.querySelector('#hideComplete').onclick = (e) => {
@@ -68,7 +66,6 @@ export const tasks = {
       tasks.getSelectedTasks.init();
     }
   },
-
   taskSortStore: () => {
     tasksArr.sort((a, b) => a.startDate > b.startDate ? 1 : -1);
     tasksArr.sort((a, b) => a.project < b.project ? 1 : -1);
@@ -380,6 +377,7 @@ export const tasks = {
       tasks.modifyTask.init();
     }
   },
+
   modifyTask: {
     init: function () {
       this.cacheDom();
@@ -411,6 +409,7 @@ export const tasks = {
       tasks.modifyTask.form.parentElement.removeChild(taskForm);
     }
   },
+  
   deleteTask: {
     taskToDelete: null,
     init: function () {
@@ -630,6 +629,7 @@ export const projects = {
       span.style.cssText = 'font-weight: bold';
     }
   },
+
   confirmProjectDelete: {
     init: function () {
       this.cacheDom();
