@@ -42,6 +42,7 @@ export const tasks = {
   init: function () {
     this.addNewTaskForm.init();
     this.tasksArrToPage(tasksArr);
+    this.taskSortStore();
   },
 
   tasksArrToPage: (thisArr) => {
@@ -182,15 +183,15 @@ export const tasks = {
       this.filterTasks();
     },
     cacheDom: function () {
-      this.mainDiv = document.getElementById('mainDiv');
       this.activeTitle = document.getElementById('activeTitle').innerText;
       this.hideBtn = document.getElementById('hideComplete');
     },
-    clearTasks: function () {
-      while (tasks.getSelectedTasks.mainDiv.children.length > 1) {
-        tasks.getSelectedTasks.mainDiv.removeChild(tasks.getSelectedTasks.mainDiv.lastChild);
-      }
-    },
+  clearTasks: function () {
+    const MAIN_DIV = document.getElementById('mainDiv');
+    while (MAIN_DIV.children.length > 1) {
+      MAIN_DIV.removeChild(MAIN_DIV.lastChild);
+    }
+  },
     filterTasks: function () {
       // date-fns
       const temp = (new Date());
@@ -299,7 +300,7 @@ export const tasks = {
 
       newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
-      getSelectedTasks();
+      tasks.getSelectedTasks.init();
       tasks.addTask.removeTasksForm();
     },
     removeTasksForm: () => {
@@ -404,7 +405,7 @@ export const tasks = {
 
       tasks.modifyTask.removeTasksForm();
       tasks.taskSortStore();
-      getSelectedTasks();
+      tasks.getSelectedTasks.init();
     },
     removeTasksForm: () => {
       tasks.modifyTask.form.parentElement.removeChild(taskForm);
@@ -436,182 +437,237 @@ export const tasks = {
   }
 };
 
-// ***  FROM PROJECTS.JS ***
-export const getStoredProjects = () => {
-  if (activeProjects.length > 0) {
-    activeProjects.sort((a, b) => a > b ? 1 : -1);
-    activeProjects.forEach(element => {
-      newProject(element);
-      btnHover('.projectEditBtn', '.projectDeleteBtn');
-      editOrDeleteProject('.projectDeleteBtn', '.projectEditBtn');
-    });
-  }
-}
+export const projects = {
+  tasksToModify: null,
+  projectToModify: null,
+  projectDivToDelete: null,
 
-export const getProjectsArr = () => {
-  projectsArr = [];
-  document.querySelectorAll(".projectWrap h3").forEach(project => {
-    projectsArr.push(project.innerText);
-  })
-}
+  init: function () {
+    this.getStoredProjects();
+    this.getProjectsArr();
+    this.projectForm.init();
+    this.getProjectEditForm.init();
+    this.getConfirmProjectDeleteBox.init();
+  },
 
-const editOrDeleteProject = (btn1, btn2) => {
-  const projectWrapBtns = [btn1, btn2];
-  let btn3 = null;
-  let btn4 = null;
-  let confirmBtns = [btn3, btn4];
-  let tasksToModify = null;
-  let projectToModify = null;
-  let projectDivToDelete = null;
+  getStoredProjects: function () {
+    if (activeProjects.length > 0) {
+      activeProjects.sort((a, b) => a > b ? 1 : -1);
+      activeProjects.forEach(element => {
+        newProject(element);
+        btnHover('.projectEditBtn', '.projectDeleteBtn');
+      });
+    }
+  },
+  getProjectsArr: function () {
+    projectsArr = [];
+    document.querySelectorAll(".projectWrap h3").forEach(project => {
+      projectsArr.push(project.innerText);
+    })
+  },
+  getProjectForm: function () {
+    if (!document.getElementById('taskForm') && !document.getElementById('projectForm') && !document.getElementById('confirmDeleteWrap')) {
+      addProjectForm();
+      projects.addProject.init();
+    }
+  },
+  removeProjectForm: function () {
+    if (document.getElementById('projectForm')) {
+      document.getElementById('projectForm').parentElement.removeChild(projectForm);
+    }
+  },
+  getProjectTasks: function () {
+    for (let i = 0; i < tasksArr.length; i++) {
+      projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
+    }
+  },
+  reAddeListeners: function () {
+    projects.getProjectEditForm.init();
+    projects.getConfirmProjectDeleteBox.init();
+  },
 
-  const getProjectDetails = () => {
-    if (!document.getElementById('projectForm') && !document.getElementById('taskForm') && !document.getElementById('confirmDeleteWrap')) addProjectForm();
-    cancelProject();
-    // send selected project name to form input
-    newProjectName.value = projectToModify;
-    submitProjectMods();
-  }
+  projectForm: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.addProjectBtn = document.getElementById('addProjectBtn');
+    },
+    bindEvents: function () {
+      this.addProjectBtn.addEventListener('click', projects.getProjectForm.bind())
+    },
+  },
 
-  const submitProjectMods = () => {
-    document.getElementById('projectSubmit').onclick = (e) => {
+  addProject: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.form = document.getElementById('projectForm');
+      this.cancelBtn = this.form.querySelector('.cancelBtn');
+    },
+    bindEvents: function () {
+      this.form.addEventListener('submit', this.projectSubmit.bind());
+      this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
+    },
+    projectSubmit: (e) => {
       e.preventDefault();
+      newProject(projects.addProject.form.newProjectName.value, true);
+      projects.removeProjectForm();
+      projects.getProjectsArr();
+      projects.reAddeListeners();
+    },
+  },
 
-      // Remove original name from activeProjects & push new name to activeProjects
-      const modifiedProjectName = newProjectName.value;
-      let index = activeProjects.indexOf(projectToModify)
+  getProjectEditForm: {
+    projectToDelete: null,
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.projectEditBtn = document.querySelectorAll('.projectEditBtn');
+    },
+    bindEvents: function () {
+      this.projectEditBtn.forEach(editBtn => {
+        editBtn.addEventListener('click', () => {
+          // get the project name of the container
+          projects.projectToModify = editBtn.closest('.projectWrap').children[1].innerText;
+
+          projects.getProjectForm();
+          this.projectDetailsToForm();
+          projects.applyProjectMods.init();
+        })
+      });
+    },
+    projectDetailsToForm: function () {
+      newProjectName.value = projects.projectToModify;
+    },
+  },
+
+  applyProjectMods: {
+    modifiedProjectName: null,
+    init: function () {
+      this.cacheDom();
+      projects.getProjectTasks();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.projectForm = document.getElementById('projectForm');
+      this.cancelBtn = this.projectForm.querySelector('.cancelBtn');
+    },
+    bindEvents: function () {
+      this.projectForm.addEventListener('submit', this.submitProjectMods.bind());
+      this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
+    },
+    submitProjectMods: function (e) {
+      e.preventDefault();
+      // replace original project name 
+      projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
+      let index = activeProjects.indexOf(projects.projectToModify);
       activeProjects.splice(index, 1);
-      activeProjects.push(modifiedProjectName);
-      projectSubmit();
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
-      // remove all sidebar projectWraps (except General Tasks) so that getStoredProjects()
-      // won't temporarily duplicate any projects
-      for (let i = 0; i < activeProjects.length; i++) {
-        const deleteWrap = document.querySelector('.projectWrap:last-of-type');
-        deleteWrap.remove();
-        console.log(document.querySelector('.projectWrap:last-of-type'))
-      }
-
-      // update tasks with new project name
-      for (let i = 0; i < tasksToModify.length; i++) {
-        tasksToModify[i].project = modifiedProjectName;
-      }
-
+      projects.applyProjectMods.updateProjectTasks();
+      projects.applyProjectMods.removeProjectWraps();
+      projects.getStoredProjects();
+      projects.applyProjectMods.projectSubmit();
+      projects.reAddeListeners();
+    },
+    projectSubmit: function () {
       tasks.taskSortStore();
-      getSelectedTasks();
-      removeProjectForm();
-      getStoredProjects();
-    }
-  };
-
-  const addBoldText = (getThisElement, textToAdd) => {
-    const span = document.getElementById(getThisElement);
-    span.innerText = textToAdd;
-    span.style.cssText = 'font-weight: bold';
-  }
-
-  const confirmProjectDelete = () => {
-    // create & display confirmation box
-    if (!document.getElementById('confirmDeleteWrap') && !document.getElementById('projectForm') && !document.getElementById('taskForm')) {
-      addConfirmDelete();
-
-      addBoldText('projectNameSpan', projectToModify);
-      addBoldText('taskNumberSpan', tasksToModify.length);
-
-    }
-    // add eListeners to confirmation box buttons
-    btn3 = '#confirmProjectDelete';
-    btn4 = '#cancelProjectDelete';
-    confirmBtns = [btn3, btn4];
-    confirmBtns.forEach(button => {
-      addListeners(button);
-    })
-  }
-
-  const removeConfirmation = () => {
-    if (document.getElementById('confirmDeleteWrap').remove()) {
-      document.getElementById('confirmDeleteWrap').remove();
-    }
-  }
-
-  const addListeners = (getThisElement) => {
-    // let projectDivToDelete = null;
-    document.querySelectorAll(getThisElement).forEach(button => {
-      button.addEventListener('click', () => {
-
-        if (getThisElement == btn1 || getThisElement == btn2) {
-          // get the containing div
-          projectDivToDelete = button.closest('.projectWrap');
-
-          // get the project name of the container
-          projectToModify = button.closest('.projectWrap').children[1].innerText;
-          // get associated tasks
-          for (let i = 0; i < tasksArr.length; i++) {
-            tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projectToModify);
-          }
+      tasks.getSelectedTasks.init();
+      projects.removeProjectForm();
+      projects.getProjectsArr();
+    },
+    removeProjectWraps: function () {
+      const projectsDiv = document.getElementById('projectsDiv');
+      while (projectsDiv.children.length > 1) {
+        projectsDiv.removeChild(projectsDiv.lastChild);
+      }
+    },
+    updateProjectTasks: function () {
+      if (projects.tasksToModify !== null) {
+        for (let i = 0; i < projects.tasksToModify.length; i++) {
+          projects.tasksToModify[i].project = projects.applyProjectMods.modifiedProjectName;
         }
+      }
+    }
+  },
 
-        // action for deleteBtn
-        if (getThisElement == btn1) {
-          confirmProjectDelete();
+  getConfirmProjectDeleteBox: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.projectDeleteBtn = document.querySelectorAll('.projectDeleteBtn');
+    },
+    bindEvents: function () {
+      this.projectDeleteBtn.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', () => {
+          projects.projectDivToDelete = deleteBtn.closest('.projectWrap');
+          this.buildConfirmProjectDeleteBox();
+          projects.confirmProjectDelete.init();
+        })
+      });
+    },
+    buildConfirmProjectDeleteBox: function () {
+      projects.projectToModify = projects.projectDivToDelete.children[1].innerText;
+      projects.getProjectTasks();
 
-          // action for editBtn
-        } else if (getThisElement == btn2) {
-          getProjectDetails()
-
-          // action for confirm delete
-        } else if (getThisElement == btn3) {
-          activeProjects = activeProjects.filter(activeProjects => activeProjects !== projectToModify)
-          localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
-          getProjectsArr();
-          location.reload();
-
-          // remove tasks from tasksArr
-          if (tasksToModify.length > 0) {
-            tasksArr = tasksArr.filter(tasksArr => tasksArr.project !== projectToModify);
-            getSelectedTasks();
-          }
-          removeConfirmation();
-          // action for canceling delete request
-        } else if (getThisElement == btn4) {
-          removeConfirmation();
-        }
-        tasks.taskSortStore();
-      })
-    })
-  }
-  projectWrapBtns.forEach(button => {
-    addListeners(button);
-  });
-}
-
-export const getProjectForm = () => {
-  document.getElementById('addProjectBtn').onclick = (e) => {
-    // check if any form is on screen
-    if (!document.getElementById('projectForm') && !document.getElementById('taskForm')) {
-      addProjectForm();
-      projectSubmit();
-      cancelProject();
+      if (!document.getElementById('confirmDeleteWrap') && !document.getElementById('projectForm') && !document.getElementById('taskForm')) {
+        addConfirmDelete();
+        projects.getConfirmProjectDeleteBox.addBoldText('projectNameSpan', projects.projectToModify);
+        projects.getConfirmProjectDeleteBox.addBoldText('taskNumberSpan', projects.tasksToModify.length);
+      }
+    },
+    addBoldText: function (getThisElement, textToAdd) {
+      const span = document.getElementById(getThisElement);
+      span.innerText = textToAdd;
+      span.style.cssText = 'font-weight: bold';
+    }
+  },
+  confirmProjectDelete: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.confirmBox = document.getElementById('confirmDeleteWrap');
+      this.confirmBtn = this.confirmBox.querySelector('#confirmProjectDelete');
+      this.cancelBtn = this.confirmBox.querySelector('#cancelProjectDelete');
+      this.activeTitle = document.getElementById('activeTitle');
+    },
+    bindEvents: function () {
+      this.confirmBtn.addEventListener('click', () => {
+        this.deleteProjectDiv();
+        this.deleteProjectTasks();
+        this.showAllTasks();
+      });
+      this.cancelBtn.addEventListener('click', this.deleteConfirmationBox.bind());
+    },
+    deleteProjectDiv: function () {
+      activeProjects = activeProjects.filter(activeProjects => activeProjects !== projects.projectToModify);
+      localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+      projects.getProjectsArr();
+      projects.projectDivToDelete.remove();
+      projects.confirmProjectDelete.deleteConfirmationBox();
+      projects.confirmProjectDelete.reloadPage();
+    },
+    deleteConfirmationBox: function () {
+      projects.confirmProjectDelete.confirmBox.remove();
+    },
+    deleteProjectTasks: function () {
+      if (projects.tasksToModify.length > 0) {
+        tasksArr = tasksArr.filter(tasksArr => tasksArr.project !== projects.projectToModify);
+        localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
+      }
+    },
+    reloadPage: function () {
+      location.reload();
     }
   }
-}
-
-const projectSubmit = () => {
-  document.getElementById('projectSubmit').onclick = (e) => {
-    e.preventDefault();
-    newProject(projectForm.newProjectName.value, true);
-    removeProjectForm();
-    getProjectsArr();
-  }
-}
-
-const cancelProject = () => {
-  document.querySelector('#projectForm .cancelBtn').onclick = (e) => {
-    e.preventDefault();
-    removeProjectForm();
-  }
-};
-
-const removeProjectForm = () => {
-  projectForm.parentElement.removeChild(projectForm);
 }
