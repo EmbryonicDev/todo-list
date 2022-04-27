@@ -481,7 +481,7 @@ export const projects = {
       projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
     }
   },
-  reAddeListeners:function(){
+  reAddeListeners: function () {
     projects.getProjectEditForm.init();
     projects.getConfirmProjectDeleteBox.init();
   },
@@ -610,6 +610,7 @@ export const projects = {
         deleteBtn.addEventListener('click', () => {
           projects.projectDivToDelete = deleteBtn.closest('.projectWrap');
           this.buildConfirmProjectDeleteBox();
+          projects.confirmProjectDelete.init();
         })
       });
     },
@@ -627,6 +628,33 @@ export const projects = {
       const span = document.getElementById(getThisElement);
       span.innerText = textToAdd;
       span.style.cssText = 'font-weight: bold';
+    }
+  },
+  confirmProjectDelete: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.confirmBox = document.getElementById('confirmDeleteWrap');
+      this.confirmBtn = this.confirmBox.querySelector('#confirmProjectDelete');
+      this.cancelBtn = this.confirmBox.querySelector('#cancelProjectDelete');
+    },
+    bindEvents: function () {
+      this.confirmBtn.addEventListener('click', () => {
+        this.deleteProjectDiv();
+      });
+      this.cancelBtn.addEventListener('click', this.deleteConfirmationBox.bind());
+    },
+    deleteProjectDiv: function () {
+      activeProjects = activeProjects.filter(activeProjects => activeProjects !== projects.projectToModify);
+      localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+      projects.getProjectsArr();
+      projects.projectDivToDelete.remove();
+      projects.confirmProjectDelete.deleteConfirmationBox();
+    },
+    deleteConfirmationBox: function () {
+      projects.confirmProjectDelete.confirmBox.remove();
     }
   }
 }
@@ -738,7 +766,7 @@ export const projects = {
 //           // action for confirm delete
 //         } else if (getThisElement == btn3) {
 //           activeProjects = activeProjects.filter(activeProjects => activeProjects !== projectToModify)
-//           localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+//           localStorage.setItem("activeProjects", JSON.stringify(activeProjects))
 //           projects.getProjectsArr();
 //           location.reload();
 
