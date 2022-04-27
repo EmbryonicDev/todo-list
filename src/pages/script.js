@@ -656,7 +656,7 @@ export const projects = {
       projects.getProjectsArr();
       projects.projectDivToDelete.remove();
       projects.confirmProjectDelete.deleteConfirmationBox();
-      projects.confirmProjectDelete.showAllTasks();
+      projects.confirmProjectDelete.reloadPage();
     },
     deleteConfirmationBox: function () {
       projects.confirmProjectDelete.confirmBox.remove();
@@ -667,10 +667,8 @@ export const projects = {
         localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
       }
     },
-    showAllTasks: function () {
-      tasks.clearTasks();
-      projects.confirmProjectDelete.activeTitle.innerText = 'All Tasks';
-      tasks.tasksArrToPage(tasksArr);
+    reloadPage: function () {
+      location.reload();
     }
   }
 }
