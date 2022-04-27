@@ -30,6 +30,7 @@
   color: var(--font-color);
   background: var(--colorStone100);
   font-family: 'Chakra Petch', sans-serif;
+  letter-spacing: 0.075rem;
 }
 
 #bodyStyled #myHeader {
