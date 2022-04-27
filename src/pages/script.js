@@ -546,7 +546,7 @@ export const projects = {
     modifiedProjectName: null,
     init: function () {
       this.cacheDom();
-      this.getProjectTasks();
+      projects.getProjectTasks();
       this.bindEvents();
     },
     cacheDom: function () {
@@ -557,23 +557,18 @@ export const projects = {
       this.projectForm.addEventListener('submit', this.submitProjectMods.bind());
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
-    getProjectTasks: function () {
-      for (let i = 0; i < tasksArr.length; i++) {
-        projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
-      }
-    },
     submitProjectMods: function (e) {
       e.preventDefault();
-      // Remove original name from activeProjects & push new name
+      // replace original project name 
       projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
       let index = activeProjects.indexOf(projects.projectToModify);
       activeProjects.splice(index, 1);
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+
       projects.applyProjectMods.updateProjectTasks();
       projects.applyProjectMods.removeProjectWraps();
       projects.getStoredProjects();
       projects.applyProjectMods.projectSubmit();
-      projects.applyProjectMods.getProjectTasks();
     },
     projectSubmit: function () {
       tasks.taskSortStore();
@@ -614,7 +609,6 @@ export const projects = {
     },
     buildConfirmProjectDeleteBox: function () {
       projects.projectToModify = projects.projectDivToDelete.children[1].innerText;
-      // get tasksToModify
       projects.getProjectTasks();
 
       if (!document.getElementById('confirmDeleteWrap') && !document.getElementById('projectForm') && !document.getElementById('taskForm')) {
