@@ -1,4 +1,4 @@
-import { btnHover, elFactory } from "../functions/global-functions";
+import { btnHover, checkInputValidity, elFactory, titleCase } from "../functions/global-functions";
 import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
 import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
@@ -437,6 +437,7 @@ export const tasks = {
 };
 
 export const projects = {
+  noSubmit: null,
   tasksToModify: null,
   projectToModify: null,
   projectDivToDelete: null,
@@ -496,7 +497,24 @@ export const projects = {
       this.addProjectBtn = document.getElementById('addProjectBtn');
     },
     bindEvents: function () {
-      this.addProjectBtn.addEventListener('click', projects.getProjectForm.bind())
+      this.addProjectBtn.addEventListener('click', () => {
+        projects.getProjectForm();
+        projects.projectValidation.init();
+      })
+    },
+  },
+
+  projectValidation: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.PROJECT_INPUT = document.getElementById('newProjectName');
+      this.PROJECT_ERROR = document.getElementById('projectError');
+    },
+    bindEvents: function () {
+      this.PROJECT_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.PROJECT_INPUT, 'Project Name', this.PROJECT_ERROR, projects));
     },
   },
 
@@ -514,11 +532,19 @@ export const projects = {
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
     projectSubmit: (e) => {
-      e.preventDefault();
-      newProject(projects.addProject.form.newProjectName.value, true);
-      projects.removeProjectForm();
-      projects.getProjectsArr();
-      projects.reAddeListeners();
+      if (projects.noSubmit === 'PreventSubmit') {
+        console.log('ping')
+        e.preventDefault();
+      } else {
+        // add title case to project name
+        newProjectName.value = titleCase(newProjectName.value);
+        // add project to DOM
+        newProject(projects.addProject.form.newProjectName.value, true);
+
+        projects.removeProjectForm();
+        projects.getProjectsArr();
+        projects.reAddeListeners();
+      }
     },
   },
 

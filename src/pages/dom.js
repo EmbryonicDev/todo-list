@@ -136,11 +136,12 @@ export function addTaskForm() {
 
 // add project form
 export function addProjectForm() {
-  elFactory('form', { id: 'projectForm' }, document.body,
+  elFactory('form', { id: 'projectForm', action: '/', method: 'GET' }, document.body,
     elFactory('p', '', '',
-      elFactory('label', { for: 'newProjectName' }, '', 'New Project Name:'),
-      elFactory('input', { id: 'newProjectName', name: 'newProjectName' }, ''),
+      elFactory('label', { for: 'newProjectName', class: 'required' }, '', 'New Project Name:'),
+      elFactory('input', { id: 'newProjectName', name: 'newProjectName', required: '' }, ''),
     ),
+    elFactory('p', { class:'error', id:'projectError'}, ''),
     elFactory('div', { class: 'formBtnDiv' }, '',
       elFactory('button', { type: 'submit', id: 'projectSubmit' }, '', 'Add Project'),
       elFactory('button', { class: 'cancelBtn' }, '', 'Cancel'),
