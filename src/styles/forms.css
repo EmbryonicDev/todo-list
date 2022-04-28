@@ -1,4 +1,4 @@
-:root{
+:root {
   --tempBorder: solid black;
   --tempBackground: white;
   --myShadow: 4px 4px 4px var(--colorStone900);
@@ -38,6 +38,11 @@ form label {
   width: 100px;
   text-align: end;
   margin-right: 8px;
+}
+
+.required::after {
+  content: ' *';
+  color: red;
 }
 
 form p:last-of-type label {
@@ -87,7 +92,7 @@ form p:last-of-type label {
 
 #bodyStyled form button,
 #bodyStyled #confirmDeleteWrap button {
-  background-color:#22c55e;
+  background-color: #22c55e;
   border: 0;
   color: #fef2f2;
   font-weight: 500;
@@ -98,19 +103,19 @@ form p:last-of-type label {
 
 #bodyStyled form button:hover,
 #bodyStyled #confirmDeleteWrap button:hover {
-background-color:#fef2f2;
-color: #22c55e;
-cursor: pointer;
+  background-color: #fef2f2;
+  color: #22c55e;
+  cursor: pointer;
 }
 
 #bodyStyled .cancelBtn,
 #bodyStyled #confirmDeleteWrap #cancelProjectDelete {
-  background-color:#dc2626;
+  background-color: #dc2626;
 }
 
 #bodyStyled .cancelBtn:hover,
 #bodyStyled #confirmDeleteWrap #cancelProjectDelete:hover {
-  color:#dc2626;
-  background-color:#fef2f2;
+  color: #dc2626;
+  background-color: #fef2f2;
   cursor: pointer;
 }
