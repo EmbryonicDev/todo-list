@@ -1,4 +1,4 @@
-import { btnHover, checkInputValidity, elFactory, titleCase } from "../functions/global-functions";
+import { btnHover, elFactory, titleCase } from "../functions/global-functions";
 import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
 import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
@@ -12,6 +12,43 @@ import { addDays, format } from "date-fns";
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
+let noSubmit = true;
+
+const checkInputValidity = (inputSelector, inputName, errorMsg, arrToSearch) => {
+
+  // for new task name / project name
+  if (errorMsg == projects.projectValidation.PROJECT_ERROR || errorMsg == tasks.taskValidation.TASK_ERROR) {
+    if (inputSelector.value === "") {
+      errorMsg.innerText = ``;
+    } else if (inputSelector.value.charAt(0) === " ") {
+      errorMsg.innerText = `${inputName} can't start with a white spaces`;
+      noSubmit = true;
+    } else if (inputSelector.value.length <= 2) {
+      errorMsg.innerText = `${inputName} must be at least 3 characters`;
+      noSubmit = true;
+    } else if (inputSelector.value.includes("  ")) {
+      errorMsg.innerText = `${inputName} does not allow double white spaces`;
+      noSubmit = true;
+    } else if (inputSelector.value.charAt(inputSelector.value.length - 1) == " ") {
+      errorMsg.innerText = `${inputName} can't end with a white spaces`;
+      noSubmit = true;
+    } else if (inputSelector.value.length >= 33) {
+      errorMsg.innerText = `${inputName} must be less than 32 characters`;
+      noSubmit = true;
+    } else {
+      errorMsg.innerText = '';
+      noSubmit = false;
+    }
+  }
+
+  // for new project name only 
+  if (errorMsg == projects.projectValidation.PROJECT_ERROR) {
+    if (arrToSearch.some(arrToSearch => arrToSearch == titleCase(inputSelector.value.trim()))) {
+      errorMsg.innerText = `${inputName} must be unique`;
+      noSubmit = true;
+    }
+  }
+};
 
 export const pageStyle = {
   init: function () {
@@ -264,7 +301,10 @@ export const tasks = {
       this.addTaskBtn = document.getElementById('addTaskBtn');
     },
     bindEvents: function () {
-      this.addTaskBtn.addEventListener('click', this.getTaskForm.bind());
+      this.addTaskBtn.addEventListener('click', () => {
+        tasks.addNewTaskForm.getTaskForm();
+        tasks.taskValidation.init();
+      })
     },
     getTaskForm: () => {
       if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
@@ -272,6 +312,21 @@ export const tasks = {
         tasks.addTask.init()
       }
     }
+  },
+
+  taskValidation: {
+    init: function () {
+      this.cacheDom();
+      this.bindEvents();
+    },
+    cacheDom: function () {
+      this.form = document.getElementById('taskForm');
+      this.TASK_INPUT = document.getElementById('taskName');
+      this.TASK_ERROR = document.getElementById('taskNameError');
+    },
+    bindEvents: function () {
+      this.TASK_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.TASK_INPUT, 'Task name', this.TASK_ERROR, tasksArr));
+    },
   },
 
   addTask: {
@@ -288,17 +343,20 @@ export const tasks = {
       this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
     },
     submitTask: (e) => {
-      e.preventDefault();
-      let myUniqueId = tasks.addTask.getUniqueID();
-      let myNewTask = tasks.addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
+      if (noSubmit == true) {
+        e.preventDefault();
+      } else if (noSubmit == false) {
+        let myUniqueId = tasks.addTask.getUniqueID();
+        let myNewTask = tasks.addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
-      tasksArr.push(myNewTask);
-      tasks.taskSortStore();
+        tasksArr.push(myNewTask);
+        tasks.taskSortStore();
 
-      newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
+        newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
-      tasks.getSelectedTasks.init();
-      tasks.addTask.removeTasksForm();
+        tasks.getSelectedTasks.init();
+        tasks.addTask.removeTasksForm();
+      }
     },
     removeTasksForm: () => {
       tasks.addTask.form.parentElement.removeChild(taskForm);
@@ -437,7 +495,6 @@ export const tasks = {
 };
 
 export const projects = {
-  noSubmit: null,
   tasksToModify: null,
   projectToModify: null,
   projectDivToDelete: null,
@@ -514,7 +571,7 @@ export const projects = {
       this.PROJECT_ERROR = document.getElementById('projectError');
     },
     bindEvents: function () {
-      this.PROJECT_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.PROJECT_INPUT, 'Project Name', this.PROJECT_ERROR, projects));
+      this.PROJECT_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.PROJECT_INPUT, 'Project Name', this.PROJECT_ERROR, activeProjects));
     },
   },
 
@@ -528,14 +585,13 @@ export const projects = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', this.projectSubmit.bind());
+      this.form.addEventListener('submit', this.projectSubmit.bind())
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
     projectSubmit: (e) => {
-      if (projects.noSubmit === 'PreventSubmit') {
-        console.log('ping')
+      if (noSubmit == true) {
         e.preventDefault();
-      } else {
+      } else if (noSubmit == false) {
         // add title case to project name
         newProjectName.value = titleCase(newProjectName.value);
         // add project to DOM

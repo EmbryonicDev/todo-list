@@ -68,15 +68,16 @@ export const sidebar = () => {
 
 // add task form 
 export function addTaskForm() {
-  elFactory('form', { id: 'taskForm' }, document.body,
+  elFactory('form', { id: 'taskForm', action: '/', method: 'GET' }, document.body,
     elFactory('p', '', '',
       elFactory('label', { for: 'startDate' }, '', 'Start Date:'),
       elFactory('input', { type: 'date', id: 'startDate', value: new Date().toISOString().slice(0, 10) }, '')
     ),
     elFactory('p', '', '',
-      elFactory('label', { for: 'taskName' }, '', 'Task Name: '),
-      elFactory('input', { id: 'taskName' }, '')
+    elFactory('label', { for: 'taskName' ,class: 'required' }, '', 'Task Name: '),
+    elFactory('input', { id: 'taskName' }, '')
     ),
+    elFactory('p', { class:'error', id:'taskNameError'}, ''),
     elFactory('p', '', '',
       elFactory('label', { for: 'description' }, '', 'Description: '),
       elFactory('input', { id: 'description' }, '')
