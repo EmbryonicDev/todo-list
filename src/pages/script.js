@@ -543,10 +543,16 @@ export const projects = {
   },
 
   getStoredProjects: function () {
+    // sort alphanumeric projectWraps
     if (activeProjects.length > 0) {
-      activeProjects.sort(function (a, b) {
-        return a - b
+      activeProjects.sort((a, b) => {
+        return a.localeCompare(b, undefined, {
+          numeric: true,
+          sensitivity: 'base'
+        })
       });
+      localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+      // new projectWraps with button hover ability
       activeProjects.forEach(element => {
         newProject(element);
         btnHover('.projectEditBtn', '.projectDeleteBtn');
