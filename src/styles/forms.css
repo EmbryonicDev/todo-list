@@ -13,8 +13,26 @@ form {
   left: 40vw;
   border: var(--tempBorder);
   padding: 12px;
-  gap: 15px;
   background: var(--tempBackground);
+}
+
+#taskForm {
+  gap:0;
+}
+
+#taskForm input,
+#taskForm select,
+#taskForm textarea,
+#taskForm button,
+#projectForm button {
+  margin-top: 15px;
+}
+
+.error {
+  margin-top: 3.6px;
+  font-size: 0.8rem;
+  color: red;
+  font-weight: 600;
 }
 
 input {
