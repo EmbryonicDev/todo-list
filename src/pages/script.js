@@ -686,6 +686,7 @@ export const projects = {
       projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
       let index = activeProjects.indexOf(projects.projectToModify);
       activeProjects.splice(index, 1);
+      activeProjects.push(projects.applyProjectMods.projectForm.newProjectName.value);
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
       projects.applyProjectMods.updateProjectTasks();
