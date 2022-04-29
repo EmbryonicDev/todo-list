@@ -48,6 +48,19 @@ const checkInputValidity = (inputSelector, inputName, errorMsg, arrToSearch) => 
       noSubmit = true;
     }
   }
+
+  // for task due date
+  if (errorMsg == tasks.taskValidation.DUE_DATE_ERROR) {
+    const START_DATE = document.getElementById('startDate').value;
+    const DUE_DATE = document.getElementById('dueDate').value;
+    if (START_DATE > DUE_DATE) {
+      errorMsg.innerText = `${inputName} can not be before Start Date`;
+      noSubmit = true;
+    } else {
+      errorMsg.innerText = '';
+      noSubmit = false;
+    }
+  }
 };
 
 export const pageStyle = {
@@ -323,9 +336,33 @@ export const tasks = {
       this.form = document.getElementById('taskForm');
       this.TASK_INPUT = document.getElementById('taskName');
       this.TASK_ERROR = document.getElementById('taskNameError');
+      this.START_DATE = document.getElementById('startDate');
+      this.DUE_DATE = document.getElementById('dueDate');
+      this.DUE_DATE_ERROR = document.getElementById('taskDueDateError')
     },
     bindEvents: function () {
-      this.TASK_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.TASK_INPUT, 'Task name', this.TASK_ERROR, tasksArr));
+      const validateThis = [this.TASK_INPUT, this.START_DATE, this.DUE_DATE];
+      let errorMsg = null;
+      let inputName = null;
+
+      validateThis.forEach(element => {
+        if (element == this.TASK_INPUT) {
+          errorMsg = this.TASK_ERROR;
+          inputName = 'Task Name'
+        }
+        if (element == this.START_DATE) {
+          errorMsg = this.DUE_DATE_ERROR;
+          inputName = 'Start Date'
+        }
+        if (element == this.DUE_DATE) {
+          errorMsg = this.DUE_DATE_ERROR;
+          inputName = 'Due Date'
+        }
+
+        element.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, element, inputName, errorMsg, tasksArr));
+      });
+
+      // this.TASK_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.TASK_INPUT, 'Task name', this.TASK_ERROR, tasksArr));
     },
   },
 

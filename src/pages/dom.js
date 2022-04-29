@@ -74,7 +74,7 @@ export function addTaskForm() {
       elFactory('input', { type: 'date', id: 'startDate', value: new Date().toISOString().slice(0, 10) }, '')
     ),
     elFactory('p', '', '',
-    elFactory('label', { for: 'taskName' ,class: 'required' }, '', 'Task Name: '),
+    elFactory('label', { for: 'taskName', class: 'required' }, '', 'Task Name: '),
     elFactory('input', { id: 'taskName' }, '')
     ),
     elFactory('p', { class:'error', id:'taskNameError'}, ''),
@@ -86,6 +86,7 @@ export function addTaskForm() {
       elFactory('label', { for: 'dueDate' }, '', 'Due Date: '),
       elFactory('input', { type: 'date', id: 'dueDate' }, '')
     ),
+    elFactory('p', { class:'error', id:'taskDueDateError'}, ''),
     elFactory('p', '', '',
       elFactory('label', { for: 'projectName' }, '', 'Project: '),
       elFactory('select', { id: 'projectName' }, '')
