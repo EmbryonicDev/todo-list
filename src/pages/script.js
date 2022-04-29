@@ -361,8 +361,6 @@ export const tasks = {
 
         element.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, element, inputName, errorMsg, tasksArr));
       });
-
-      // this.TASK_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.TASK_INPUT, 'Task name', this.TASK_ERROR, tasksArr));
     },
   },
 
