@@ -1,4 +1,4 @@
-import { tasks } from "../pages/script";
+import { projects, tasks } from "../pages/script";
 
 export const elFactory = (type, attributes, appendTo, ...children) => {
   const el = document.createElement(type)
@@ -63,35 +63,10 @@ export const btnHover = (btn1, btn2) => {
   });
 }
 
-  export const titleCase = (str) => {
-    str = str.toLowerCase().split(' ');
-    for (let i = 0; i < str.length; i++) {
-      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-    }
-    return str.join(' ');
-  };
-
-  export const checkInputValidity = (inputId, inputName, errorMsg, noSubmitLocation) => {
-    if (inputId.value.charAt(0) === " ") {
-      errorMsg.innerText = `${inputName} can't start with a white spaces`;
-      noSubmitLocation.noSubmit = 'preventSubmit';
-    } else if (inputId.value.length <= 2) {
-      errorMsg.innerText = `${inputName} must be at least 3 characters`;
-      noSubmitLocation.noSubmit = 'preventSubmit';
-    } else if (inputId.value.includes("  ")) {
-      errorMsg.innerText = `${inputName} does not allow double white spaces`;
-      noSubmitLocation.noSubmit = 'preventSubmit';
-    } else if (inputId.value.charAt(inputId.value.length - 1) == " ") {
-      errorMsg.innerText = `${inputName} can't end with a white spaces`;
-      noSubmitLocation.noSubmit = 'preventSubmit';
-    } else if (activeProjects.some(activeProjects => activeProjects == titleCase(inputId.value.trim()))) {
-      errorMsg.innerText = `${inputName} must be unique`;
-      noSubmitLocation.noSubmit = 'preventSubmit';
-    } else if (inputId.value.length >= 33) {
-      errorMsg.innerText = `${inputName} must be less than 32 characters`;
-      noSubmitLocation.noSubmit = 'preventSubmit';
-    } else {
-      errorMsg.innerText = '';
-      noSubmitLocation.noSubmit = null;
-    }
+export const titleCase = (str) => {
+  str = str.toLowerCase().split(' ');
+  for (let i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
   }
+  return str.join(' ');
+};
