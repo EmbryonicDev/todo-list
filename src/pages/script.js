@@ -481,7 +481,7 @@ export const tasks = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', this.submitTaskMods.bind(), this.removeTasksForm.bind());
+      this.form.addEventListener('submit', this.submitTaskMods.bind());
       this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
     },
     submitTaskMods: (e) => {
@@ -646,7 +646,6 @@ export const projects = {
   },
 
   getProjectEditForm: {
-    projectToDelete: null,
     init: function () {
       this.cacheDom();
       this.bindEvents();
