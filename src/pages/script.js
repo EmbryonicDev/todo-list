@@ -1,4 +1,4 @@
-import { btnHover, elFactory, titleCase } from "../functions/global-functions";
+import { alphaNumSort, btnHover, elFactory, titleCase } from "../functions/global-functions";
 import { addTaskForm, newTask, addProjectForm, addConfirmDelete } from "./dom";
 import { newProject } from "./dom";
 import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
@@ -543,15 +543,10 @@ export const projects = {
   },
 
   getStoredProjects: function () {
-    // sort alphanumeric projectWraps
     if (activeProjects.length > 0) {
-      activeProjects.sort((a, b) => {
-        return a.localeCompare(b, undefined, {
-          numeric: true,
-          sensitivity: 'base'
-        })
-      });
+      alphaNumSort(activeProjects);
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+      
       // new projectWraps with button hover ability
       activeProjects.forEach(element => {
         newProject(element);

@@ -70,3 +70,12 @@ export const titleCase = (str) => {
   }
   return str.join(' ');
 };
+
+export const alphaNumSort = arr => {
+  arr.sort((a, b) => {
+    return a.localeCompare(b, undefined, {
+      numeric: true,
+      sensitivity: 'base'
+    })
+  });
+}
