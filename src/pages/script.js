@@ -367,7 +367,6 @@ export const tasks = {
           inputName = 'Due Date'
         }
         element.addEventListener('input', validateInput.bind(validateInput.bind, element, inputName, tasksArr, errorMsg1, errorMsg2));
-        // tasks.taskValidation.form.addEventListener('submit', validateInput.bind(validateInput.bind, element, inputName, tasksArr, errorMsg1, errorMsg2 ))
       });
     },
   },
