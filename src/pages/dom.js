@@ -1,4 +1,4 @@
-import { elFactory, mainDivTitle } from "../functions/global-functions";
+import { alphaNumSort, elFactory, mainDivTitle } from "../functions/global-functions";
 import menuIcon from '../assets/icons/menu.svg';
 import titleIcon from '../assets/icons/task-icon.svg';
 import allTasksIcon from '../assets/icons/all-tasks.svg';
@@ -124,6 +124,7 @@ export function addTaskForm() {
       thisIndex = projectsArr.findIndex(projectsArr => projectsArr === 'General Tasks');
       modifyProjectArr('General Tasks');
     } else {
+      alphaNumSort(projectsArr);
       // find the active project on display & move it to projectsArr[0]
       thisIndex = projectsArr.findIndex(projectsArr => projectsArr === activeTitle);
       modifyProjectArr(activeTitle);

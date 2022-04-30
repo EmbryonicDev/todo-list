@@ -461,7 +461,7 @@ export const tasks = {
       // this is so that the form's dropdown list has the task's project first in line
       const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[tasks.addEditTaskForm.objIndex].project);
       projectsArr.splice(projectIndex, 1);
-      projectsArr.sort();
+      alphaNumSort(projectsArr);
       projectsArr.unshift(tasksArr[tasks.addEditTaskForm.objIndex].project);
       // Create options & append to new select element
       projectsArr.forEach(project => {
