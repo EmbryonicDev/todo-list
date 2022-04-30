@@ -382,7 +382,7 @@ export const tasks = {
         e.preventDefault();
       } else if (noSubmit == false) {
         let myUniqueId = tasks.addTask.getUniqueID();
-        let myNewTask = tasks.addTask.taskFactory(startDate.value, taskName.value, description.value, dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
+        let myNewTask = tasks.addTask.taskFactory(startDate.value, titleCase(taskName.value), titleCase(description.value), dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
         tasksArr.push(myNewTask);
         tasks.taskSortStore();
@@ -481,14 +481,14 @@ export const tasks = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', this.submitTaskMods.bind());
+      this.form.addEventListener('submit',this.submitTaskMods.bind());
       this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
     },
     submitTaskMods: (e) => {
       e.preventDefault();
       tasksArr[tasks.addEditTaskForm.objIndex].startDate = startDate.value;
-      tasksArr[tasks.addEditTaskForm.objIndex].taskName = taskName.value;
-      tasksArr[tasks.addEditTaskForm.objIndex].description = description.value;
+      tasksArr[tasks.addEditTaskForm.objIndex].taskName = titleCase(taskName.value);
+      tasksArr[tasks.addEditTaskForm.objIndex].description = titleCase(description.value);
       tasksArr[tasks.addEditTaskForm.objIndex].dueDate = dueDate.value;
       tasksArr[tasks.addEditTaskForm.objIndex].project = projectName.value;
       tasksArr[tasks.addEditTaskForm.objIndex].priority = priority.value;
