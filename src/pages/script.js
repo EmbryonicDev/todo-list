@@ -701,7 +701,7 @@ export const projects = {
         e.preventDefault();
       } else {
         // replace original project name 
-        projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
+        projects.applyProjectMods.modifiedProjectName = titleCase(projects.applyProjectMods.projectForm.newProjectName.value);
         let index = activeProjects.indexOf(projects.projectToModify);
         activeProjects.splice(index, 1);
         activeProjects.push(titleCase(projects.applyProjectMods.projectForm.newProjectName.value));
