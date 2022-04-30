@@ -15,7 +15,7 @@ export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) |
 let noSubmit = null;
 let noSubmit2 = null;
 
-const checkInputValidity = (inputSelector, inputName, arrToSearch, errorMsg1, errorMsg2) => {
+const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMsg2) => {
 
   // for task due / start date
   if (inputName == 'Due Date' || inputName == 'Start Date') {
@@ -366,8 +366,8 @@ export const tasks = {
           errorMsg2 = this.DUE_DATE_ERROR;
           inputName = 'Due Date'
         }
-        element.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, element, inputName, tasksArr, errorMsg1, errorMsg2));
-        // tasks.taskValidation.form.addEventListener('submit', checkInputValidity.bind(checkInputValidity.bind, element, inputName, tasksArr, errorMsg1, errorMsg2 ))
+        element.addEventListener('input', validateInput.bind(validateInput.bind, element, inputName, tasksArr, errorMsg1, errorMsg2));
+        // tasks.taskValidation.form.addEventListener('submit', validateInput.bind(validateInput.bind, element, inputName, tasksArr, errorMsg1, errorMsg2 ))
       });
     },
   },
@@ -621,7 +621,7 @@ export const projects = {
       this.PROJECT_ERROR = document.getElementById(errorId);
     },
     bindEvents: function () {
-      this.PROJECT_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.PROJECT_INPUT, 'Project Name', activeProjects, this.PROJECT_ERROR));
+      this.PROJECT_INPUT.addEventListener('input', validateInput.bind(validateInput.bind, this.PROJECT_INPUT, 'Project Name', activeProjects, this.PROJECT_ERROR));
     },
   },
 
