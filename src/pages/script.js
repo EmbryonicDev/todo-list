@@ -35,7 +35,7 @@ const checkInputValidity = (inputSelector, inputName, arrToSearch, errorMsg1, er
   }
 
   // for new task name / project name / edit project name
-  if (!document.getElementById('projectEditError') && inputName !== "Due Date" && inputName !== 'Start Date') {
+  if (inputName !== "Due Date" && inputName !== 'Start Date') {
     if (inputSelector.value === "") {
       errorMsg1.innerText = ``;
     } else if (inputSelector.value.charAt(0) === " ") {
