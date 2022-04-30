@@ -12,53 +12,59 @@ import { addDays, format } from "date-fns";
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
-let noSubmit = true;
+let noSubmit = null;
+let noSubmit2 = null;
 
-const checkInputValidity = (inputSelector, inputName, errorMsg, arrToSearch) => {
+const checkInputValidity = (inputSelector, inputName, arrToSearch, errorMsg1, errorMsg2) => {
 
-  // for new task name / project name
-  if (errorMsg == projects.projectValidation.PROJECT_ERROR || errorMsg == tasks.taskValidation.TASK_ERROR) {
+  // for task due / start date
+  if (inputName == 'Due Date' || inputName == 'Start Date') {
+    const switchName = () => {
+      if (inputName == 'Start Date') return 'After Due Date';
+      if (inputName == 'Due Date') return 'Before Start Date';
+    }
+    const START_DATE = document.getElementById('startDate').value;
+    const DUE_DATE = document.getElementById('dueDate').value;
+    if (START_DATE > DUE_DATE) {
+      errorMsg2.innerText = `${inputName} Can't Be ${switchName()}`;
+      noSubmit2 = true;
+    } else {
+      errorMsg2.innerText = '';
+      noSubmit2 = false;
+    }
+  }
+
+  // for new task name / project name / edit project name
+  if (!document.getElementById('projectEditError') && inputName !== "Due Date" && inputName !== 'Start Date') {
     if (inputSelector.value === "") {
-      errorMsg.innerText = ``;
+      errorMsg1.innerText = ``;
     } else if (inputSelector.value.charAt(0) === " ") {
-      errorMsg.innerText = `${inputName} can't start with a white spaces`;
+      errorMsg1.innerText = `${inputName} Can't Start With a White Space`;
       noSubmit = true;
     } else if (inputSelector.value.length <= 2) {
-      errorMsg.innerText = `${inputName} must be at least 3 characters`;
+      errorMsg1.innerText = `${inputName} Must Be At Least 3 Characters`;
       noSubmit = true;
     } else if (inputSelector.value.includes("  ")) {
-      errorMsg.innerText = `${inputName} does not allow double white spaces`;
+      errorMsg1.innerText = `${inputName} Does Not Allow Double White Spaces`;
       noSubmit = true;
     } else if (inputSelector.value.charAt(inputSelector.value.length - 1) == " ") {
-      errorMsg.innerText = `${inputName} can't end with a white spaces`;
+      errorMsg1.innerText = `${inputName} Can't End With a White pace`;
       noSubmit = true;
     } else if (inputSelector.value.length >= 33) {
-      errorMsg.innerText = `${inputName} must be less than 32 characters`;
+      errorMsg1.innerText = `${inputName} Must Be Less Than 32 Characters`;
       noSubmit = true;
     } else {
-      errorMsg.innerText = '';
+      errorMsg1.innerText = '';
       noSubmit = false;
     }
   }
 
   // for new project name only 
-  if (errorMsg == projects.projectValidation.PROJECT_ERROR) {
+  // if (errorMsg == projects.projectValidation.PROJECT_ERROR) {
+  if (document.getElementById('projectError')) {
     if (arrToSearch.some(arrToSearch => arrToSearch == titleCase(inputSelector.value.trim()))) {
-      errorMsg.innerText = `${inputName} must be unique`;
+      errorMsg1.innerText = `${inputName} Must Be Unique`;
       noSubmit = true;
-    }
-  }
-
-  // for task due date
-  if (errorMsg == tasks.taskValidation.DUE_DATE_ERROR) {
-    const START_DATE = document.getElementById('startDate').value;
-    const DUE_DATE = document.getElementById('dueDate').value;
-    if (START_DATE > DUE_DATE) {
-      errorMsg.innerText = `${inputName} can not be before Start Date`;
-      noSubmit = true;
-    } else {
-      errorMsg.innerText = '';
-      noSubmit = false;
     }
   }
 };
@@ -341,25 +347,27 @@ export const tasks = {
       this.DUE_DATE_ERROR = document.getElementById('taskDueDateError')
     },
     bindEvents: function () {
-      const validateThis = [this.TASK_INPUT, this.START_DATE, this.DUE_DATE];
-      let errorMsg = null;
+      const VALIDATE_THIS = [this.TASK_INPUT, this.START_DATE, this.DUE_DATE];
+      let errorMsg1 = null;
+      let errorMsg2 = null;
       let inputName = null;
+      let submitCount = null;
 
-      validateThis.forEach(element => {
+      VALIDATE_THIS.forEach(element => {
         if (element == this.TASK_INPUT) {
-          errorMsg = this.TASK_ERROR;
+          errorMsg1 = this.TASK_ERROR;
           inputName = 'Task Name'
         }
         if (element == this.START_DATE) {
-          errorMsg = this.DUE_DATE_ERROR;
+          errorMsg2 = this.DUE_DATE_ERROR;
           inputName = 'Start Date'
         }
         if (element == this.DUE_DATE) {
-          errorMsg = this.DUE_DATE_ERROR;
+          errorMsg2 = this.DUE_DATE_ERROR;
           inputName = 'Due Date'
         }
-
-        element.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, element, inputName, errorMsg, tasksArr));
+        element.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, element, inputName, tasksArr, errorMsg1, errorMsg2));
+        // tasks.taskValidation.form.addEventListener('submit', checkInputValidity.bind(checkInputValidity.bind, element, inputName, tasksArr, errorMsg1, errorMsg2 ))
       });
     },
   },
@@ -378,9 +386,10 @@ export const tasks = {
       this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
     },
     submitTask: (e) => {
-      if (noSubmit == true) {
+      e.preventDefault();
+      if (noSubmit == true || noSubmit2 == true) {
         e.preventDefault();
-      } else if (noSubmit == false) {
+      } else if (noSubmit !== true || noSubmit2 !== true) {
         let myUniqueId = tasks.addTask.getUniqueID();
         let myNewTask = tasks.addTask.taskFactory(startDate.value, titleCase(taskName.value), titleCase(description.value), dueDate.value, projectName.value, priority.value, notes.value, myUniqueId);
 
@@ -430,6 +439,7 @@ export const tasks = {
         editBtn.addEventListener('click', () => {
           this.targetId = editBtn.closest('.taskWrap').getAttribute('id');
           this.getTaskForm();
+          tasks.taskValidation.init();
         });
       });
     },
@@ -481,22 +491,26 @@ export const tasks = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit',this.submitTaskMods.bind());
+      this.form.addEventListener('submit', this.submitTaskMods.bind());
       this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
     },
     submitTaskMods: (e) => {
       e.preventDefault();
-      tasksArr[tasks.addEditTaskForm.objIndex].startDate = startDate.value;
-      tasksArr[tasks.addEditTaskForm.objIndex].taskName = titleCase(taskName.value);
-      tasksArr[tasks.addEditTaskForm.objIndex].description = titleCase(description.value);
-      tasksArr[tasks.addEditTaskForm.objIndex].dueDate = dueDate.value;
-      tasksArr[tasks.addEditTaskForm.objIndex].project = projectName.value;
-      tasksArr[tasks.addEditTaskForm.objIndex].priority = priority.value;
-      tasksArr[tasks.addEditTaskForm.objIndex].notes = notes.value;
+      if (noSubmit == true || noSubmit2 == true) {
+        e.preventDefault();
+      } else {
+        tasksArr[tasks.addEditTaskForm.objIndex].startDate = startDate.value;
+        tasksArr[tasks.addEditTaskForm.objIndex].taskName = titleCase(taskName.value);
+        tasksArr[tasks.addEditTaskForm.objIndex].description = titleCase(description.value);
+        tasksArr[tasks.addEditTaskForm.objIndex].dueDate = dueDate.value;
+        tasksArr[tasks.addEditTaskForm.objIndex].project = projectName.value;
+        tasksArr[tasks.addEditTaskForm.objIndex].priority = priority.value;
+        tasksArr[tasks.addEditTaskForm.objIndex].notes = notes.value;
 
-      tasks.modifyTask.removeTasksForm();
-      tasks.taskSortStore();
-      tasks.getSelectedTasks.init();
+        tasks.modifyTask.removeTasksForm();
+        tasks.taskSortStore();
+        tasks.getSelectedTasks.init();
+      }
     },
     removeTasksForm: () => {
       tasks.modifyTask.form.parentElement.removeChild(taskForm);
@@ -546,7 +560,7 @@ export const projects = {
     if (activeProjects.length > 0) {
       alphaNumSort(activeProjects);
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
-      
+
       // new projectWraps with button hover ability
       activeProjects.forEach(element => {
         newProject(element);
@@ -591,23 +605,23 @@ export const projects = {
     bindEvents: function () {
       this.addProjectBtn.addEventListener('click', () => {
         projects.getProjectForm('projectError');
-        projects.projectValidation.init();
+        projects.projectValidation.init('projectError');
         projects.addProject.init();
       })
     },
   },
 
   projectValidation: {
-    init: function () {
-      this.cacheDom();
+    init: function (errorName, errorId) {
+      this.cacheDom(errorName, errorId);
       this.bindEvents();
     },
-    cacheDom: function () {
+    cacheDom: function (errorId) {
       this.PROJECT_INPUT = document.getElementById('newProjectName');
-      this.PROJECT_ERROR = document.getElementById('projectError');
+      this.PROJECT_ERROR = document.getElementById(errorId);
     },
     bindEvents: function () {
-      this.PROJECT_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.PROJECT_INPUT, 'Project Name', this.PROJECT_ERROR, activeProjects));
+      this.PROJECT_INPUT.addEventListener('input', checkInputValidity.bind(checkInputValidity.bind, this.PROJECT_INPUT, 'Project Name', activeProjects, this.PROJECT_ERROR));
     },
   },
 
@@ -656,6 +670,7 @@ export const projects = {
 
           projects.getProjectForm('projectEditError');
           this.projectDetailsToForm();
+          projects.projectValidation.init('projectEditError');
           projects.applyProjectMods.init();
         })
       });
@@ -682,18 +697,22 @@ export const projects = {
     },
     submitProjectMods: function (e) {
       e.preventDefault();
-      // replace original project name 
-      projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
-      let index = activeProjects.indexOf(projects.projectToModify);
-      activeProjects.splice(index, 1);
-      activeProjects.push(titlec(projects.applyProjectMods.projectForm.newProjectName.value));
-      localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
+      if (noSubmit == true) {
+        e.preventDefault();
+      } else {
+        // replace original project name 
+        projects.applyProjectMods.modifiedProjectName = projects.applyProjectMods.projectForm.newProjectName.value;
+        let index = activeProjects.indexOf(projects.projectToModify);
+        activeProjects.splice(index, 1);
+        activeProjects.push(titleCase(projects.applyProjectMods.projectForm.newProjectName.value));
+        localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
-      projects.applyProjectMods.updateProjectTasks();
-      projects.applyProjectMods.removeProjectWraps();
-      projects.getStoredProjects();
-      projects.applyProjectMods.projectSubmit();
-      projects.reAddeListeners();
+        projects.applyProjectMods.updateProjectTasks();
+        projects.applyProjectMods.removeProjectWraps();
+        projects.getStoredProjects();
+        projects.applyProjectMods.projectSubmit();
+        projects.reAddeListeners();
+      }
     },
     projectSubmit: function () {
       tasks.taskSortStore();
