@@ -74,10 +74,10 @@ export function addTaskForm() {
       elFactory('input', { type: 'date', id: 'startDate', value: new Date().toISOString().slice(0, 10) }, '')
     ),
     elFactory('p', '', '',
-    elFactory('label', { for: 'taskName', class: 'required' }, '', 'Task Name: '),
-    elFactory('input', { id: 'taskName' }, '')
+      elFactory('label', { for: 'taskName', class: 'required' }, '', 'Task Name: '),
+      elFactory('input', { id: 'taskName' }, '')
     ),
-    elFactory('p', { class:'error', id:'taskNameError'}, ''),
+    elFactory('p', { class: 'error', id: 'taskNameError' }, ''),
     elFactory('p', '', '',
       elFactory('label', { for: 'description' }, '', 'Description: '),
       elFactory('input', { id: 'description' }, '')
@@ -86,7 +86,7 @@ export function addTaskForm() {
       elFactory('label', { for: 'dueDate' }, '', 'Due Date: '),
       elFactory('input', { type: 'date', id: 'dueDate' }, '')
     ),
-    elFactory('p', { class:'error', id:'taskDueDateError'}, ''),
+    elFactory('p', { class: 'error', id: 'taskDueDateError' }, ''),
     elFactory('p', '', '',
       elFactory('label', { for: 'projectName' }, '', 'Project: '),
       elFactory('select', { id: 'projectName' }, '')
@@ -138,13 +138,13 @@ export function addTaskForm() {
 };
 
 // add project form
-export function addProjectForm() {
+export function addProjectForm(errorId) {
   elFactory('form', { id: 'projectForm', action: '/', method: 'GET' }, document.body,
     elFactory('p', '', '',
       elFactory('label', { for: 'newProjectName', class: 'required' }, '', 'New Project Name:'),
       elFactory('input', { id: 'newProjectName', name: 'newProjectName', required: '' }, ''),
     ),
-    elFactory('p', { class:'error', id:'projectError'}, ''),
+    elFactory('p', { class: 'error', id: errorId }, ''),
     elFactory('div', { class: 'formBtnDiv' }, '',
       elFactory('button', { type: 'submit', id: 'projectSubmit' }, '', 'Add Project'),
       elFactory('button', { class: 'cancelBtn' }, '', 'Cancel'),

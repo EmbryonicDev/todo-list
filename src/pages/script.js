@@ -560,10 +560,9 @@ export const projects = {
       projectsArr.push(project.innerText);
     })
   },
-  getProjectForm: function () {
+  getProjectForm: function (errorId) {
     if (!document.getElementById('taskForm') && !document.getElementById('projectForm') && !document.getElementById('confirmDeleteWrap')) {
-      addProjectForm();
-      projects.addProject.init();
+      addProjectForm(errorId);
     }
   },
   removeProjectForm: function () {
@@ -591,8 +590,9 @@ export const projects = {
     },
     bindEvents: function () {
       this.addProjectBtn.addEventListener('click', () => {
-        projects.getProjectForm();
+        projects.getProjectForm('projectError');
         projects.projectValidation.init();
+        projects.addProject.init();
       })
     },
   },
@@ -654,7 +654,7 @@ export const projects = {
           // get the project name of the container
           projects.projectToModify = editBtn.closest('.projectWrap').children[1].innerText;
 
-          projects.getProjectForm();
+          projects.getProjectForm('projectEditError');
           this.projectDetailsToForm();
           projects.applyProjectMods.init();
         })
