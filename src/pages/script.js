@@ -60,7 +60,6 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
   }
 
   // for new project name only 
-  // if (errorMsg == projects.projectValidation.PROJECT_ERROR) {
   if (document.getElementById('projectError')) {
     if (arrToSearch.some(arrToSearch => arrToSearch == titleCase(inputSelector.value.trim()))) {
       errorMsg1.innerText = `${inputName} Must Be Unique`;
