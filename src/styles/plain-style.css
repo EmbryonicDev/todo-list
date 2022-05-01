@@ -31,7 +31,8 @@ border-radius: 3px;
 }
 
 #styleOnBtn:hover,
-#styleOffBtn:hover {
+#styleOffBtn:hover,
+#nightModeBtn:hover {
   transform: scale(1.2);
   cursor: pointer;
 }

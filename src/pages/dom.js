@@ -9,6 +9,7 @@ import completeIcon from '../assets/icons/complete-icon.svg';
 import dots from '../assets/icons/dots.svg';
 import styleOn from '../assets/icons/style-on-icon.svg'
 import styleOff from '../assets/icons/style-off-icon.svg'
+import nightModeIcon from '../assets/icons/night-mode-icon.svg'
 import { projectsArr, activeProjects } from "./script";
 
 // add header
@@ -17,6 +18,7 @@ export const header = () => {
     elFactory('div', { id: 'styleBtnsDiv' }, '',
       elFactory('img', { src: styleOff, id: 'styleOffBtn' }, ''),
       elFactory('img', { src: styleOn, id: 'styleOnBtn' }, ''),
+      elFactory('img', { src: nightModeIcon, id: 'nightModeBtn' }, ''),
     ),
     elFactory('div', { id: 'iconTitle' }, '',
       elFactory('img', { src: titleIcon }, ''),

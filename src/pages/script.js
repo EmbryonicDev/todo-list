@@ -48,7 +48,7 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
       errorMsg1.innerText = `${inputName} Does Not Allow Double White Spaces`;
       noSubmit = true;
     } else if (inputSelector.value.charAt(inputSelector.value.length - 1) == " ") {
-      errorMsg1.innerText = `${inputName} Can't End With a White pace`;
+      errorMsg1.innerText = `${inputName} Can't End With a White Space`;
       noSubmit = true;
     } else if (inputSelector.value.length >= 33) {
       errorMsg1.innerText = `${inputName} Must Be Less Than 32 Characters`;
