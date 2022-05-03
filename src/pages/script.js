@@ -197,7 +197,7 @@ export const tasks = {
       } else if (hideBtn.innerText == 'Show Complete') {
         hideBtn.innerText = 'Hide Complete'
       }
-      tasks.getSelectedTasks.init();
+      tasks.getFilteredTasks.init();
     }
   },
   taskSortStore: () => {
@@ -304,12 +304,12 @@ export const tasks = {
         }
         tasks.checkBoxAction.markStorageComplete.init();
         tasks.taskSortStore();
-        tasks.getSelectedTasks.init();
+        tasks.getFilteredTasks.init();
       }
     },
   },
 
-  getSelectedTasks: { // change name to getFilterTasks
+  getFilteredTasks: { 
     init: function () {
       this.cacheDom();
       this.clearTasks();
@@ -326,7 +326,7 @@ export const tasks = {
       }
     },
     filterTasks: function () {
-      const TITLE = tasks.getSelectedTasks.activeTitle;
+      const TITLE = tasks.getFilteredTasks.activeTitle;
       // date-fns
       const temp = (new Date());
       const today = format(temp, 'yyyy-MM-dd');
@@ -346,13 +346,13 @@ export const tasks = {
       // filter tasks according to project clicked on
       if (taskFormProjectDropDown.includes(TITLE)) {
         let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == TITLE);
-        if (tasks.getSelectedTasks.hideBtn.innerText == 'Show Complete') {
+        if (tasks.getFilteredTasks.hideBtn.innerText == 'Show Complete') {
           filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
         }
         tasks.tasksArrToPage(filteredProjects);
       };
       // sort tasks according to selected tasks category
-      if (tasks.getSelectedTasks.hideBtn.innerText == "Hide Complete") {
+      if (tasks.getFilteredTasks.hideBtn.innerText == "Hide Complete") {
         if (TITLE) {
           if (TITLE == "All Tasks") tasks.tasksArrToPage(tasksArr);
           if (TITLE == "Today") tasks.tasksArrToPage(todayTasks);
@@ -361,7 +361,7 @@ export const tasks = {
           if (TITLE == "Completed Tasks") tasks.tasksArrToPage(completedTasks);
         }
       }
-      if (tasks.getSelectedTasks.hideBtn.innerText == "Show Complete") {
+      if (tasks.getFilteredTasks.hideBtn.innerText == "Show Complete") {
         if (TITLE) {
           if (TITLE == "All Tasks") tasks.tasksArrToPage(allHidden);
           if (TITLE == "Today") tasks.tasksArrToPage(todayHidden);
@@ -457,7 +457,7 @@ export const tasks = {
 
         newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
-        tasks.getSelectedTasks.init();
+        tasks.getFilteredTasks.init();
         tasks.removeTasksForm();
       }
     },
@@ -565,7 +565,7 @@ export const tasks = {
 
         tasks.removeTasksForm();
         tasks.taskSortStore();
-        tasks.getSelectedTasks.init();
+        tasks.getFilteredTasks.init();
       }
     },
   },
@@ -778,7 +778,7 @@ export const projects = {
     },
     projectSubmit: function () {
       tasks.taskSortStore();
-      tasks.getSelectedTasks.init();
+      tasks.getFilteredTasks.init();
       projects.removeProjectForm();
       projects.getProjectsArr();
     },

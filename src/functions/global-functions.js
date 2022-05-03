@@ -33,7 +33,7 @@ export const mainDivTitle = (getThisElement) => {
       const activeTitle = document.getElementById('activeTitle');
       activeTitle.innerText = element.innerText;
 
-      tasks.getSelectedTasks.init();
+      tasks.getFilteredTasks.init();
     })
   });
 };
