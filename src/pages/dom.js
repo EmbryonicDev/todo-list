@@ -77,7 +77,7 @@ export function addTaskForm() {
     ),
     elFactory('p', '', '',
       elFactory('label', { for: 'taskName', class: 'required' }, '', 'Task Name: '),
-      elFactory('input', { id: 'taskName' }, '')
+      elFactory('input', { id: 'taskName', required:'' }, '')
     ),
     elFactory('p', { class: 'error', id: 'taskNameError' }, ''),
     elFactory('p', '', '',

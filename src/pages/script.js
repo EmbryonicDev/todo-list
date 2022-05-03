@@ -32,7 +32,6 @@ let noSubmit = null;
 let noSubmit2 = null;
 
 const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMsg2) => {
-
   // for task due / start date
   if (inputName == 'Due Date' || inputName == 'Start Date') {
     const switchName = () => {
@@ -41,12 +40,14 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
     }
     const START_DATE = document.getElementById('startDate').value;
     const DUE_DATE = document.getElementById('dueDate').value;
-    if (START_DATE > DUE_DATE) {
-      errorMsg2.innerText = `${inputName} Can't Be ${switchName()}`;
-      noSubmit2 = true;
-    } else {
-      errorMsg2.innerText = '';
-      noSubmit2 = false;
+    if(DUE_DATE !== '') {
+      if (START_DATE > DUE_DATE) {
+        errorMsg2.innerText = `${inputName} Can't Be ${switchName()}`;
+        noSubmit2 = true;
+      } else {
+        errorMsg2.innerText = '';
+        noSubmit2 = false;
+      }
     }
   }
 
