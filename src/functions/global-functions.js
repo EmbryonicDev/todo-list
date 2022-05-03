@@ -1,5 +1,11 @@
 import { projects, tasks } from "../pages/script";
 
+export function buildDom(...domElements) {
+  domElements.forEach(element => {
+    return element;
+  });
+};
+
 export const elFactory = (type, attributes, appendTo, ...children) => {
   const el = document.createElement(type)
 
