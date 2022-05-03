@@ -40,7 +40,7 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
     }
     const START_DATE = document.getElementById('startDate').value;
     const DUE_DATE = document.getElementById('dueDate').value;
-    if(DUE_DATE !== '') {
+    if (DUE_DATE !== '') {
       if (START_DATE > DUE_DATE) {
         errorMsg2.innerText = `${inputName} Can't Be ${switchName()}`;
         noSubmit2 = true;
