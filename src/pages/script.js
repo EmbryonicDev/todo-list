@@ -428,7 +428,6 @@ export const tasks = {
       let errorMsg1 = null;
       let errorMsg2 = null;
       let inputName = null;
-      let submitCount = null;
 
       VALIDATE_THIS.forEach(element => {
         if (element == this.TASK_INPUT) {
@@ -688,8 +687,8 @@ export const projects = {
   },
 
   projectValidation: {
-    init: function (errorName, errorId) {
-      this.cacheDom(errorName, errorId);
+    init: function (errorId) {
+      this.cacheDom(errorId);
       this.bindEvents();
     },
     cacheDom: function (errorId) {
