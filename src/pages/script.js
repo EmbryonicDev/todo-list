@@ -222,10 +222,9 @@ export const tasks = {
     })
   },
   removeTasksForm: () => {
-    console.log('yes');
     document.getElementById('taskForm').parentElement.removeChild(taskForm);
   },
-  
+
   checkBoxAction: {
     targetWrap: null,
     targetId: null,
@@ -326,6 +325,7 @@ export const tasks = {
       }
     },
     filterTasks: function () {
+      const TITLE = tasks.getSelectedTasks.activeTitle;
       // date-fns
       const temp = (new Date());
       const today = format(temp, 'yyyy-MM-dd');
@@ -342,50 +342,31 @@ export const tasks = {
       const completedTasks = tasksArr.filter(tasksArr => tasksArr.complete == 'Yes');
       const completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No");
 
-      if (projectsArr.includes(tasks.getSelectedTasks.activeTitle)) {
-        let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == tasks.getSelectedTasks.activeTitle);
+      // filter tasks according to project clicked on
+      if (projectsArr.includes(TITLE)) {
+        let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == TITLE);
         if (tasks.getSelectedTasks.hideBtn.innerText == 'Show Complete') {
           filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
         }
         tasks.tasksArrToPage(filteredProjects);
       };
-      // sort tasks according to selected taskss category
+      // sort tasks according to selected tasks category
       if (tasks.getSelectedTasks.hideBtn.innerText == "Hide Complete") {
-        switch (tasks.getSelectedTasks.activeTitle) {
-          case "All Tasks":
-            tasks.tasksArrToPage(tasksArr);
-            break;
-          case "Today":
-            tasks.tasksArrToPage(todayTasks);
-            break;
-          case "Next 7 Days":
-            tasks.tasksArrToPage(weekTasks);
-            break;
-          case "High Priority":
-            tasks.tasksArrToPage(highPriority)
-            break;
-          case "Completed Tasks":
-            tasks.tasksArrToPage(completedTasks)
-            break;
+        if (TITLE) {
+          if (TITLE == "All Tasks") tasks.tasksArrToPage(tasksArr);
+          if (TITLE == "Today") tasks.tasksArrToPage(todayTasks);
+          if (TITLE == "Next 7 Days") tasks.tasksArrToPage(weekTasks);
+          if (TITLE == "High Priority") tasks.tasksArrToPage(highPriority)
+          if (TITLE == "Completed Tasks") tasks.tasksArrToPage(completedTasks);
         }
       }
       if (tasks.getSelectedTasks.hideBtn.innerText == "Show Complete") {
-        switch (tasks.getSelectedTasks.activeTitle) {
-          case "All Tasks":
-            tasks.tasksArrToPage(allHidden);
-            break;
-          case "Today":
-            tasks.tasksArrToPage(todayHidden);
-            break;
-          case "Next 7 Days":
-            tasks.tasksArrToPage(weekHidden);
-            break;
-          case "High Priority":
-            tasks.tasksArrToPage(highHidden)
-            break;
-          case "Completed Tasks":
-            tasks.tasksArrToPage(completedHidden)
-            break;
+        if (TITLE) {
+          if (TITLE == "All Tasks") tasks.tasksArrToPage(allHidden);
+          if (TITLE == "Today") tasks.tasksArrToPage(todayHidden);
+          if (TITLE == "Next 7 Days") tasks.tasksArrToPage(weekHidden);
+          if (TITLE == "High Priority") tasks.tasksArrToPage(highHidden)
+          if (TITLE == "Completed Tasks") tasks.tasksArrToPage(completedHidden)
         }
       }
     }
