@@ -26,7 +26,7 @@ import dotsWhite from '../assets/icons/dots-night.svg';
 import menuWhite from '../assets/icons/menu-night.svg';
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
-export let projectsArr = [];
+export let taskFormProjectDropDown = [];
 export let activeProjects = JSON.parse(localStorage.getItem("activeProjects")) || [];
 let noSubmit = null;
 let noSubmit2 = null;
@@ -344,7 +344,7 @@ export const tasks = {
       const completedHidden = completedTasks.filter(completedTasks => completedTasks.complete == "No");
 
       // filter tasks according to project clicked on
-      if (projectsArr.includes(TITLE)) {
+      if (taskFormProjectDropDown.includes(TITLE)) {
         let filteredProjects = tasksArr.filter(tasksArr => tasksArr.project == TITLE);
         if (tasks.getSelectedTasks.hideBtn.innerText == 'Show Complete') {
           filteredProjects = filteredProjects.filter(filteredProjects => filteredProjects.complete == 'No')
@@ -523,14 +523,14 @@ export const tasks = {
       priority.value = tasksArr[tasks.addEditTaskForm.objIndex].priority
       notes.value = tasksArr[tasks.addEditTaskForm.objIndex].notes
 
-      // find index of task's project in projectArr, remove from projectsArr, add to start of array
+      // find index of task's project in projectArr, remove from taskProjectDropDown, add to start of array
       // this is so that the form's dropdown list has the task's project first in line
-      const projectIndex = projectsArr.findIndex(projectsArr => projectsArr === tasksArr[tasks.addEditTaskForm.objIndex].project);
-      projectsArr.splice(projectIndex, 1);
-      alphaNumSort(projectsArr);
-      projectsArr.unshift(tasksArr[tasks.addEditTaskForm.objIndex].project);
+      const projectIndex = taskFormProjectDropDown.findIndex(taskFormProjectDropDown => taskFormProjectDropDown === tasksArr[tasks.addEditTaskForm.objIndex].project);
+      taskFormProjectDropDown.splice(projectIndex, 1);
+      alphaNumSort(taskFormProjectDropDown);
+      taskFormProjectDropDown.unshift(tasksArr[tasks.addEditTaskForm.objIndex].project);
       // Create options & append to new select element
-      projectsArr.forEach(project => {
+      taskFormProjectDropDown.forEach(project => {
         elFactory('option', '', projectName, project);
       });
       tasks.modifyTask.init();
@@ -622,9 +622,9 @@ export const projects = {
     }
   },
   getProjectsArr: function () {
-    projectsArr = [];
+    taskFormProjectDropDown = [];
     document.querySelectorAll(".projectWrap h3").forEach(project => {
-      projectsArr.push(project.innerText);
+      taskFormProjectDropDown.push(project.innerText);
     })
   },
   getProjectForm: function (errorId) {

@@ -10,7 +10,7 @@ import dots from '../assets/icons/dots.svg';
 import styleOn from '../assets/icons/style-on-icon.svg'
 import styleOff from '../assets/icons/style-off-icon.svg'
 import nightModeIcon from '../assets/icons/night-mode-icon.svg'
-import { projectsArr, activeProjects } from "./script";
+import { taskFormProjectDropDown, activeProjects } from "./script";
 
 // add header
 export const header = () => {
@@ -117,23 +117,23 @@ export function addTaskForm() {
 
     // helper function for below
     function modifyProjectArr(unshiftThis) {
-      projectsArr.splice(thisIndex, 1);
-      projectsArr.unshift(unshiftThis);
+      taskFormProjectDropDown.splice(thisIndex, 1);
+      taskFormProjectDropDown.unshift(unshiftThis);
     }
 
     // Send 'General Tasks' to projectArr[0] if task is added while activeTitle = any tasks category
-    if (!projectsArr.includes(activeTitle)) {
-      thisIndex = projectsArr.findIndex(projectsArr => projectsArr === 'General Tasks');
+    if (!taskFormProjectDropDown.includes(activeTitle)) {
+      thisIndex = taskFormProjectDropDown.findIndex(projectsArr => projectsArr === 'General Tasks');
       modifyProjectArr('General Tasks');
     } else {
-      alphaNumSort(projectsArr);
+      alphaNumSort(taskFormProjectDropDown);
       // find the active project on display & move it to projectsArr[0]
-      thisIndex = projectsArr.findIndex(projectsArr => projectsArr === activeTitle);
+      thisIndex = taskFormProjectDropDown.findIndex(projectsArr => projectsArr === activeTitle);
       modifyProjectArr(activeTitle);
     };
 
     // push the sorted arr to the task form dropdown for projects
-    projectsArr.forEach(project => {
+    taskFormProjectDropDown.forEach(project => {
       elFactory('option', '', projectName, project);
     });
   })();
