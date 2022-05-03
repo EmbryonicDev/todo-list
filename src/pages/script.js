@@ -636,6 +636,12 @@ export const projects = {
       document.getElementById('projectForm').parentElement.removeChild(projectForm);
     }
   },
+  removeProjectWraps: function () {
+    const projectsDiv = document.getElementById('projectsDiv');
+    while (projectsDiv.children.length > 1) {
+      projectsDiv.removeChild(projectsDiv.lastChild);
+    }
+  },
   getProjectTasks: function () {
     for (let i = 0; i < tasksArr.length; i++) {
       projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
@@ -687,7 +693,14 @@ export const projects = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', this.projectSubmit.bind())
+      this.form.addEventListener('submit', () => {
+        this.projectSubmit();
+        projects.removeProjectForm();
+        projects.removeProjectWraps();
+        projects.getStoredProjects();
+        projects.getProjectsArr();
+        projects.reAddeListeners();
+      })
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
     projectSubmit: (e) => {
@@ -698,10 +711,6 @@ export const projects = {
         newProjectName.value = titleCase(newProjectName.value);
         // add project to DOM
         newProject(projects.addProject.form.newProjectName.value, true);
-
-        projects.removeProjectForm();
-        projects.getProjectsArr();
-        projects.reAddeListeners();
       }
     },
   },
@@ -760,7 +769,7 @@ export const projects = {
         localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
         projects.applyProjectMods.updateProjectTasks();
-        projects.applyProjectMods.removeProjectWraps();
+        projects.removeProjectWraps();
         projects.getStoredProjects();
         projects.applyProjectMods.projectSubmit();
         projects.reAddeListeners();
@@ -771,12 +780,6 @@ export const projects = {
       tasks.getSelectedTasks.init();
       projects.removeProjectForm();
       projects.getProjectsArr();
-    },
-    removeProjectWraps: function () {
-      const projectsDiv = document.getElementById('projectsDiv');
-      while (projectsDiv.children.length > 1) {
-        projectsDiv.removeChild(projectsDiv.lastChild);
-      }
     },
     updateProjectTasks: function () {
       if (projects.tasksToModify !== null) {
