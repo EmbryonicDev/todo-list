@@ -840,7 +840,6 @@ export const projects = {
       this.confirmBtn.addEventListener('click', () => {
         this.deleteProjectDiv();
         this.deleteProjectTasks();
-        this.showAllTasks();
       });
       this.cancelBtn.addEventListener('click', this.deleteConfirmationBox.bind());
     },
