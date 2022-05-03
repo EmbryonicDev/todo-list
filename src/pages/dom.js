@@ -201,7 +201,7 @@ export const addConfirmDelete = () => {
 }
 
 // add new task to DOM
-export const newTask = (taskName, description, projectName, startDate, dueDate, uniqueID, checkActiveTasks) => {
+export const newTask = (taskName, description, projectName, startDate, dueDate, uniqueID) => {
   const parent = document.getElementById('mainDiv');
   elFactory('div', { class: 'taskWrap', id: uniqueID }, parent,
     elFactory('input', { type: 'checkbox' }, ''),
