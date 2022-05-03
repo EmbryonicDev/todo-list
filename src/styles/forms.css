@@ -99,7 +99,9 @@ form p:last-of-type label {
 
 /* bodyStyled */
 #bodyStyled form,
-#bodyStyled #confirmDeleteWrap {
+#bodyStyled #confirmDeleteWrap,
+#nightMode form,
+#nightMode #confirmDeleteWrap {
   background-color: rgb(71, 85, 105, 0.95);
   border: 0;
   color: #fef2f2;
@@ -109,7 +111,9 @@ form p:last-of-type label {
 }
 
 #bodyStyled form button,
-#bodyStyled #confirmDeleteWrap button {
+#bodyStyled #confirmDeleteWrap button,
+#nightMode form button,
+#nightMode #confirmDeleteWrap button {
   background-color: #22c55e;
   border: 0;
   color: #fef2f2;
@@ -120,19 +124,25 @@ form p:last-of-type label {
 }
 
 #bodyStyled form button:hover,
-#bodyStyled #confirmDeleteWrap button:hover {
+#bodyStyled #confirmDeleteWrap button:hover,
+#nightMode form button:hover,
+#nightMode #confirmDeleteWrap button:hover {
   background-color: #fef2f2;
   color: #22c55e;
   cursor: pointer;
 }
 
 #bodyStyled .cancelBtn,
-#bodyStyled #confirmDeleteWrap #cancelProjectDelete {
+#bodyStyled #confirmDeleteWrap #cancelProjectDelete,
+#nightMode .cancelBtn,
+#nightMode #confirmDeleteWrap #cancelProjectDelete {
   background-color: #dc2626;
 }
 
 #bodyStyled .cancelBtn:hover,
-#bodyStyled #confirmDeleteWrap #cancelProjectDelete:hover {
+#bodyStyled #confirmDeleteWrap #cancelProjectDelete:hover,
+#nightMode .cancelBtn:hover,
+#nightMode #confirmDeleteWrap #cancelProjectDelete:hover {
   color: #dc2626;
   background-color: #fef2f2;
   cursor: pointer;
