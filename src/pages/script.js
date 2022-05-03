@@ -205,7 +205,27 @@ export const tasks = {
     tasksArr.sort((a, b) => a.complete > b.complete ? 1 : -1);
     localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
   },
-
+  priorityColors: function () {
+    tasksArr.forEach(task => {
+      if (document.getElementById(task.uniqueID)) {
+        const taskDiv = document.getElementById(task.uniqueID)
+        if (!taskDiv.classList.contains('checked')) {
+          if (task.priority == "High") {
+            taskDiv.classList.add('red')
+          } else if (task.priority == "Medium") {
+            taskDiv.classList.add('orange')
+          } else if (task.priority == "Low") {
+            taskDiv.classList.add('yellow')
+          }
+        }
+      }
+    })
+  },
+  removeTasksForm: () => {
+    console.log('yes');
+    document.getElementById('taskForm').parentElement.removeChild(taskForm);
+  },
+  
   checkBoxAction: {
     targetWrap: null,
     targetId: null,
@@ -287,23 +307,6 @@ export const tasks = {
         tasks.priorityColors();
       }
     },
-  },
-
-  priorityColors: function () {
-    tasksArr.forEach(task => {
-      if (document.getElementById(task.uniqueID)) {
-        const taskDiv = document.getElementById(task.uniqueID)
-        if (!taskDiv.classList.contains('checked')) {
-          if (task.priority == "High") {
-            taskDiv.classList.add('red')
-          } else if (task.priority == "Medium") {
-            taskDiv.classList.add('orange')
-          } else if (task.priority == "Low") {
-            taskDiv.classList.add('yellow')
-          }
-        }
-      }
-    })
   },
 
   getSelectedTasks: { // change name to getFilterTasks
@@ -416,7 +419,6 @@ export const tasks = {
       this.bindEvents();
     },
     cacheDom: function () {
-      this.form = document.getElementById('taskForm');
       this.TASK_INPUT = document.getElementById('taskName');
       this.TASK_ERROR = document.getElementById('taskNameError');
       this.START_DATE = document.getElementById('startDate');
@@ -458,7 +460,7 @@ export const tasks = {
     },
     bindEvents: function () {
       this.form.addEventListener('submit', this.submitTask.bind());
-      this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
+      this.cancelBtn.addEventListener('click', tasks.removeTasksForm.bind());
     },
     submitTask: (e) => {
       e.preventDefault();
@@ -474,11 +476,8 @@ export const tasks = {
         newTask(myNewTask.taskName, myNewTask.description, myNewTask.startDate, myNewTask.dueDate, myNewTask.projectName, myUniqueId, true);
 
         tasks.getSelectedTasks.init();
-        tasks.addTask.removeTasksForm();
+        tasks.removeTasksForm();
       }
-    },
-    removeTasksForm: () => {
-      tasks.addTask.form.parentElement.removeChild(taskForm);
     },
     getUniqueID: () => {
       return (Math.random() + 1).toString(36).substring(3);
@@ -567,7 +566,7 @@ export const tasks = {
     },
     bindEvents: function () {
       this.form.addEventListener('submit', this.submitTaskMods.bind());
-      this.cancelBtn.addEventListener('click', this.removeTasksForm.bind());
+      this.cancelBtn.addEventListener('click', tasks.removeTasksForm.bind());
     },
     submitTaskMods: (e) => {
       e.preventDefault();
@@ -582,14 +581,11 @@ export const tasks = {
         tasksArr[tasks.addEditTaskForm.objIndex].priority = priority.value;
         tasksArr[tasks.addEditTaskForm.objIndex].notes = notes.value;
 
-        tasks.modifyTask.removeTasksForm();
+        tasks.removeTasksForm();
         tasks.taskSortStore();
         tasks.getSelectedTasks.init();
       }
     },
-    removeTasksForm: () => {
-      tasks.modifyTask.form.parentElement.removeChild(taskForm);
-    }
   },
 
   deleteTask: {
