@@ -10,7 +10,6 @@ import styleOn from '../assets/icons/style-on-icon.svg';
 import styleOff from '../assets/icons/style-off-icon.svg';
 import titleIcon from '../assets/icons/task-icon.svg';
 import { addDays, format } from "date-fns";
-
 import allTasksBlack from '../assets/icons/all-tasks.svg';
 import todayBlack from '../assets/icons/today-icon.svg';
 import weekBlack from '../assets/icons/week-icon.svg';
@@ -103,20 +102,20 @@ export const pageStyle = {
   },
   bindEvents: function () {
     this.styleOffIcon.addEventListener('click', () => {
-      this.changePageStyling('', 'id', blackStyleOn);
-      this.renderHeaderIcons(blackStyleOff, blackStyleOn, nightModeBlack, blackTitleIcon, 'background: #a3a3a3', '', '',);
+      this.changePageStyling('', 'id');
+      this.renderHeaderIcons('black', 'background: #a3a3a3');
       this.renderSideNavIcons('black');
       this.renderProjectIcons('black');
     });
     this.styleOnIcon.addEventListener('click', () => {
       this.changePageStyling('bodyStyled', '');
-      this.renderHeaderIcons(styleOff, styleOn, nightMode, titleIcon, 'background: 0', '', 'background: 0');
+      this.renderHeaderIcons('white');
       this.renderSideNavIcons('black');
       this.renderProjectIcons('black');
     });
     this.nightIcon.addEventListener('click', () => {
       this.changePageStyling('nightMode', 'id');
-      this.renderHeaderIcons(styleOn, styleOff, nightMode, titleIcon, 'background: 0', 'background: 0', 'background: #262626');
+      this.renderHeaderIcons('white', '', 'background: 0', 'background: #262626');
       this.renderSideNavIcons('white');
       this.renderProjectIcons('white');
     })
@@ -125,11 +124,16 @@ export const pageStyle = {
     document.body.removeAttribute(deleteAttribute);
     document.body.id = bodyId;
   },
-  renderHeaderIcons: (styleOffSrc, styleOnSrc, nightModeSrc, headerTitleIconSrc, styleOffBgc, styleOnBgc, nightIconBgc) => {
-    pageStyle.styleOnIcon.setAttribute('src', styleOnSrc);
-    pageStyle.styleOffIcon.setAttribute('src', styleOffSrc);
-    pageStyle.nightIcon.setAttribute('src', nightModeSrc);
-    pageStyle.headerTitleIcon.setAttribute('src', headerTitleIconSrc);
+  renderHeaderIcons: (iconColor, styleOffBgc, styleOnBgc, nightIconBgc) => {
+    // change icon fill color
+    const HEADER_ICONS = [pageStyle.styleOffIcon, pageStyle.styleOnIcon, pageStyle.nightIcon, pageStyle.headerTitleIcon];
+    const HEADER_ICONS_BLACK = [blackStyleOff, blackStyleOn, nightModeBlack, blackTitleIcon];
+    const HEADER_ICONS_WHITE = [styleOff, styleOn, nightMode, titleIcon];
+    for (let i = 0; i < HEADER_ICONS.length; i++) {
+      if (iconColor == 'black') HEADER_ICONS[i].setAttribute('src', HEADER_ICONS_BLACK[i]);
+      if (iconColor == 'white') HEADER_ICONS[i].setAttribute('src', HEADER_ICONS_WHITE[i]);
+    }
+    // change icon bgc
     pageStyle.styleOffIcon.style.cssText = styleOffBgc;
     pageStyle.styleOnIcon.style.cssText = styleOnBgc;
     pageStyle.nightIcon.style.cssText = nightIconBgc;
@@ -149,9 +153,9 @@ export const pageStyle = {
     // render hamburger icon for each projectWrap
     for (let i = 0; i < pageStyle.projectWraps.length; i++) {
       let projectMenu = pageStyle.projectWraps[i].querySelector('img:first-of-type');
-        if (iconColor == 'black') projectMenu.setAttribute('src', PROJECT_ICONS_BLACK[1]);
-        if (iconColor == 'white') projectMenu.setAttribute('src', PROJECT_ICONS_WHITE[1]);
-        // render dots icon for each projectWrap that has the dots icon
+      if (iconColor == 'black') projectMenu.setAttribute('src', PROJECT_ICONS_BLACK[1]);
+      if (iconColor == 'white') projectMenu.setAttribute('src', PROJECT_ICONS_WHITE[1]);
+      // render dots icon for each projectWrap that has the dots icon
       if (pageStyle.projectWraps[i].querySelector('.projectBtnWrap > img')) {
         let projectDots = pageStyle.projectWraps[i].querySelector('.projectBtnWrap > img');
         if (iconColor == 'black') {
