@@ -17,8 +17,8 @@ function buildDom(...domElements) {
 
 buildDom(header(), sidebar(), activeTitleDisplay());
 
-pageStyle.init();
-
 projects.init();
 
 tasks.init();
+
+pageStyle.init();
