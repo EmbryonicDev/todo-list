@@ -4,10 +4,27 @@ import { newProject } from "./dom";
 import blackStyleOn from '../assets/icons/style-on-icon-black.svg';
 import blackStyleOff from '../assets/icons/style-off-icon-black.svg';
 import blackTitleIcon from '../assets/icons/task-icon-black.svg';
+import nightModeBlack from '../assets/icons/night-mode-icon-black.svg';
+import nightMode from '../assets/icons/night-mode-icon.svg';
 import styleOn from '../assets/icons/style-on-icon.svg';
 import styleOff from '../assets/icons/style-off-icon.svg';
 import titleIcon from '../assets/icons/task-icon.svg';
 import { addDays, format } from "date-fns";
+
+import allTasksBlack from '../assets/icons/all-tasks.svg';
+import todayBlack from '../assets/icons/today-icon.svg';
+import weekBlack from '../assets/icons/week-icon.svg';
+import priorityBlack from '../assets/icons/priority-high.svg';
+import completeBlack from '../assets/icons/complete-icon.svg';
+import dotsBlack from '../assets/icons/dots.svg';
+import menuBlack from '../assets/icons/menu.svg';
+import allTasksWhite from '../assets/icons/all-tasks-night.svg';
+import todayWhite from '../assets/icons/today-icon-night.svg';
+import weekWhite from '../assets/icons/week-icon-night.svg';
+import priorityWhite from '../assets/icons/priority-high-night.svg';
+import completeWhite from '../assets/icons/complete-icon-night.svg';
+import dotsWhite from '../assets/icons/dots-night.svg';
+import menuWhite from '../assets/icons/menu-night.svg';
 
 export let tasksArr = JSON.parse(localStorage.getItem("tasksArr")) || [];
 export let projectsArr = [];
@@ -77,20 +94,77 @@ export const pageStyle = {
     this.myHeader = document.getElementById('myHeader');
     this.styleOnIcon = this.myHeader.querySelector('#styleOnBtn');
     this.styleOffIcon = this.myHeader.querySelector('#styleOffBtn');
+    this.nightIcon = this.myHeader.querySelector('#nightModeBtn');
     this.headerTitleIcon = this.myHeader.querySelector('#iconTitle img');
+    this.sidebar = document.getElementById('sidebar');
+    this.sideNavs = sidebar.querySelectorAll('.sideNav');
+    this.taskWrap = document.querySelectorAll('.taskWrap');
+    this.projectWraps = sidebar.querySelectorAll('.projectWrap');
   },
   bindEvents: function () {
-    this.styleOffIcon.addEventListener('click', this.changePageStyling.bind(this.changePageStyling, '', 'id', blackStyleOn, blackStyleOff, blackTitleIcon, 'background: #a3a3a3'));
-    this.styleOnIcon.addEventListener('click', this.changePageStyling.bind(this.changePageStyling, 'bodyStyled', '', styleOn, styleOff, titleIcon, 'background: 0'));
+    this.styleOffIcon.addEventListener('click', () => {
+      this.changePageStyling('', 'id', blackStyleOn);
+      this.renderHeaderIcons(blackStyleOff, blackStyleOn, nightModeBlack, blackTitleIcon, 'background: #a3a3a3', '', '',);
+      this.renderSideNavIcons('black');
+      this.renderProjectIcons('black');
+    });
+    this.styleOnIcon.addEventListener('click', () => {
+      this.changePageStyling('bodyStyled', '');
+      this.renderHeaderIcons(styleOff, styleOn, nightMode, titleIcon, 'background: 0', '', 'background: 0');
+      this.renderSideNavIcons('black');
+      this.renderProjectIcons('black');
+    });
+    this.nightIcon.addEventListener('click', () => {
+      this.changePageStyling('nightMode', 'id');
+      this.renderHeaderIcons(styleOn, styleOff, nightMode, titleIcon, 'background: 0', 'background: 0', 'background: #262626');
+      this.renderSideNavIcons('white');
+      this.renderProjectIcons('white');
+    })
   },
-  changePageStyling: (bodyId, deleteAttribute, styleOnSrc, styleOffSrc, headerTitleIconSrc, styleOffBgc) => {
-    document.body.id = bodyId;
+  changePageStyling: (bodyId, deleteAttribute) => {
     document.body.removeAttribute(deleteAttribute);
+    document.body.id = bodyId;
+  },
+  renderHeaderIcons: (styleOffSrc, styleOnSrc, nightModeSrc, headerTitleIconSrc, styleOffBgc, styleOnBgc, nightIconBgc) => {
     pageStyle.styleOnIcon.setAttribute('src', styleOnSrc);
     pageStyle.styleOffIcon.setAttribute('src', styleOffSrc);
+    pageStyle.nightIcon.setAttribute('src', nightModeSrc);
     pageStyle.headerTitleIcon.setAttribute('src', headerTitleIconSrc);
     pageStyle.styleOffIcon.style.cssText = styleOffBgc;
+    pageStyle.styleOnIcon.style.cssText = styleOnBgc;
+    pageStyle.nightIcon.style.cssText = nightIconBgc;
   },
+  renderSideNavIcons: (iconColor) => {
+    const SIDE_NAV_ICONS_BLACK = [allTasksBlack, todayBlack, weekBlack, priorityBlack, completeBlack];
+    const SIDE_NAV_ICONS_WHITE = [allTasksWhite, todayWhite, weekWhite, priorityWhite, completeWhite];
+    for (let i = 0; i < pageStyle.sideNavs.length; i++) {
+      let sideNavIcon = pageStyle.sideNavs[i].querySelector('img');
+      if (iconColor == 'black') sideNavIcon.setAttribute('src', SIDE_NAV_ICONS_BLACK[i]);
+      if (iconColor == 'white') sideNavIcon.setAttribute('src', SIDE_NAV_ICONS_WHITE[i]);
+    }
+  },
+  renderProjectIcons: (iconColor) => {
+    const PROJECT_ICONS_BLACK = [dotsBlack, menuBlack];
+    const PROJECT_ICONS_WHITE = [dotsWhite, menuWhite];
+    // render hamburger icon for each projectWrap
+    for (let i = 0; i < pageStyle.projectWraps.length; i++) {
+      let projectMenu = pageStyle.projectWraps[i].querySelector('img:first-of-type');
+        if (iconColor == 'black') projectMenu.setAttribute('src', PROJECT_ICONS_BLACK[1]);
+        if (iconColor == 'white') projectMenu.setAttribute('src', PROJECT_ICONS_WHITE[1]);
+        // render dots icon for each projectWrap that has the dots icon
+      if (pageStyle.projectWraps[i].querySelector('.projectBtnWrap > img')) {
+        let projectDots = pageStyle.projectWraps[i].querySelector('.projectBtnWrap > img');
+        if (iconColor == 'black') {
+          projectDots.setAttribute('src', PROJECT_ICONS_BLACK[0]);
+          projectMenu.setAttribute('src', PROJECT_ICONS_BLACK[1]);
+        }
+        if (iconColor == 'white') {
+          projectDots.setAttribute('src', PROJECT_ICONS_WHITE[0]);
+          projectMenu.setAttribute('src', PROJECT_ICONS_WHITE[1]);
+        }
+      }
+    }
+  }
 };
 
 export const tasks = {
