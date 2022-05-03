@@ -303,7 +303,7 @@ export const tasks = {
         }
         tasks.checkBoxAction.markStorageComplete.init();
         tasks.taskSortStore();
-        tasks.priorityColors();
+        tasks.getSelectedTasks.init();
       }
     },
   },
