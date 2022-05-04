@@ -770,17 +770,8 @@ export const projects = {
         localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
         projects.applyProjectMods.updateProjectTasks();
-        projects.removeProjectWraps();
-        projects.getStoredProjects();
-        projects.applyProjectMods.projectSubmit();
-        projects.reAddeListeners();
+        projects.confirmProjectDelete.reloadPage();
       }
-    },
-    projectSubmit: function () {
-      tasks.taskSortStore();
-      tasks.getFilteredTasks.init();
-      projects.removeProjectForm();
-      projects.getProjectsArr();
     },
     updateProjectTasks: function () {
       if (projects.tasksToModify !== null) {
