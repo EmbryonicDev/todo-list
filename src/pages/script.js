@@ -637,12 +637,6 @@ export const projects = {
       document.getElementById('projectForm').parentElement.removeChild(projectForm);
     }
   },
-  removeProjectWraps: function () {
-    const projectsDiv = document.getElementById('projectsDiv');
-    while (projectsDiv.children.length > 1) {
-      projectsDiv.removeChild(projectsDiv.lastChild);
-    }
-  },
   getProjectTasks: function () {
     for (let i = 0; i < tasksArr.length; i++) {
       projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
@@ -697,7 +691,7 @@ export const projects = {
       this.form.addEventListener('submit', () => {
         this.projectSubmit();
         projects.removeProjectForm();
-        projects.removeProjectWraps();
+        this.removeProjectWraps();
         projects.getStoredProjects();
         projects.getProjectsArr();
         projects.reAddeListeners();
@@ -712,6 +706,12 @@ export const projects = {
         newProjectName.value = titleCase(newProjectName.value);
         // add project to DOM
         newProject(projects.addProject.form.newProjectName.value, true);
+      }
+    },
+    removeProjectWraps: function () {
+      const projectsDiv = document.getElementById('projectsDiv');
+      while (projectsDiv.children.length > 1) {
+        projectsDiv.removeChild(projectsDiv.lastChild);
       }
     },
   },
