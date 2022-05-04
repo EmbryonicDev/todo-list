@@ -642,10 +642,6 @@ export const projects = {
       projects.tasksToModify = tasksArr.filter(tasksArr => tasksArr.project == projects.projectToModify);
     }
   },
-  reAddeListeners: function () {
-    projects.getProjectEditForm.init();
-    projects.getConfirmProjectDeleteBox.init();
-  },
 
   projectForm: {
     init: function () {
@@ -694,7 +690,7 @@ export const projects = {
         this.removeProjectWraps();
         projects.getStoredProjects();
         projects.getProjectsArr();
-        projects.reAddeListeners();
+        this.reAddeListeners();
       })
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
@@ -713,6 +709,10 @@ export const projects = {
       while (projectsDiv.children.length > 1) {
         projectsDiv.removeChild(projectsDiv.lastChild);
       }
+    },
+    reAddeListeners: function () {
+      projects.getProjectEditForm.init();
+      projects.getConfirmProjectDeleteBox.init();
     },
   },
 
