@@ -78,7 +78,7 @@ export const addStartupProjects = {
 
       tasksArr.push(tasks.addTask.taskFactory(
         randomStartDay.toISOString().slice(0, 10),
-        'Genereal Tasks: Task ' + [i + 1],
+        'General Tasks: Task ' + [i + 1],
         loremIpsum({count: 1,format: "plain",paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3}),
         randomDueDay,
         'General Tasks',
