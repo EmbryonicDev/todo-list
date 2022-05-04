@@ -222,6 +222,11 @@ export const tasks = {
       }
     })
   },
+  getTaskForm: () => {
+    if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
+      addTaskForm();
+    }
+  },
   removeTasksForm: () => {
     document.getElementById('taskForm').parentElement.removeChild(taskForm);
   },
@@ -309,7 +314,7 @@ export const tasks = {
     },
   },
 
-  getFilteredTasks: { 
+  getFilteredTasks: {
     init: function () {
       this.cacheDom();
       this.clearTasks();
@@ -383,16 +388,11 @@ export const tasks = {
     },
     bindEvents: function () {
       this.addTaskBtn.addEventListener('click', () => {
-        tasks.addNewTaskForm.getTaskForm();
+        tasks.getTaskForm();
         tasks.taskValidation.init();
+        tasks.addTask.init()
       })
     },
-    getTaskForm: () => {
-      if (!document.getElementById('taskForm') && !document.getElementById('projectForm')) {
-        addTaskForm();
-        tasks.addTask.init()
-      }
-    }
   },
 
   taskValidation: {
@@ -494,16 +494,11 @@ export const tasks = {
       this.editTaskBtn.forEach(editBtn => {
         editBtn.addEventListener('click', () => {
           this.targetId = editBtn.closest('.taskWrap').getAttribute('id');
-          this.getTaskForm();
+          tasks.getTaskForm();
           tasks.taskValidation.init();
+          this.taskDetailsToForm();
         });
       });
-    },
-    getTaskForm: (e) => {
-      if (!document.getElementById('taskForm') && !document.getElementById('projectForm') && !document.getElementById('confirmDeleteWrap')) {
-        addTaskForm();
-        tasks.addEditTaskForm.taskDetailsToForm();
-      }
     },
     taskDetailsToForm: () => {
       // get the parent of form's <select> element (#projectName) & remove
