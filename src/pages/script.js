@@ -74,6 +74,7 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
       errorMsg1.innerText = '';
       noSubmit = false;
     }
+    console.log(noSubmit + " main validator")
   }
 
   // for new project name only 
@@ -82,6 +83,7 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
       errorMsg1.innerText = `${inputName} Must Be Unique`;
       noSubmit = true;
     }
+    console.log(noSubmit + " project name")
   }
 };
 
@@ -679,14 +681,7 @@ export const projects = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', () => {
-        this.projectSubmit();
-        projects.removeProjectForm();
-        this.removeProjectWraps();
-        projects.getStoredProjects();
-        projects.getProjectsArr();
-        this.reAddeListeners();
-      })
+      this.form.addEventListener('submit',this.projectSubmit.bind());
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
     projectSubmit: (e) => {
@@ -697,6 +692,7 @@ export const projects = {
         newProjectName.value = titleCase(newProjectName.value);
         // add project to DOM
         newProject(projects.addProject.form.newProjectName.value, true);
+        projects.addProject.afterProjectSubmit();
       }
     },
     removeProjectWraps: function () {
@@ -709,6 +705,13 @@ export const projects = {
       projects.getProjectEditForm.init();
       projects.getConfirmProjectDeleteBox.init();
     },
+    afterProjectSubmit: () => {
+      projects.removeProjectForm();
+      projects.addProject.removeProjectWraps();
+      projects.getStoredProjects();
+      projects.getProjectsArr();
+      projects.addProject.reAddeListeners();
+    }
   },
 
   getProjectEditForm: {
