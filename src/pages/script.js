@@ -499,6 +499,7 @@ export const tasks = {
           tasks.getTaskForm();
           tasks.taskValidation.init();
           this.taskDetailsToForm();
+          noSubmit = false;
         });
       });
     },
@@ -681,7 +682,7 @@ export const projects = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit',this.projectSubmit.bind());
+      this.form.addEventListener('submit', this.projectSubmit.bind());
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
     projectSubmit: (e) => {
