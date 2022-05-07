@@ -83,6 +83,18 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
       noSubmit = true;
     }
   }
+
+  // for edit project name only
+  if (document.getElementById('projectEditError')) {
+    const TEMP_ARR = arrToSearch.filter(arrToSearch => arrToSearch !== projects.projectToModify);
+    if (
+      inputSelector.value !== projects.projectToModify &&
+      TEMP_ARR.some(TEMP_ARR => TEMP_ARR == titleCase(inputSelector.value.trim()))
+    ) {
+      errorMsg1.innerText = `${inputName} Must Be Unique`;
+      noSubmit = true;
+    }
+  }
 };
 
 export const pageStyle = {
@@ -497,6 +509,7 @@ export const tasks = {
           tasks.getTaskForm();
           tasks.taskValidation.init();
           this.taskDetailsToForm();
+          noSubmit = false;
         });
       });
     },
@@ -679,14 +692,7 @@ export const projects = {
       this.cancelBtn = this.form.querySelector('.cancelBtn');
     },
     bindEvents: function () {
-      this.form.addEventListener('submit', () => {
-        this.projectSubmit();
-        projects.removeProjectForm();
-        this.removeProjectWraps();
-        projects.getStoredProjects();
-        projects.getProjectsArr();
-        this.reAddeListeners();
-      })
+      this.form.addEventListener('submit', this.projectSubmit.bind());
       this.cancelBtn.addEventListener('click', projects.removeProjectForm.bind());
     },
     projectSubmit: (e) => {
@@ -697,6 +703,7 @@ export const projects = {
         newProjectName.value = titleCase(newProjectName.value);
         // add project to DOM
         newProject(projects.addProject.form.newProjectName.value, true);
+        projects.addProject.afterProjectSubmit();
       }
     },
     removeProjectWraps: function () {
@@ -709,6 +716,13 @@ export const projects = {
       projects.getProjectEditForm.init();
       projects.getConfirmProjectDeleteBox.init();
     },
+    afterProjectSubmit: () => {
+      projects.removeProjectForm();
+      projects.addProject.removeProjectWraps();
+      projects.getStoredProjects();
+      projects.getProjectsArr();
+      projects.addProject.reAddeListeners();
+    }
   },
 
   getProjectEditForm: {
