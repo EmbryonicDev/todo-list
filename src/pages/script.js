@@ -266,6 +266,7 @@ export const tasks = {
           tasks.checkBoxAction.targetId = taskDiv.getAttribute('id');
           this.displayedIDs.push(tasks.checkBoxAction.targetId);
           this.markStoredTasks();
+          this.displayedIDs = [];
         });
       },
       markStoredTasks: function () {
@@ -846,18 +847,22 @@ export const projects = {
     },
     bindEvents: function () {
       this.confirmBtn.addEventListener('click', () => {
-        this.deleteProjectDiv();
+        this.removeProjFromArr();
+        projects.addProject.removeProjectWraps();
+        projects.getStoredProjects();
+        projects.addProject.reAddeListeners();
         this.deleteProjectTasks();
+        this.deleteConfirmationBox();
+        tasks.getFilteredTasks.clearTasks();
+        tasks.tasksArrToPage(tasksArr);
+        tasks.taskSortStore();
+        this.updateActiveTitle();
       });
       this.cancelBtn.addEventListener('click', this.deleteConfirmationBox.bind());
     },
-    deleteProjectDiv: function () {
+    removeProjFromArr: function () {
       activeProjects = activeProjects.filter(activeProjects => activeProjects !== projects.projectToModify);
       localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
-      projects.getProjectsArr();
-      projects.projectDivToDelete.remove();
-      projects.confirmProjectDelete.deleteConfirmationBox();
-      projects.confirmProjectDelete.reloadPage();
     },
     deleteConfirmationBox: function () {
       projects.confirmProjectDelete.confirmBox.remove();
@@ -868,8 +873,11 @@ export const projects = {
         localStorage.setItem("tasksArr", JSON.stringify(tasksArr));
       }
     },
-    reloadPage: function () {
-      location.reload();
-    }
+    updateActiveTitle: () => {
+      const TITLE = projects.confirmProjectDelete.activeTitle;
+      if (projects.confirmProjectDelete.activeTitle.innerText !== "All Tasks") {
+        projects.confirmProjectDelete.activeTitle.innerText = "All Tasks";
+      }
+    },
   }
 }
