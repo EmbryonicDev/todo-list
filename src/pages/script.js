@@ -778,16 +778,17 @@ export const projects = {
         activeProjects.push(titleCase(projects.applyProjectMods.projectForm.newProjectName.value));
         localStorage.setItem("activeProjects", JSON.stringify(activeProjects));
 
-        projects.applyProjectMods.updateProjectTasks();
-        projects.addProject.removeProjectWraps();
-        projects.getStoredProjects();
         projects.applyProjectMods.afterSubmit();
-        projects.addProject.reAddeListeners();
       }
     },
     afterSubmit: function () {
+      projects.applyProjectMods.updateProjectTasks();
+      projects.addProject.removeProjectWraps();
+      projects.getStoredProjects();
+      projects.addProject.reAddeListeners();
+      projects.removeProjectForm();
       tasks.taskSortStore();
-      location.reload();
+      tasks.getFilteredTasks.init();
     },
     updateProjectTasks: function () {
       if (projects.tasksToModify !== null) {
