@@ -74,7 +74,6 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
       errorMsg1.innerText = '';
       noSubmit = false;
     }
-    console.log(noSubmit + " main validator")
   }
 
   // for new project name only 
@@ -83,7 +82,18 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
       errorMsg1.innerText = `${inputName} Must Be Unique`;
       noSubmit = true;
     }
-    console.log(noSubmit + " project name")
+  }
+
+  // for edit project name only
+  if (document.getElementById('projectEditError')) {
+    const TEMP_ARR = arrToSearch.filter(arrToSearch => arrToSearch !== projects.projectToModify);
+    if (
+      inputSelector.value !== projects.projectToModify &&
+      TEMP_ARR.some(TEMP_ARR => TEMP_ARR == titleCase(inputSelector.value.trim()))
+    ) {
+      errorMsg1.innerText = `${inputName} Must Be Unique`;
+      noSubmit = true;
+    }
   }
 };
 
