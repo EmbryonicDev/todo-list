@@ -878,9 +878,9 @@ export const projects = {
       }
     },
     updateActiveTitle: () => {
-      const TITLE = projects.confirmProjectDelete.activeTitle;
-      if (projects.confirmProjectDelete.activeTitle.innerText !== "All Tasks") {
-        projects.confirmProjectDelete.activeTitle.innerText = "All Tasks";
+      const TITLE_TEXT = projects.confirmProjectDelete.activeTitle;
+      if (TITLE_TEXT.innerText !== "All Tasks") {
+        TITLE_TEXT.innerText = "All Tasks";
       }
     },
   }
