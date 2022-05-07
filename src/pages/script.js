@@ -78,7 +78,10 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
 
   // for new project name only 
   if (document.getElementById('projectError')) {
-    if (arrToSearch.some(arrToSearch => arrToSearch == titleCase(inputSelector.value.trim()))) {
+    if (
+      arrToSearch.some(arrToSearch => arrToSearch == titleCase(inputSelector.value.trim())) ||
+      titleCase(inputSelector.value) === "General Tasks"
+    ) {
       errorMsg1.innerText = `${inputName} Must Be Unique`;
       noSubmit = true;
     }
@@ -88,8 +91,9 @@ const validateInput = (inputSelector, inputName, arrToSearch, errorMsg1, errorMs
   if (document.getElementById('projectEditError')) {
     const TEMP_ARR = arrToSearch.filter(arrToSearch => arrToSearch !== projects.projectToModify);
     if (
-      inputSelector.value !== projects.projectToModify &&
-      TEMP_ARR.some(TEMP_ARR => TEMP_ARR == titleCase(inputSelector.value.trim()))
+      (inputSelector.value !== projects.projectToModify &&
+        TEMP_ARR.some(TEMP_ARR => TEMP_ARR == titleCase(inputSelector.value.trim()))) ||
+      titleCase(inputSelector.value) === "General Tasks"
     ) {
       errorMsg1.innerText = `${inputName} Must Be Unique`;
       noSubmit = true;
