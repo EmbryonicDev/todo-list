@@ -14,7 +14,7 @@ export const addStartupProjects = {
       addStartupProjects.addProjects();
       addStartupProjects.addTestTasks();
       addStartupProjects.markRandomTaskComplete();
-      addStartupProjects.firtStartupYes();
+      addStartupProjects.firstStartupYes();
       tasks.taskSortStore();
     }
   },
@@ -35,20 +35,20 @@ export const addStartupProjects = {
       tasksArr.push(tasks.addTask.taskFactory(
         TODAY.toISOString().slice(0, 10),
         project_name + ': Task 1',
-        loremIpsum({count: 1,format: "plain",paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3}),
+        loremIpsum({ count: 1, format: "plain", paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3 }),
         randomStartDay.toISOString().slice(0, 10),
         project_name,
         PRIORITY[getRndInteger(0, 3)],
         '',
         tasks.addTask.getUniqueID())
       );
-      
+
       randomStartDay = addDays(TODAY, getRndInteger(0, 14));
       // 2nd task added
       tasksArr.push(tasks.addTask.taskFactory(
         randomStartDay.toISOString().slice(0, 10),
         project_name + ': Task 2',
-        loremIpsum({count: 1,format: "plain",paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3}),
+        loremIpsum({ count: 1, format: "plain", paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3 }),
         randomDueDay,
         project_name,
         PRIORITY[getRndInteger(0, 3)],
@@ -62,7 +62,7 @@ export const addStartupProjects = {
       tasksArr.push(tasks.addTask.taskFactory(
         randomStartDay.toISOString().slice(0, 10),
         project_name + ': Task 3',
-        loremIpsum({count: 1,format: "plain",paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3}),
+        loremIpsum({ count: 1, format: "plain", paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3 }),
         randomDueDay,
         project_name,
         PRIORITY[getRndInteger(0, 3)],
@@ -79,7 +79,7 @@ export const addStartupProjects = {
       tasksArr.push(tasks.addTask.taskFactory(
         randomStartDay.toISOString().slice(0, 10),
         'General Tasks: Task ' + [i + 1],
-        loremIpsum({count: 1,format: "plain",paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3}),
+        loremIpsum({ count: 1, format: "plain", paragraphLowerBound: 1, paragraphUpperBound: 1, random: Math.random, sentenceLowerBound: 1, sentenceUpperBound: 3 }),
         randomDueDay,
         'General Tasks',
         PRIORITY[getRndInteger(0, 3)],
@@ -95,7 +95,7 @@ export const addStartupProjects = {
       tasksArr[RANDOM_INDEX].complete = 'Yes';
     }
   },
-  firtStartupYes: () => {
+  firstStartupYes: () => {
     checkFirstStartup.push('First Startup Complete :-)');
     localStorage.setItem("checkFirstStartup", JSON.stringify(checkFirstStartup))
   }
