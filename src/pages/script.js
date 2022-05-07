@@ -725,8 +725,8 @@ export const projects = {
       projects.removeProjectForm();
       projects.addProject.removeProjectWraps();
       projects.getStoredProjects();
-      projects.getProjectsArr();
       projects.addProject.reAddeListeners();
+      projects.getProjectsArr()
     }
   },
 
@@ -792,8 +792,11 @@ export const projects = {
       projects.getStoredProjects();
       projects.addProject.reAddeListeners();
       projects.removeProjectForm();
+      tasks.getFilteredTasks.clearTasks();
+      tasks.tasksArrToPage(tasksArr);
       tasks.taskSortStore();
-      tasks.getFilteredTasks.init();
+      projects.confirmProjectDelete.updateActiveTitle();
+      projects.getProjectsArr();
     },
     updateProjectTasks: function () {
       if (projects.tasksToModify !== null) {
@@ -847,7 +850,6 @@ export const projects = {
       this.confirmBox = document.getElementById('confirmDeleteWrap');
       this.confirmBtn = this.confirmBox.querySelector('#confirmProjectDelete');
       this.cancelBtn = this.confirmBox.querySelector('#cancelProjectDelete');
-      this.activeTitle = document.getElementById('activeTitle');
     },
     bindEvents: function () {
       this.confirmBtn.addEventListener('click', () => {
@@ -861,6 +863,7 @@ export const projects = {
         tasks.tasksArrToPage(tasksArr);
         tasks.taskSortStore();
         this.updateActiveTitle();
+        projects.getProjectsArr();
       });
       this.cancelBtn.addEventListener('click', this.deleteConfirmationBox.bind());
     },
@@ -878,7 +881,7 @@ export const projects = {
       }
     },
     updateActiveTitle: () => {
-      const TITLE_TEXT = projects.confirmProjectDelete.activeTitle;
+      const TITLE_TEXT = document.getElementById('activeTitle');
       if (TITLE_TEXT.innerText !== "All Tasks") {
         TITLE_TEXT.innerText = "All Tasks";
       }
